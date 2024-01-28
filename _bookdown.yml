@@ -1,8 +1,9 @@
 book_filename: "bookdownproj"
 output_dir: docs
+rmd_files: ["index.Rmd", "02-w1.Rmd", "03-w2.Rmd", "04-w3.Rmd", "05-w4.Rmd"]
 delete_merged_file: true
-edit: https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/%s
-view: https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/%s
+edit: https://github.com/kelesonur/scode/edit/main/%s
+view: https://github.com/kelesonur/scode/blob/main/%s
 language:
   ui:
     chapter_name: "Chapter "

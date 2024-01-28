@@ -1,0 +1,473 @@
+# Descriptive statistics with Tidyverse
+
+## Answers to Exercise Questions
+
+### Exercise 1
+
+Today is Monday. What day of the week will it be 9, 54, 306, and 8999
+days from now?
+
+Note: Create a character vector containing the days of the week and
+repeat this vector 9000 times. Then, use indexing to find the desired
+day. Hint: Write the days of the week in the character vector starting
+from Tuesday.
+
+```{r}
+days <- c("Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday")
+
+# you complete...
+
+days_rep <- rep(days,9000)
+
+days_rep[9]
+days_rep[54]
+days_rep[306]
+days_rep[8999]
+
+# or::
+
+days_rep[c(9,54,306,8999)]
+
+```
+
+### Exercise 2
+
+Create a vector containing the numbers 1 to 100. Then, find the sum of
+the numbers that are divisible by 3 or 5.
+
+Tip: Use the %% operator to find the remainder of a division.
+
+```{r}
+# answer:
+numbers <- 1:100
+
+# find numbers that are divisible by 3:
+
+numbers_3_5 <- numbers[numbers %% 3 == 0 | numbers %% 5 == 0]
+
+sum(numbers_3_5)
+```
+
+### Exercise 3
+
+You are taking measurements every 5 days throughout the year. Create a
+number sequence that shows on which days you take measurements and
+assign it to a variable named "measurement_days" The result should look
+like this: 5, 10, 15, 20... 365.
+
+```{r}
+# answer:
+
+days <- seq(5,365,5)
+days[44]
+
+```
+
+## Practice questions for next week
+
+***Q1:*** Create a vector containing 50 random numbers with a normal
+(Gaussian) distribution, mean 20 and standard deviation 2. You can do
+this with the `rnorm()` function. Then assigns the numbers to a variable
+and use that variable as an argument to the `sample()` function to
+randomly select 10 samples from that vector. Run `?rnorm()` `?sample()`
+to see how the functions work and what arguments they take.
+
+```{r, warning=FALSE, message=FALSE}
+
+dist <- round(rnorm(n=50, mean=20, sd=2))
+
+sample(dist, 10)
+```
+
+***Q2:*** Download and load "LearnBayes" package and take a look at the
+first few columns of the data set called "studentdata".
+
+***Answer the following questions:***
+
+3.1. Remove rows that include NA observations.
+
+```{r, warning=FALSE, message=FALSE}
+#install.packages("LearnBayes")
+library(LearnBayes)
+df <- studentdata
+
+dim(df)
+
+sum(is.na(df))
+
+df <- na.omit(df)
+
+dim(df)
+
+sum(is.na(df))
+
+```
+
+3.2. Get the number of female students.
+
+```{r, warning=FALSE, message=FALSE}
+
+# alt 1:
+gender <- df$Gender
+length(gender[gender == "female"])
+
+# alt 2:
+length(df$Gender[df$Gender == "female"])
+
+# alt 3:
+#install.packages("tidyverse")
+library(tidyverse)
+nrow(filter(df, Gender == "female"))
+
+# Find percetange of female students
+nrow(filter(df, Gender == "female")) / nrow(df)*100
+```
+
+3.3. Number of students who are taller than 180 cm (tip: the height is
+given in inches. please first turn them to cm by multiplying the
+observations with 2.54)
+
+```{r, warning=FALSE, message=FALSE}
+# You can use dplyr's mutate() function to change values in a dataset
+library(dplyr)
+
+df <- mutate(df, Height = Height * 2.54)
+
+nrow(filter(df, Height > 180))
+```
+
+3.4. Plot the relationship between height and sex in a line graph.
+
+```{r, warning=FALSE, message=FALSE}
+plot(df$Gender, df$Height)
+```
+
+## Data Manipulation: In-class practice
+
+Now, let's practice a bit more. Follow these steps:
+
+We will now work with COVID-19 dataset. Let's import it to our R
+session.
+
+We can use dplyr's `read_csv()` package to import a spreadsheet in .csv
+format.
+
+*Source*: <https://github.com/sadettindemirel/Covid19-Turkey>
+
+When working with data, it's important to create a workspace folder that
+contains both your data and R script. You can either download the .csv
+file and import it to R this way. Make sure that you set your working
+directory to the correct folder by going to Session -\> Set Working
+Directory -\> To Source File Location.
+
+```{r, warning=FALSE, message=FALSE}
+
+df_covid <- read_csv("http://kelesonur.github.io/compec-r/covid_sayi.csv")
+head(df_covid)
+```
+
+1.  Create a histogram (of daily death toll) and time-series plot (x:
+    time, y: daily death toll). You can use hist() and `boxplot()`
+    functions respectively to do that. Add label names.
+
+```{r, warning=FALSE, message=FALSE}
+# Your turn:
+
+
+```
+
+2.  How many cases of COVID were detected and how many people died on
+    July 20, 2020?
+
+```{r, warning=FALSE, message=FALSE}
+# Your turn:
+
+
+```
+
+3.  Can you show the total number of COVID deaths and patients in
+    intensive care between 2020-03-11 and 2020-07-20 in the timeline
+    graph? Tip: You can use indexing to filter the dates and save them
+    as a new data frame.
+
+```{r, warning=FALSE, message=FALSE}
+# Your turn:
+
+
+```
+
+## Data Manipulation with Tidyverse
+
+So far, we have examined data frames using Base R, that is, the
+functions and operators native to R. However, today most data scientists
+using R do not process data with these, but with the more modern
+"Tidyverse" packages.
+
+These packages make organizing data much easier and more practical
+(Wickham, 2017).
+
+Let's look at some important packages within Tidyverse:
+
+1.  tibble: `as.tibble()`
+2.  readr: `read_csv()`
+3.  dplyr: `subset(), select(), filter(), summarize()` and more...
+4.  magrittr: `%>%` operator
+5.  ggplot2: `ggplot()`
+
+```{r, warning=FALSE, message=FALSE}
+
+library(tidyverse)
+```
+
+### Tibble
+
+Tibble is essentially a more modern version of data frames in R. Here's
+where Tibbles are superior to data frames: There is no need to use the
+head() function. It automatically shows us the first 10 rows. There is
+no need to use `nrow()` and `ncol()`. This information is included in
+the table. tells us the type of vectors in each column (character,
+integer, etc.)
+
+```{r, warning=FALSE, message=FALSE}
+
+df <- starwars
+df <- as.tibble(df)
+head(df)
+```
+
+### Data manipulation with dplyr
+
+dplyr is the most practical package for editing data frames or tibbles.
+Let's see what we can do with the functions included in it. For this we
+will use a dataset from a package called `gapminder`:
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+library(gapminder)
+library(kableExtra)
+
+df <- gapminder
+
+df <- head(df)
+df %>% 
+  kbl() %>%
+  kable_styling()
+```
+
+Let's load the data:
+
+```{r, warning=FALSE, message=FALSE}
+
+library(gapminder)
+  
+df <- gapminder
+
+```
+
+#### `filter()` function
+
+We can easily filter the data we want by using this function:
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+filter(df,country == "Turkey") 
+
+filter(df, year > 2002) 
+
+filter(df, year > 2002 & country == "Germany")
+
+```
+
+How can you filter for multiple countries? Any guesses?
+
+#### `select()` function:
+
+`select()` function allows us to select only the columns we want:
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+
+select(df, country, pop, year) # only tak
+
+select(df, -continent) # kıta hariç bütün sütunları al
+
+select(df, pop:gdpPercap) # nüfustan gdp'ye kadar bütün sütunları al
+```
+
+#### `rename()` function:
+
+We can change the names of the columns we want with this. If we want
+this to be saved, we need to overwrite the variable:
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+library(dplyr)
+df <- rename(df, Country = country, CONTINENT = continent, YEAR = year, LifeExpectancy = lifeExp)
+
+head(df)
+
+# Extra: clean the column names
+library(janitor)
+df_cleaned <- clean_names(df)
+```
+
+#### `mutate()` function:
+
+We can make changes to a tibble with the mutate() function.
+
+For example, let's create a new column and write the population there as
+one per million:
+
+```{r, warning=FALSE, message=FALSE}
+
+df_mutated <- mutate(df_cleaned, pop_million = pop / 1000000)
+
+head(df_mutated)
+
+```
+
+#### `arrange()` function:
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+
+# sort increasingly
+
+arrange(df_mutated, continent)
+
+arrange(df_mutated, gdp_percap)
+
+# sort in an descending order
+
+arrange(df_mutated, desc(year))
+```
+
+### Pipe with the magrittr package
+
+The pipe operator is represented by the symbol %\>%. This operator takes
+the variable on its left and places it as the first argument of the
+function on its right. This operator will be preferred instead of using
+nested and long functions. This saves us from hard-to-read and nested
+functions and helps us follow a linear order:
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+
+filter(df_mutated, country == "Turkey") # previous method
+
+df_mutated %>% filter(country == "Turkey") # with pipe
+
+select(filter(df_mutated, country == "Turkey" & year == "2007"), pop) # previous method
+
+df_mutated %>% filter(country == "Turkey" & year == "2007") %>% select(pop) # pipe ile
+```
+
+### Visualization with the ggplot2 package
+
+### Scatterplots
+
+You can use `geom_point().`
+
+```{r, warning=FALSE, message=FALSE}
+
+library(ggplot2)
+
+df_mutated %>% filter(year == 2007) %>%
+ggplot(aes(x=gdp_percap, y=life_expectancy)) +
+ geom_point() 
+
+```
+
+Or you can try using `geom_jitter()` or `geom_violin()`
+
+```{r, warning=FALSE, message=FALSE}
+
+df_mutated %>% filter(year == 2007) %>%
+ggplot(aes(x=gdp_percap, y=life_expectancy)) +
+ geom_violin() 
+
+```
+
+You can use text labels.
+
+```{r, warning=FALSE, message=FALSE}
+
+p1 <- df_mutated %>% filter(year == 2007) %>%
+  ggplot(aes(x=gdp_percap, y=life_expectancy, label = country)) +
+  geom_point() +
+  geom_text()
+
+p1 + ggtitle("Plot title") + xlab("GDP") + ylab("Life Exp")
+
+# save it
+# ggsave('plot1.png', width = 8, height = 6)
+
+```
+
+Using the color option:
+
+```{r, warning=FALSE, message=FALSE}
+
+df_mutated %>% filter(year == 2007) %>%
+  ggplot(aes(x=gdp_percap, y=life_expectancy, label = country, color = continent)) +
+  geom_point() +
+  geom_text()
+
+```
+
+Add new facets:
+
+```{r, warning=FALSE, message=FALSE}
+
+ df_mutated %>% filter(year == 2007) %>%
+  ggplot(aes(x=gdp_percap, y=life_expectancy, label = country, color = continent)) +
+  geom_point() +
+  geom_text() + 
+  facet_wrap(~continent)
+```
+
+### Bar plots
+
+```{r, warning=FALSE, message=FALSE}
+
+df_mutated %>% filter(country %in% c("Turkey","Brazil","Thailand","Nigeria","New Zealand")) %>%
+  ggplot(aes(x = reorder(continent,gdp_percap), y = gdp_percap, fill = continent)) +
+  geom_bar(stat="identity")
+```
+
+## In-class Exercises
+
+1.  What years of information are included in the Gapminder data? Tip:
+    You can find this out with the `unique()` command.
+
+```{r}
+# Your answer:
+
+
+```
+
+2.  What are the mean and median of life years in 1962 and 2002? Tip:
+    You can do this with the `filter()` and `select()` functions.
+
+```{r}
+# Your answer:
+
+
+```
+
+3.  Can you create a scatterplot of income (x-axis) and years of life
+    expectancy (y-axis) for the European continent in 1960, 1980 and
+    2000 using `ggplot()` and `facet_wrap()`? Country names must appear
+    as text. Also color by continent. Tip: after filtering the data by
+    these years you will need to call `facet_wrap(~year)`.
+
+```{r}
+# Your answer:
+
+
+```
+
+4.  Can you create a line plot and show Turkey's population growth? Can
+    you name the plot and axes? Tip: you will need to use the
+    `geom_line()` function to create the line chart.
+
+```{r}
+# Your answer:
+
+
+```

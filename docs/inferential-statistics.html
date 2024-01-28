@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Inferential statistics | SCODE: R and Python Workshop</title>
+  <meta name="description" content="Chapter 4 Inferential statistics | SCODE: R and Python Workshop" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Inferential statistics | SCODE: R and Python Workshop" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Inferential statistics | SCODE: R and Python Workshop" />
+  
+  
+  
+
+<meta name="author" content="Onur Keleş &amp; Ömer Bayraklı" />
+
+
+<meta name="date" content="2024-01-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="descriptive-statistics-with-tidyverse.html"/>
+<link rel="next" href="twitter-data-analysis-and-rmarkdown.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SCODE: R and Python Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to SCODE!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instructors"><i class="fa fa-check"></i><b>1.1</b> Instructors</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i><b>1.2</b> Structure of the book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i><b>1.3</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html"><i class="fa fa-check"></i><b>2</b> Introduction to R Programming</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#what-is-it"><i class="fa fa-check"></i><b>2.0.1</b> What is it?</a></li>
+<li class="chapter" data-level="2.0.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#why-r"><i class="fa fa-check"></i><b>2.0.2</b> Why R?</a></li>
+<li class="chapter" data-level="2.0.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#how-will-we-code"><i class="fa fa-check"></i><b>2.0.3</b> How will we code?</a></li>
+<li class="chapter" data-level="2.0.4" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#cheat-sheets"><i class="fa fa-check"></i><b>2.0.4</b> Cheat sheets</a></li>
+<li class="chapter" data-level="2.0.5" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#real-world-use-cases-of-r"><i class="fa fa-check"></i><b>2.0.5</b> Real world use cases of R:</a></li>
+<li class="chapter" data-level="2.0.6" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#python-vs.-r"><i class="fa fa-check"></i><b>2.0.6</b> Python vs. R?</a></li>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#lets-start-coding"><i class="fa fa-check"></i><b>2.1</b> Let’s start coding!</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#functions-in-r"><i class="fa fa-check"></i><b>2.2</b> Functions in R</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#variables-in-r"><i class="fa fa-check"></i><b>2.3</b> Variables in R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#operations-with-variables"><i class="fa fa-check"></i><b>2.3.1</b> Operations with variables</a></li>
+<li class="chapter" data-level="2.3.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#logical-operators"><i class="fa fa-check"></i><b>2.3.2</b> Logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#data-types-in-r"><i class="fa fa-check"></i><b>2.4</b> Data types in R</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#vectors"><i class="fa fa-check"></i><b>2.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#data-frames"><i class="fa fa-check"></i><b>2.4.2</b> Data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#quick-visualization"><i class="fa fa-check"></i><b>2.5</b> Quick visualization</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#in-class-exercises"><i class="fa fa-check"></i><b>2.6</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-1"><i class="fa fa-check"></i><b>2.6.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="2.6.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-2"><i class="fa fa-check"></i><b>2.6.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="2.6.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-3"><i class="fa fa-check"></i><b>2.6.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#practice-questions-for-next-week"><i class="fa fa-check"></i><b>2.7</b> Practice questions for next week</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Descriptive statistics with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#answers-to-exercise-questions"><i class="fa fa-check"></i><b>3.1</b> Answers to Exercise Questions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-1-1"><i class="fa fa-check"></i><b>3.1.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="3.1.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-2-1"><i class="fa fa-check"></i><b>3.1.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="3.1.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-3-1"><i class="fa fa-check"></i><b>3.1.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#practice-questions-for-next-week-1"><i class="fa fa-check"></i><b>3.2</b> Practice questions for next week</a></li>
+<li class="chapter" data-level="3.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-in-class-practice"><i class="fa fa-check"></i><b>3.3</b> Data Manipulation: In-class practice</a></li>
+<li class="chapter" data-level="3.4" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-tidyverse"><i class="fa fa-check"></i><b>3.4</b> Data Manipulation with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#tibble"><i class="fa fa-check"></i><b>3.4.1</b> Tibble</a></li>
+<li class="chapter" data-level="3.4.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>3.4.2</b> Data manipulation with dplyr</a></li>
+<li class="chapter" data-level="3.4.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#pipe-with-the-magrittr-package"><i class="fa fa-check"></i><b>3.4.3</b> Pipe with the magrittr package</a></li>
+<li class="chapter" data-level="3.4.4" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#visualization-with-the-ggplot2-package"><i class="fa fa-check"></i><b>3.4.4</b> Visualization with the ggplot2 package</a></li>
+<li class="chapter" data-level="3.4.5" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#scatterplots"><i class="fa fa-check"></i><b>3.4.5</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.4.6" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#bar-plots"><i class="fa fa-check"></i><b>3.4.6</b> Bar plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#in-class-exercises-1"><i class="fa fa-check"></i><b>3.5</b> In-class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inferential-statistics.html"><a href="inferential-statistics.html"><i class="fa fa-check"></i><b>4</b> Inferential statistics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#answers-to-exercise-questions-1"><i class="fa fa-check"></i><b>4.1</b> Answers to Exercise Questions</a></li>
+<li class="chapter" data-level="4.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#creating-summary-tables-and-performing-simple-data-analysis-with-dplyr"><i class="fa fa-check"></i><b>4.2</b> Creating summary tables and performing simple data analysis with Dplyr</a></li>
+<li class="chapter" data-level="4.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#group_by-and-summarize"><i class="fa fa-check"></i><b>4.3</b> <code>group_by()</code> and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#linear-regression"><i class="fa fa-check"></i><b>4.4</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#time-series-data-analysis"><i class="fa fa-check"></i><b>4.5</b> Time Series Data Analysis</a></li>
+<li class="chapter" data-level="4.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#in-class-exercises-2"><i class="fa fa-check"></i><b>4.6</b> In-class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html"><i class="fa fa-check"></i><b>5</b> Twitter data analysis and RMarkdown</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#answers-to-exercise-questions-2"><i class="fa fa-check"></i><b>5.1</b> Answers to Exercise Questions</a></li>
+<li class="chapter" data-level="5.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-3"><i class="fa fa-check"></i><b>5.2</b> In-class Exercises</a></li>
+<li class="chapter" data-level="5.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-analysis-with-r"><i class="fa fa-check"></i><b>5.3</b> Twitter Analysis with R</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#why-perform-data-mining-on-twitter"><i class="fa fa-check"></i><b>5.3.1</b> Why Perform Data Mining on Twitter?</a></li>
+<li class="chapter" data-level="5.3.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#why-choose-r-over-other-platforms-e.g.-sprout-social-talkwalker"><i class="fa fa-check"></i><b>5.3.2</b> Why Choose R over Other Platforms (e.g., Sprout Social, Talkwalker)?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#installing-necessary-packages"><i class="fa fa-check"></i><b>5.4</b> Installing Necessary Packages</a></li>
+<li class="chapter" data-level="5.5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#loading-packages"><i class="fa fa-check"></i><b>5.5</b> Loading Packages</a></li>
+<li class="chapter" data-level="5.6" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-settings"><i class="fa fa-check"></i><b>5.6</b> Twitter Settings</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-api-settings"><i class="fa fa-check"></i><b>5.6.1</b> Twitter API Settings</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis"><i class="fa fa-check"></i><b>5.7</b> Timeline Analysis</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#fetching-tweets-from-an-account"><i class="fa fa-check"></i><b>5.7.1</b> Fetching Tweets from an Account</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#cleaning-the-tweets"><i class="fa fa-check"></i><b>5.8</b> Cleaning the Tweets</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#creating-a-stop-words-list-for-turkish"><i class="fa fa-check"></i><b>5.8.1</b> Creating a Stop Words List for Turkish</a></li>
+<li class="chapter" data-level="5.8.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#tokenizing-and-cleaning"><i class="fa fa-check"></i><b>5.8.2</b> Tokenizing and Cleaning</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#counting-words"><i class="fa fa-check"></i><b>5.9</b> Counting Words</a></li>
+<li class="chapter" data-level="5.10" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#creating-a-word-cloud"><i class="fa fa-check"></i><b>5.10</b> Creating a Word Cloud</a></li>
+<li class="chapter" data-level="5.11" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#hashtag-and-timeline-tweet-analysis"><i class="fa fa-check"></i><b>5.11</b> Hashtag and Timeline Tweet Analysis</a>
+<ul>
+<li class="chapter" data-level="5.11.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#analyzing-tweets-with-a-specific-hashtag"><i class="fa fa-check"></i><b>5.11.1</b> Analyzing Tweets with a Specific Hashtag</a></li>
+<li class="chapter" data-level="5.11.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis-1"><i class="fa fa-check"></i><b>5.11.2</b> Timeline Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.12" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#sentiment-analysis-in-turkish"><i class="fa fa-check"></i><b>5.12</b> Sentiment Analysis in Turkish</a>
+<ul>
+<li class="chapter" data-level="5.12.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#import-the-lexicon"><i class="fa fa-check"></i><b>5.12.1</b> Import the lexicon</a></li>
+<li class="chapter" data-level="5.12.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#examine-the-lexicon"><i class="fa fa-check"></i><b>5.12.2</b> Examine the lexicon</a></li>
+<li class="chapter" data-level="5.12.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#get-the-words-and-calculate-sentiment"><i class="fa fa-check"></i><b>5.12.3</b> Get the words and calculate sentiment</a></li>
+<li class="chapter" data-level="5.12.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#visualize-arousal-and-valence"><i class="fa fa-check"></i><b>5.12.4</b> Visualize arousal and valence</a></li>
+<li class="chapter" data-level="5.12.5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#most-positive-and-negative-words-used-by-the-person"><i class="fa fa-check"></i><b>5.12.5</b> Most positive and negative words used by the person</a></li>
+<li class="chapter" data-level="5.12.6" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#use-get_nrc_sentiment-for-english-sentiment-analysis"><i class="fa fa-check"></i><b>5.12.6</b> Use <code>get_nrc_sentiment()</code> for English sentiment analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.13" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-4"><i class="fa fa-check"></i><b>5.13</b> In-class Exercises</a></li>
+<li class="chapter" data-level="5.14" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>5.14</b> RMarkdown</a>
+<ul>
+<li class="chapter" data-level="5.14.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown-tutorial"><i class="fa fa-check"></i><b>5.14.1</b> <strong>RMarkdown Tutorial</strong></a></li>
+<li class="chapter" data-level="5.14.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#introduction-to-rmarkdown"><i class="fa fa-check"></i><b>5.14.2</b> Introduction to RMarkdown</a></li>
+<li class="chapter" data-level="5.14.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#getting-started-with-rmarkdown"><i class="fa fa-check"></i><b>5.14.3</b> Getting Started with RMarkdown</a></li>
+<li class="chapter" data-level="5.14.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-5"><i class="fa fa-check"></i><b>5.14.4</b> In-class Exercises:</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SCODE: R and Python Workshop</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="inferential-statistics" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Inferential statistics<a href="inferential-statistics.html#inferential-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="answers-to-exercise-questions-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Answers to Exercise Questions<a href="inferential-statistics.html#answers-to-exercise-questions-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>What years of information are included in the Gapminder data? Tip:
+You can find this out with the <code>unique()</code> command.</li>
+</ol>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="inferential-statistics.html#cb202-1" tabindex="-1"></a><span class="co"># Your answer:</span></span>
+<span id="cb202-2"><a href="inferential-statistics.html#cb202-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> gapminder</span>
+<span id="cb202-3"><a href="inferential-statistics.html#cb202-3" tabindex="-1"></a><span class="fu">unique</span>(df<span class="sc">$</span>year)</span></code></pre></div>
+<pre><code>##  [1] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 2002 2007</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>What are the mean and median of life years in 1962 and 2002? Tip:
+You can do this with the <code>filter()</code> function.</li>
+</ol>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="inferential-statistics.html#cb204-1" tabindex="-1"></a><span class="co"># Your answer:</span></span>
+<span id="cb204-2"><a href="inferential-statistics.html#cb204-2" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb204-3"><a href="inferential-statistics.html#cb204-3" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1962</span> <span class="sc">|</span> year <span class="sc">==</span> <span class="dv">2002</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb204-4"><a href="inferential-statistics.html#cb204-4" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb204-5"><a href="inferential-statistics.html#cb204-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">mean</span>(lifeExp), <span class="fu">median</span>(lifeExp))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 3
+##    year `mean(lifeExp)` `median(lifeExp)`
+##   &lt;int&gt;           &lt;dbl&gt;             &lt;dbl&gt;
+## 1  1962            53.6              50.9
+## 2  2002            65.7              70.8</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Can you create a scatterplot of income (x-axis) and years of life
+expectancy (y-axis) for the European continent in 1962, 1982 and
+2002 using <code>ggplot()</code> and <code>facet_wrap()</code>? Country names must appear
+as text. Tip: after filtering the data by these years you will need
+to call <code>facet_wrap(~year)</code>.</li>
+</ol>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="inferential-statistics.html#cb206-1" tabindex="-1"></a><span class="co"># Your answer:</span></span>
+<span id="cb206-2"><a href="inferential-statistics.html#cb206-2" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb206-3"><a href="inferential-statistics.html#cb206-3" tabindex="-1"></a></span>
+<span id="cb206-4"><a href="inferential-statistics.html#cb206-4" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb206-5"><a href="inferential-statistics.html#cb206-5" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1962</span> <span class="sc">|</span> year <span class="sc">==</span> <span class="dv">1982</span> <span class="sc">|</span> year <span class="sc">==</span> <span class="dv">2002</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb206-6"><a href="inferential-statistics.html#cb206-6" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Europe&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb206-7"><a href="inferential-statistics.html#cb206-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, <span class="at">label =</span> country)) <span class="sc">+</span></span>
+<span id="cb206-8"><a href="inferential-statistics.html#cb206-8" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb206-9"><a href="inferential-statistics.html#cb206-9" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year) <span class="sc">+</span></span>
+<span id="cb206-10"><a href="inferential-statistics.html#cb206-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;GDP per capita&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Life expectancy&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Life expectancy vs. GDP per capita&quot;</span>) <span class="sc">+</span></span>
+<span id="cb206-11"><a href="inferential-statistics.html#cb206-11" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
+<span id="cb206-12"><a href="inferential-statistics.html#cb206-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Can you create a line plot and show Turkey’s population growth? Can
+you name the plot and axes? Tip: you will need to use the
+<code>geom_line()</code> function to create the line chart.</li>
+</ol>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="inferential-statistics.html#cb207-1" tabindex="-1"></a><span class="co"># Your answer:</span></span>
+<span id="cb207-2"><a href="inferential-statistics.html#cb207-2" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb207-3"><a href="inferential-statistics.html#cb207-3" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;Turkey&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb207-4"><a href="inferential-statistics.html#cb207-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> pop)) <span class="sc">+</span></span>
+<span id="cb207-5"><a href="inferential-statistics.html#cb207-5" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb207-6"><a href="inferential-statistics.html#cb207-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Population&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Population growth in Turkey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb207-7"><a href="inferential-statistics.html#cb207-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb207-8"><a href="inferential-statistics.html#cb207-8" tabindex="-1"></a>  <span class="co"># no scientific notation</span></span>
+<span id="cb207-9"><a href="inferential-statistics.html#cb207-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+</div>
+<div id="creating-summary-tables-and-performing-simple-data-analysis-with-dplyr" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Creating summary tables and performing simple data analysis with Dplyr<a href="inferential-statistics.html#creating-summary-tables-and-performing-simple-data-analysis-with-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We will work with a dataset named “prestige” now. The data looks like
+the following:</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+education
+</th>
+<th style="text-align:right;">
+income
+</th>
+<th style="text-align:right;">
+women
+</th>
+<th style="text-align:right;">
+prestige
+</th>
+<th style="text-align:right;">
+census
+</th>
+<th style="text-align:left;">
+type
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+gov.administrators
+</td>
+<td style="text-align:right;">
+13.11
+</td>
+<td style="text-align:right;">
+12351
+</td>
+<td style="text-align:right;">
+11.16
+</td>
+<td style="text-align:right;">
+68.8
+</td>
+<td style="text-align:right;">
+1113
+</td>
+<td style="text-align:left;">
+prof
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+general.managers
+</td>
+<td style="text-align:right;">
+12.26
+</td>
+<td style="text-align:right;">
+25879
+</td>
+<td style="text-align:right;">
+4.02
+</td>
+<td style="text-align:right;">
+69.1
+</td>
+<td style="text-align:right;">
+1130
+</td>
+<td style="text-align:left;">
+prof
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+accountants
+</td>
+<td style="text-align:right;">
+12.77
+</td>
+<td style="text-align:right;">
+9271
+</td>
+<td style="text-align:right;">
+15.70
+</td>
+<td style="text-align:right;">
+63.4
+</td>
+<td style="text-align:right;">
+1171
+</td>
+<td style="text-align:left;">
+prof
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+purchasing.officers
+</td>
+<td style="text-align:right;">
+11.42
+</td>
+<td style="text-align:right;">
+8865
+</td>
+<td style="text-align:right;">
+9.11
+</td>
+<td style="text-align:right;">
+56.8
+</td>
+<td style="text-align:right;">
+1175
+</td>
+<td style="text-align:left;">
+prof
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+chemists
+</td>
+<td style="text-align:right;">
+14.62
+</td>
+<td style="text-align:right;">
+8403
+</td>
+<td style="text-align:right;">
+11.68
+</td>
+<td style="text-align:right;">
+73.5
+</td>
+<td style="text-align:right;">
+2111
+</td>
+<td style="text-align:left;">
+prof
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+physicists
+</td>
+<td style="text-align:right;">
+15.64
+</td>
+<td style="text-align:right;">
+11030
+</td>
+<td style="text-align:right;">
+5.13
+</td>
+<td style="text-align:right;">
+77.6
+</td>
+<td style="text-align:right;">
+2113
+</td>
+<td style="text-align:left;">
+prof
+</td>
+</tr>
+</tbody>
+</table>
+<p>Let’s import it first:</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="inferential-statistics.html#cb208-1" tabindex="-1"></a><span class="co">#install.packages(&#39;car&#39;)</span></span>
+<span id="cb208-2"><a href="inferential-statistics.html#cb208-2" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb208-3"><a href="inferential-statistics.html#cb208-3" tabindex="-1"></a></span>
+<span id="cb208-4"><a href="inferential-statistics.html#cb208-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> Prestige</span>
+<span id="cb208-5"><a href="inferential-statistics.html#cb208-5" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
+</div>
+<div id="group_by-and-summarize" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> <code>group_by()</code> and <code>summarize()</code><a href="inferential-statistics.html#group_by-and-summarize" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can extract summary tables using these functions in the Dplyr
+package. Dplyr creates group-based summaries with <code>group_by()</code>. We can
+also make the calculations we want with <code>summarize()</code>:</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="inferential-statistics.html#cb209-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb209-2"><a href="inferential-statistics.html#cb209-2" tabindex="-1"></a>  <span class="fu">group_by</span>(type) <span class="sc">%&gt;%</span></span>
+<span id="cb209-3"><a href="inferential-statistics.html#cb209-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_prestige =</span> <span class="fu">mean</span>(prestige),</span>
+<span id="cb209-4"><a href="inferential-statistics.html#cb209-4" tabindex="-1"></a>            <span class="at">mean_income =</span> <span class="fu">mean</span>(income)) <span class="sc">%&gt;%</span></span>
+<span id="cb209-5"><a href="inferential-statistics.html#cb209-5" tabindex="-1"></a>  <span class="fu">arrange</span>(mean_income)</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 3
+##   type  mean_prestige mean_income
+##   &lt;fct&gt;         &lt;dbl&gt;       &lt;dbl&gt;
+## 1 &lt;NA&gt;           34.7       3344.
+## 2 wc             42.2       5052.
+## 3 bc             35.5       5374.
+## 4 prof           67.8      10559.</code></pre>
+<p>Let’s omit the NA values:</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="inferential-statistics.html#cb211-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df)</span></code></pre></div>
+<p>Find out the percentage of female workers according to the types of
+professions:</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="inferential-statistics.html#cb212-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb212-2"><a href="inferential-statistics.html#cb212-2" tabindex="-1"></a>  <span class="fu">group_by</span>(type) <span class="sc">%&gt;%</span></span>
+<span id="cb212-3"><a href="inferential-statistics.html#cb212-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">woman_perc =</span> <span class="fu">mean</span>(women))</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##   type  woman_perc
+##   &lt;fct&gt;      &lt;dbl&gt;
+## 1 bc          19.0
+## 2 prof        25.5
+## 3 wc          52.8</code></pre>
+<p>We want to see the relationship between education and income. Let’s
+create a scatter plot for this:</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="inferential-statistics.html#cb214-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb214-2"><a href="inferential-statistics.html#cb214-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> education, <span class="at">y =</span> income)) <span class="sc">+</span></span>
+<span id="cb214-3"><a href="inferential-statistics.html#cb214-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb214-4"><a href="inferential-statistics.html#cb214-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Education&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Income&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Income vs. Education&quot;</span>) <span class="sc">+</span></span>
+<span id="cb214-5"><a href="inferential-statistics.html#cb214-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb214-6"><a href="inferential-statistics.html#cb214-6" tabindex="-1"></a>  <span class="co"># no scientific notation</span></span>
+<span id="cb214-7"><a href="inferential-statistics.html#cb214-7" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+</div>
+<div id="linear-regression" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Linear Regression<a href="inferential-statistics.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We noticed that there is a relationship between education and income,
+but can we confirm this with statistics? Why do we need statistics?</p>
+<p>If you want to go beyond our data and find out whether the results are
+generalizable to the whole world, we need to model. With a linear
+regression analysis, we will create a line that explain our data best.
+Also, we will be able to predict situations that are not observed in our
+data set. Let’s first understand what linear regression is:</p>
+<p>In the context of simple linear regression, the dependent variable’s
+(the outcome variable) value is determined by a linear function of the
+predictor variable, expressed as:</p>
+<p>y = <span class="math inline">\(\alpha\)</span> + <span class="math inline">\(\beta\)</span> x</p>
+<p>Let’s delve into the interpretation of these components:</p>
+<p>Y (dependent variable) = <span class="math inline">\(\alpha\)</span> (intercept) + <span class="math inline">\(\beta\)</span> (slope) X
+(predictor)</p>
+<p>In this equation:</p>
+<ul>
+<li><p>Y represents the dependent variable,</p></li>
+<li><p><span class="math inline">\(\alpha\)</span> is the intercept, an additive term,</p></li>
+<li><p><span class="math inline">\(\beta\)</span> is the slope, another additive term,</p></li>
+<li><p>X is the predictor variable.</p></li>
+</ul>
+<p>Mathematically, a line is characterized by an intercept and a slope. The
+slope <span class="math inline">\(\beta\)</span>) signifies the change in y for a one-unit change in x.</p>
+<p>In simpler terms, the slope represents the rate of change of the
+dependent variable y with respect to changes in the predictor variable
+x.</p>
+<p>Let’s create a linear regression model for our data:</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="inferential-statistics.html#cb215-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(income <span class="sc">~</span> education, <span class="at">data =</span> df)</span>
+<span id="cb215-2"><a href="inferential-statistics.html#cb215-2" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = income ~ education, data = df)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##  -5524  -2400   -186   1398  17647 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -2593.4     1431.4  -1.812   0.0731 .  
+## education      883.0      128.5   6.870  6.4e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3480 on 96 degrees of freedom
+## Multiple R-squared:  0.3296, Adjusted R-squared:  0.3226 
+## F-statistic:  47.2 on 1 and 96 DF,  p-value: 6.404e-10</code></pre>
+<p>The first thing we need to look at is the coefficient. The coefficient
+is the slope of the line. In our case, the coefficient is 898.8. This
+means that for every one unit increase in education, income increases by
+898.8.</p>
+<p>Then we can look at the p-value. The p-value is the probability that the
+observed data occurs with the assumption that education does not have an
+effect on income. In our case, the p-value is 2.079e-10 (a very small
+number), close to 0. This is a very small number, so we can say reject
+the previous assumption. In other words, we can say that there is a
+statistically significant relationship between education and income.</p>
+<p>Finally, let’s examine the R-squared value. R-squared is a statistical
+measure of how close the data are to the fitted regression line. It is
+also known as the coefficient of determination, or the coefficient of
+multiple determination for multiple regression. The definition of
+R-squared is fairly straight-forward; it is the percentage of the
+response variable variation that is explained by a linear model.</p>
+<p>In our case, the R-squared value is 0.3336. This means that 33.36% of
+the variation in income is explained by education. This is a good value
+for social sciences.</p>
+<p>Let’s plot the regression line:</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="inferential-statistics.html#cb217-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb217-2"><a href="inferential-statistics.html#cb217-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> education, <span class="at">y =</span> income)) <span class="sc">+</span></span>
+<span id="cb217-3"><a href="inferential-statistics.html#cb217-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb217-4"><a href="inferential-statistics.html#cb217-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Education&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Income&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Income vs. Education&quot;</span>) <span class="sc">+</span></span>
+<span id="cb217-5"><a href="inferential-statistics.html#cb217-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb217-6"><a href="inferential-statistics.html#cb217-6" tabindex="-1"></a>  <span class="co"># no scientific notation</span></span>
+<span id="cb217-7"><a href="inferential-statistics.html#cb217-7" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
+<span id="cb217-8"><a href="inferential-statistics.html#cb217-8" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p>We can also predict future values with our model with the <code>predict()</code>
+function.</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="inferential-statistics.html#cb218-1" tabindex="-1"></a><span class="co"># predict income for 10 years of education</span></span>
+<span id="cb218-2"><a href="inferential-statistics.html#cb218-2" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">education =</span> <span class="dv">10</span>)</span>
+<span id="cb218-3"><a href="inferential-statistics.html#cb218-3" tabindex="-1"></a><span class="fu">predict</span>(model, new_data)</span></code></pre></div>
+<pre><code>##        1 
+## 6236.767</code></pre>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="inferential-statistics.html#cb220-1" tabindex="-1"></a><span class="co"># predict income for 20 years of education</span></span>
+<span id="cb220-2"><a href="inferential-statistics.html#cb220-2" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">education =</span> <span class="dv">20</span>)</span>
+<span id="cb220-3"><a href="inferential-statistics.html#cb220-3" tabindex="-1"></a><span class="fu">predict</span>(model, new_data)</span></code></pre></div>
+<pre><code>##        1 
+## 15066.95</code></pre>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="inferential-statistics.html#cb222-1" tabindex="-1"></a><span class="co"># predict income for 30 years of education</span></span>
+<span id="cb222-2"><a href="inferential-statistics.html#cb222-2" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">education =</span> <span class="dv">30</span>)</span>
+<span id="cb222-3"><a href="inferential-statistics.html#cb222-3" tabindex="-1"></a><span class="fu">predict</span>(model, new_data)</span></code></pre></div>
+<pre><code>##        1 
+## 23897.14</code></pre>
+</div>
+<div id="time-series-data-analysis" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Time Series Data Analysis<a href="inferential-statistics.html#time-series-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now let’s work with time series data. We will use the <code>AirPassengers</code>
+dataset in R. This dataset contains the number of passengers who
+traveled by plane in a month between 1949 and 1960. Let’s import it
+first:</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="inferential-statistics.html#cb224-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> AirPassengers</span>
+<span id="cb224-2"><a href="inferential-statistics.html#cb224-2" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
+<pre><code>## [1] 112 118 132 129 121 135</code></pre>
+<p>We then need to convert the data to a time series object which is a
+special type of object in R. We will use the <code>ts()</code> function for this.
+We need to specify the frequency of the data (12 for monthly data) and
+the start and end dates.</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="inferential-statistics.html#cb226-1" tabindex="-1"></a><span class="co"># convert the data to a time series object</span></span>
+<span id="cb226-2"><a href="inferential-statistics.html#cb226-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">ts</span>(df, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1949</span>, <span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">1960</span>, <span class="dv">12</span>))</span>
+<span id="cb226-3"><a href="inferential-statistics.html#cb226-3" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
+<pre><code>## [1] 112 118 132 129 121 135</code></pre>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="inferential-statistics.html#cb228-1" tabindex="-1"></a><span class="co"># plot the data with axis names:</span></span>
+<span id="cb228-2"><a href="inferential-statistics.html#cb228-2" tabindex="-1"></a><span class="fu">plot</span>(df, <span class="at">main =</span> <span class="st">&quot;Air Passengers&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Number of Passengers&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p>We can see that there is an increasing trend in the data. We can also
+see that there is a seasonal component. We can decompose the data into
+trend, seasonal, and random components with the <code>decompose()</code> function.</p>
+<p>Let’s explain the components: Trend is the long-term progression of the
+series. Seasonality is a short-term cycle that occurs regularly. Random
+is the residual variation that cannot be explained by the trend or the
+seasonal components.</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="inferential-statistics.html#cb229-1" tabindex="-1"></a>df_decomposed <span class="ot">&lt;-</span> <span class="fu">decompose</span>(df)</span>
+<span id="cb229-2"><a href="inferential-statistics.html#cb229-2" tabindex="-1"></a></span>
+<span id="cb229-3"><a href="inferential-statistics.html#cb229-3" tabindex="-1"></a></span>
+<span id="cb229-4"><a href="inferential-statistics.html#cb229-4" tabindex="-1"></a><span class="co"># plot the decomposed data</span></span>
+<span id="cb229-5"><a href="inferential-statistics.html#cb229-5" tabindex="-1"></a><span class="fu">plot</span>(df_decomposed)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p>We can use linear regression to model the trend component. We will use
+the <code>lm()</code> function for this. We will use the <code>time()</code> function to
+create a variable for time.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="inferential-statistics.html#cb230-1" tabindex="-1"></a><span class="co"># turn our ts object into a data frame</span></span>
+<span id="cb230-2"><a href="inferential-statistics.html#cb230-2" tabindex="-1"></a>df_time_series <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Y=</span><span class="fu">as.matrix</span>(df), <span class="at">Time =</span> <span class="fu">time</span>(df))</span></code></pre></div>
+<p>Model the trend component:</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="inferential-statistics.html#cb231-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> Time, <span class="at">data =</span> df_time_series)</span>
+<span id="cb231-2"><a href="inferential-statistics.html#cb231-2" tabindex="-1"></a><span class="co"># summary(model)</span></span>
+<span id="cb231-3"><a href="inferential-statistics.html#cb231-3" tabindex="-1"></a></span>
+<span id="cb231-4"><a href="inferential-statistics.html#cb231-4" tabindex="-1"></a><span class="co"># plot the regression line:</span></span>
+<span id="cb231-5"><a href="inferential-statistics.html#cb231-5" tabindex="-1"></a>df_time_series <span class="sc">%&gt;%</span> </span>
+<span id="cb231-6"><a href="inferential-statistics.html#cb231-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb231-7"><a href="inferential-statistics.html#cb231-7" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb231-8"><a href="inferential-statistics.html#cb231-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Time&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Passengers&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Air Passengers&quot;</span>) <span class="sc">+</span></span>
+<span id="cb231-9"><a href="inferential-statistics.html#cb231-9" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p>Now let’s predict the number of passengers for the next 10 years:</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="inferential-statistics.html#cb232-1" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Time =</span> <span class="dv">1970</span><span class="sc">:</span><span class="dv">1980</span>)</span>
+<span id="cb232-2"><a href="inferential-statistics.html#cb232-2" tabindex="-1"></a><span class="fu">predict</span>(model, new_data)</span></code></pre></div>
+<pre><code>##         1         2         3         4         5         6         7         8 
+##  759.9203  791.8065  823.6927  855.5789  887.4651  919.3513  951.2375  983.1238 
+##         9        10        11 
+## 1015.0100 1046.8962 1078.7824</code></pre>
+</div>
+<div id="in-class-exercises-2" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> In-class Exercises<a href="inferential-statistics.html#in-class-exercises-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>1.1.</strong> Work with the <code>mtcars</code> dataset. Use group_by() and summarize()
+to find the average miles per gallon for each number of cylinders.</p>
+<p><strong>1.2.</strong> Create a linear regression model. Predict the miles per gallon
+for a car with 6 cylinders and a weight of 3000 lbs.</p>
+<p><strong>1.3.</strong> Plot the regression line.</p>
+<hr />
+<p><strong>2.1.</strong> Work with another time series dataset called <code>BJsales</code> in R.
+Sales, 150 months; taken from Box and Jenkins (1970). Visualize the time
+series data.</p>
+<p><strong>2.2.</strong> Use linear regression to model the trend component. Predict the
+number of sales for the next 10 months</p>
+<p><strong>2.3.</strong> Plot the regression line.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="descriptive-statistics-with-tidyverse.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="twitter-data-analysis-and-rmarkdown.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/kelesonur/scode/edit/main/04-w3.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/kelesonur/scode/blob/main/04-w3.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

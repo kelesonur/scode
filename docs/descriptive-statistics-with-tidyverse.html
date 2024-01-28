@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Descriptive statistics with Tidyverse | SCODE: R and Python Workshop</title>
+  <meta name="description" content="Chapter 3 Descriptive statistics with Tidyverse | SCODE: R and Python Workshop" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Descriptive statistics with Tidyverse | SCODE: R and Python Workshop" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Descriptive statistics with Tidyverse | SCODE: R and Python Workshop" />
+  
+  
+  
+
+<meta name="author" content="Onur Keleş &amp; Ömer Bayraklı" />
+
+
+<meta name="date" content="2024-01-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-r-programming.html"/>
+<link rel="next" href="inferential-statistics.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SCODE: R and Python Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to SCODE!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instructors"><i class="fa fa-check"></i><b>1.1</b> Instructors</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i><b>1.2</b> Structure of the book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i><b>1.3</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html"><i class="fa fa-check"></i><b>2</b> Introduction to R Programming</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#what-is-it"><i class="fa fa-check"></i><b>2.0.1</b> What is it?</a></li>
+<li class="chapter" data-level="2.0.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#why-r"><i class="fa fa-check"></i><b>2.0.2</b> Why R?</a></li>
+<li class="chapter" data-level="2.0.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#how-will-we-code"><i class="fa fa-check"></i><b>2.0.3</b> How will we code?</a></li>
+<li class="chapter" data-level="2.0.4" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#cheat-sheets"><i class="fa fa-check"></i><b>2.0.4</b> Cheat sheets</a></li>
+<li class="chapter" data-level="2.0.5" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#real-world-use-cases-of-r"><i class="fa fa-check"></i><b>2.0.5</b> Real world use cases of R:</a></li>
+<li class="chapter" data-level="2.0.6" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#python-vs.-r"><i class="fa fa-check"></i><b>2.0.6</b> Python vs. R?</a></li>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#lets-start-coding"><i class="fa fa-check"></i><b>2.1</b> Let’s start coding!</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#functions-in-r"><i class="fa fa-check"></i><b>2.2</b> Functions in R</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#variables-in-r"><i class="fa fa-check"></i><b>2.3</b> Variables in R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#operations-with-variables"><i class="fa fa-check"></i><b>2.3.1</b> Operations with variables</a></li>
+<li class="chapter" data-level="2.3.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#logical-operators"><i class="fa fa-check"></i><b>2.3.2</b> Logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#data-types-in-r"><i class="fa fa-check"></i><b>2.4</b> Data types in R</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#vectors"><i class="fa fa-check"></i><b>2.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#data-frames"><i class="fa fa-check"></i><b>2.4.2</b> Data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#quick-visualization"><i class="fa fa-check"></i><b>2.5</b> Quick visualization</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#in-class-exercises"><i class="fa fa-check"></i><b>2.6</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-1"><i class="fa fa-check"></i><b>2.6.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="2.6.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-2"><i class="fa fa-check"></i><b>2.6.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="2.6.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-3"><i class="fa fa-check"></i><b>2.6.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#practice-questions-for-next-week"><i class="fa fa-check"></i><b>2.7</b> Practice questions for next week</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Descriptive statistics with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#answers-to-exercise-questions"><i class="fa fa-check"></i><b>3.1</b> Answers to Exercise Questions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-1-1"><i class="fa fa-check"></i><b>3.1.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="3.1.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-2-1"><i class="fa fa-check"></i><b>3.1.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="3.1.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-3-1"><i class="fa fa-check"></i><b>3.1.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#practice-questions-for-next-week-1"><i class="fa fa-check"></i><b>3.2</b> Practice questions for next week</a></li>
+<li class="chapter" data-level="3.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-in-class-practice"><i class="fa fa-check"></i><b>3.3</b> Data Manipulation: In-class practice</a></li>
+<li class="chapter" data-level="3.4" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-tidyverse"><i class="fa fa-check"></i><b>3.4</b> Data Manipulation with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#tibble"><i class="fa fa-check"></i><b>3.4.1</b> Tibble</a></li>
+<li class="chapter" data-level="3.4.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>3.4.2</b> Data manipulation with dplyr</a></li>
+<li class="chapter" data-level="3.4.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#pipe-with-the-magrittr-package"><i class="fa fa-check"></i><b>3.4.3</b> Pipe with the magrittr package</a></li>
+<li class="chapter" data-level="3.4.4" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#visualization-with-the-ggplot2-package"><i class="fa fa-check"></i><b>3.4.4</b> Visualization with the ggplot2 package</a></li>
+<li class="chapter" data-level="3.4.5" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#scatterplots"><i class="fa fa-check"></i><b>3.4.5</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.4.6" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#bar-plots"><i class="fa fa-check"></i><b>3.4.6</b> Bar plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#in-class-exercises-1"><i class="fa fa-check"></i><b>3.5</b> In-class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inferential-statistics.html"><a href="inferential-statistics.html"><i class="fa fa-check"></i><b>4</b> Inferential statistics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#answers-to-exercise-questions-1"><i class="fa fa-check"></i><b>4.1</b> Answers to Exercise Questions</a></li>
+<li class="chapter" data-level="4.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#creating-summary-tables-and-performing-simple-data-analysis-with-dplyr"><i class="fa fa-check"></i><b>4.2</b> Creating summary tables and performing simple data analysis with Dplyr</a></li>
+<li class="chapter" data-level="4.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#group_by-and-summarize"><i class="fa fa-check"></i><b>4.3</b> <code>group_by()</code> and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#linear-regression"><i class="fa fa-check"></i><b>4.4</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#time-series-data-analysis"><i class="fa fa-check"></i><b>4.5</b> Time Series Data Analysis</a></li>
+<li class="chapter" data-level="4.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#in-class-exercises-2"><i class="fa fa-check"></i><b>4.6</b> In-class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html"><i class="fa fa-check"></i><b>5</b> Twitter data analysis and RMarkdown</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#answers-to-exercise-questions-2"><i class="fa fa-check"></i><b>5.1</b> Answers to Exercise Questions</a></li>
+<li class="chapter" data-level="5.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-3"><i class="fa fa-check"></i><b>5.2</b> In-class Exercises</a></li>
+<li class="chapter" data-level="5.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-analysis-with-r"><i class="fa fa-check"></i><b>5.3</b> Twitter Analysis with R</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#why-perform-data-mining-on-twitter"><i class="fa fa-check"></i><b>5.3.1</b> Why Perform Data Mining on Twitter?</a></li>
+<li class="chapter" data-level="5.3.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#why-choose-r-over-other-platforms-e.g.-sprout-social-talkwalker"><i class="fa fa-check"></i><b>5.3.2</b> Why Choose R over Other Platforms (e.g., Sprout Social, Talkwalker)?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#installing-necessary-packages"><i class="fa fa-check"></i><b>5.4</b> Installing Necessary Packages</a></li>
+<li class="chapter" data-level="5.5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#loading-packages"><i class="fa fa-check"></i><b>5.5</b> Loading Packages</a></li>
+<li class="chapter" data-level="5.6" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-settings"><i class="fa fa-check"></i><b>5.6</b> Twitter Settings</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-api-settings"><i class="fa fa-check"></i><b>5.6.1</b> Twitter API Settings</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis"><i class="fa fa-check"></i><b>5.7</b> Timeline Analysis</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#fetching-tweets-from-an-account"><i class="fa fa-check"></i><b>5.7.1</b> Fetching Tweets from an Account</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#cleaning-the-tweets"><i class="fa fa-check"></i><b>5.8</b> Cleaning the Tweets</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#creating-a-stop-words-list-for-turkish"><i class="fa fa-check"></i><b>5.8.1</b> Creating a Stop Words List for Turkish</a></li>
+<li class="chapter" data-level="5.8.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#tokenizing-and-cleaning"><i class="fa fa-check"></i><b>5.8.2</b> Tokenizing and Cleaning</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#counting-words"><i class="fa fa-check"></i><b>5.9</b> Counting Words</a></li>
+<li class="chapter" data-level="5.10" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#creating-a-word-cloud"><i class="fa fa-check"></i><b>5.10</b> Creating a Word Cloud</a></li>
+<li class="chapter" data-level="5.11" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#hashtag-and-timeline-tweet-analysis"><i class="fa fa-check"></i><b>5.11</b> Hashtag and Timeline Tweet Analysis</a>
+<ul>
+<li class="chapter" data-level="5.11.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#analyzing-tweets-with-a-specific-hashtag"><i class="fa fa-check"></i><b>5.11.1</b> Analyzing Tweets with a Specific Hashtag</a></li>
+<li class="chapter" data-level="5.11.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis-1"><i class="fa fa-check"></i><b>5.11.2</b> Timeline Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.12" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#sentiment-analysis-in-turkish"><i class="fa fa-check"></i><b>5.12</b> Sentiment Analysis in Turkish</a>
+<ul>
+<li class="chapter" data-level="5.12.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#import-the-lexicon"><i class="fa fa-check"></i><b>5.12.1</b> Import the lexicon</a></li>
+<li class="chapter" data-level="5.12.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#examine-the-lexicon"><i class="fa fa-check"></i><b>5.12.2</b> Examine the lexicon</a></li>
+<li class="chapter" data-level="5.12.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#get-the-words-and-calculate-sentiment"><i class="fa fa-check"></i><b>5.12.3</b> Get the words and calculate sentiment</a></li>
+<li class="chapter" data-level="5.12.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#visualize-arousal-and-valence"><i class="fa fa-check"></i><b>5.12.4</b> Visualize arousal and valence</a></li>
+<li class="chapter" data-level="5.12.5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#most-positive-and-negative-words-used-by-the-person"><i class="fa fa-check"></i><b>5.12.5</b> Most positive and negative words used by the person</a></li>
+<li class="chapter" data-level="5.12.6" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#use-get_nrc_sentiment-for-english-sentiment-analysis"><i class="fa fa-check"></i><b>5.12.6</b> Use <code>get_nrc_sentiment()</code> for English sentiment analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.13" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-4"><i class="fa fa-check"></i><b>5.13</b> In-class Exercises</a></li>
+<li class="chapter" data-level="5.14" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>5.14</b> RMarkdown</a>
+<ul>
+<li class="chapter" data-level="5.14.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown-tutorial"><i class="fa fa-check"></i><b>5.14.1</b> <strong>RMarkdown Tutorial</strong></a></li>
+<li class="chapter" data-level="5.14.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#introduction-to-rmarkdown"><i class="fa fa-check"></i><b>5.14.2</b> Introduction to RMarkdown</a></li>
+<li class="chapter" data-level="5.14.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#getting-started-with-rmarkdown"><i class="fa fa-check"></i><b>5.14.3</b> Getting Started with RMarkdown</a></li>
+<li class="chapter" data-level="5.14.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-5"><i class="fa fa-check"></i><b>5.14.4</b> In-class Exercises:</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SCODE: R and Python Workshop</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="descriptive-statistics-with-tidyverse" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Descriptive statistics with Tidyverse<a href="descriptive-statistics-with-tidyverse.html#descriptive-statistics-with-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="answers-to-exercise-questions" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Answers to Exercise Questions<a href="descriptive-statistics-with-tidyverse.html#answers-to-exercise-questions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="exercise-1-1" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Exercise 1<a href="descriptive-statistics-with-tidyverse.html#exercise-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Today is Monday. What day of the week will it be 9, 54, 306, and 8999
+days from now?</p>
+<p>Note: Create a character vector containing the days of the week and
+repeat this vector 9000 times. Then, use indexing to find the desired
+day. Hint: Write the days of the week in the character vector starting
+from Tuesday.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="descriptive-statistics-with-tidyverse.html#cb140-1" tabindex="-1"></a>days <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Friday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>, <span class="st">&quot;Monday&quot;</span>)</span>
+<span id="cb140-2"><a href="descriptive-statistics-with-tidyverse.html#cb140-2" tabindex="-1"></a></span>
+<span id="cb140-3"><a href="descriptive-statistics-with-tidyverse.html#cb140-3" tabindex="-1"></a><span class="co"># you complete...</span></span>
+<span id="cb140-4"><a href="descriptive-statistics-with-tidyverse.html#cb140-4" tabindex="-1"></a></span>
+<span id="cb140-5"><a href="descriptive-statistics-with-tidyverse.html#cb140-5" tabindex="-1"></a>days_rep <span class="ot">&lt;-</span> <span class="fu">rep</span>(days,<span class="dv">9000</span>)</span>
+<span id="cb140-6"><a href="descriptive-statistics-with-tidyverse.html#cb140-6" tabindex="-1"></a></span>
+<span id="cb140-7"><a href="descriptive-statistics-with-tidyverse.html#cb140-7" tabindex="-1"></a>days_rep[<span class="dv">9</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Wednesday&quot;</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="descriptive-statistics-with-tidyverse.html#cb142-1" tabindex="-1"></a>days_rep[<span class="dv">54</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Saturday&quot;</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="descriptive-statistics-with-tidyverse.html#cb144-1" tabindex="-1"></a>days_rep[<span class="dv">306</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Saturday&quot;</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="descriptive-statistics-with-tidyverse.html#cb146-1" tabindex="-1"></a>days_rep[<span class="dv">8999</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Friday&quot;</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="descriptive-statistics-with-tidyverse.html#cb148-1" tabindex="-1"></a><span class="co"># or::</span></span>
+<span id="cb148-2"><a href="descriptive-statistics-with-tidyverse.html#cb148-2" tabindex="-1"></a></span>
+<span id="cb148-3"><a href="descriptive-statistics-with-tidyverse.html#cb148-3" tabindex="-1"></a>days_rep[<span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">54</span>,<span class="dv">306</span>,<span class="dv">8999</span>)]</span></code></pre></div>
+<pre><code>## [1] &quot;Wednesday&quot; &quot;Saturday&quot;  &quot;Saturday&quot;  &quot;Friday&quot;</code></pre>
+</div>
+<div id="exercise-2-1" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Exercise 2<a href="descriptive-statistics-with-tidyverse.html#exercise-2-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Create a vector containing the numbers 1 to 100. Then, find the sum of
+the numbers that are divisible by 3 or 5.</p>
+<p>Tip: Use the %% operator to find the remainder of a division.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="descriptive-statistics-with-tidyverse.html#cb150-1" tabindex="-1"></a><span class="co"># answer:</span></span>
+<span id="cb150-2"><a href="descriptive-statistics-with-tidyverse.html#cb150-2" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span></span>
+<span id="cb150-3"><a href="descriptive-statistics-with-tidyverse.html#cb150-3" tabindex="-1"></a></span>
+<span id="cb150-4"><a href="descriptive-statistics-with-tidyverse.html#cb150-4" tabindex="-1"></a><span class="co"># find numbers that are divisible by 3:</span></span>
+<span id="cb150-5"><a href="descriptive-statistics-with-tidyverse.html#cb150-5" tabindex="-1"></a></span>
+<span id="cb150-6"><a href="descriptive-statistics-with-tidyverse.html#cb150-6" tabindex="-1"></a>numbers_3_5 <span class="ot">&lt;-</span> numbers[numbers <span class="sc">%%</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">0</span> <span class="sc">|</span> numbers <span class="sc">%%</span> <span class="dv">5</span> <span class="sc">==</span> <span class="dv">0</span>]</span>
+<span id="cb150-7"><a href="descriptive-statistics-with-tidyverse.html#cb150-7" tabindex="-1"></a></span>
+<span id="cb150-8"><a href="descriptive-statistics-with-tidyverse.html#cb150-8" tabindex="-1"></a><span class="fu">sum</span>(numbers_3_5)</span></code></pre></div>
+<pre><code>## [1] 2418</code></pre>
+</div>
+<div id="exercise-3-1" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Exercise 3<a href="descriptive-statistics-with-tidyverse.html#exercise-3-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You are taking measurements every 5 days throughout the year. Create a
+number sequence that shows on which days you take measurements and
+assign it to a variable named “measurement_days” The result should look
+like this: 5, 10, 15, 20… 365.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="descriptive-statistics-with-tidyverse.html#cb152-1" tabindex="-1"></a><span class="co"># answer:</span></span>
+<span id="cb152-2"><a href="descriptive-statistics-with-tidyverse.html#cb152-2" tabindex="-1"></a></span>
+<span id="cb152-3"><a href="descriptive-statistics-with-tidyverse.html#cb152-3" tabindex="-1"></a>days <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">365</span>,<span class="dv">5</span>)</span>
+<span id="cb152-4"><a href="descriptive-statistics-with-tidyverse.html#cb152-4" tabindex="-1"></a>days[<span class="dv">44</span>]</span></code></pre></div>
+<pre><code>## [1] 220</code></pre>
+</div>
+</div>
+<div id="practice-questions-for-next-week-1" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Practice questions for next week<a href="descriptive-statistics-with-tidyverse.html#practice-questions-for-next-week-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong><em>Q1:</em></strong> Create a vector containing 50 random numbers with a normal
+(Gaussian) distribution, mean 20 and standard deviation 2. You can do
+this with the <code>rnorm()</code> function. Then assigns the numbers to a variable
+and use that variable as an argument to the <code>sample()</code> function to
+randomly select 10 samples from that vector. Run <code>?rnorm()</code> <code>?sample()</code>
+to see how the functions work and what arguments they take.</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="descriptive-statistics-with-tidyverse.html#cb154-1" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">50</span>, <span class="at">mean=</span><span class="dv">20</span>, <span class="at">sd=</span><span class="dv">2</span>))</span>
+<span id="cb154-2"><a href="descriptive-statistics-with-tidyverse.html#cb154-2" tabindex="-1"></a></span>
+<span id="cb154-3"><a href="descriptive-statistics-with-tidyverse.html#cb154-3" tabindex="-1"></a><span class="fu">sample</span>(dist, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  [1] 25 15 20 21 20 18 17 19 20 23</code></pre>
+<p><strong><em>Q2:</em></strong> Download and load “LearnBayes” package and take a look at the
+first few columns of the data set called “studentdata”.</p>
+<p><strong><em>Answer the following questions:</em></strong></p>
+<p>3.1. Remove rows that include NA observations.</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="descriptive-statistics-with-tidyverse.html#cb156-1" tabindex="-1"></a><span class="co">#install.packages(&quot;LearnBayes&quot;)</span></span>
+<span id="cb156-2"><a href="descriptive-statistics-with-tidyverse.html#cb156-2" tabindex="-1"></a><span class="fu">library</span>(LearnBayes)</span>
+<span id="cb156-3"><a href="descriptive-statistics-with-tidyverse.html#cb156-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> studentdata</span>
+<span id="cb156-4"><a href="descriptive-statistics-with-tidyverse.html#cb156-4" tabindex="-1"></a></span>
+<span id="cb156-5"><a href="descriptive-statistics-with-tidyverse.html#cb156-5" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
+<pre><code>## [1] 657  11</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="descriptive-statistics-with-tidyverse.html#cb158-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(df))</span></code></pre></div>
+<pre><code>## [1] 118</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="descriptive-statistics-with-tidyverse.html#cb160-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df)</span>
+<span id="cb160-2"><a href="descriptive-statistics-with-tidyverse.html#cb160-2" tabindex="-1"></a></span>
+<span id="cb160-3"><a href="descriptive-statistics-with-tidyverse.html#cb160-3" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
+<pre><code>## [1] 559  11</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="descriptive-statistics-with-tidyverse.html#cb162-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(df))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>3.2. Get the number of female students.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="descriptive-statistics-with-tidyverse.html#cb164-1" tabindex="-1"></a><span class="co"># alt 1:</span></span>
+<span id="cb164-2"><a href="descriptive-statistics-with-tidyverse.html#cb164-2" tabindex="-1"></a>gender <span class="ot">&lt;-</span> df<span class="sc">$</span>Gender</span>
+<span id="cb164-3"><a href="descriptive-statistics-with-tidyverse.html#cb164-3" tabindex="-1"></a><span class="fu">length</span>(gender[gender <span class="sc">==</span> <span class="st">&quot;female&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 364</code></pre>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="descriptive-statistics-with-tidyverse.html#cb166-1" tabindex="-1"></a><span class="co"># alt 2:</span></span>
+<span id="cb166-2"><a href="descriptive-statistics-with-tidyverse.html#cb166-2" tabindex="-1"></a><span class="fu">length</span>(df<span class="sc">$</span>Gender[df<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">&quot;female&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 364</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="descriptive-statistics-with-tidyverse.html#cb168-1" tabindex="-1"></a><span class="co"># alt 3:</span></span>
+<span id="cb168-2"><a href="descriptive-statistics-with-tidyverse.html#cb168-2" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;)</span></span>
+<span id="cb168-3"><a href="descriptive-statistics-with-tidyverse.html#cb168-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb168-4"><a href="descriptive-statistics-with-tidyverse.html#cb168-4" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">filter</span>(df, Gender <span class="sc">==</span> <span class="st">&quot;female&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] 364</code></pre>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="descriptive-statistics-with-tidyverse.html#cb170-1" tabindex="-1"></a><span class="co"># Find percetange of female students</span></span>
+<span id="cb170-2"><a href="descriptive-statistics-with-tidyverse.html#cb170-2" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">filter</span>(df, Gender <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)) <span class="sc">/</span> <span class="fu">nrow</span>(df)<span class="sc">*</span><span class="dv">100</span></span></code></pre></div>
+<pre><code>## [1] 65.11628</code></pre>
+<p>3.3. Number of students who are taller than 180 cm (tip: the height is
+given in inches. please first turn them to cm by multiplying the
+observations with 2.54)</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="descriptive-statistics-with-tidyverse.html#cb172-1" tabindex="-1"></a><span class="co"># You can use dplyr&#39;s mutate() function to change values in a dataset</span></span>
+<span id="cb172-2"><a href="descriptive-statistics-with-tidyverse.html#cb172-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb172-3"><a href="descriptive-statistics-with-tidyverse.html#cb172-3" tabindex="-1"></a></span>
+<span id="cb172-4"><a href="descriptive-statistics-with-tidyverse.html#cb172-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">mutate</span>(df, <span class="at">Height =</span> Height <span class="sc">*</span> <span class="fl">2.54</span>)</span>
+<span id="cb172-5"><a href="descriptive-statistics-with-tidyverse.html#cb172-5" tabindex="-1"></a></span>
+<span id="cb172-6"><a href="descriptive-statistics-with-tidyverse.html#cb172-6" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">filter</span>(df, Height <span class="sc">&gt;</span> <span class="dv">180</span>))</span></code></pre></div>
+<pre><code>## [1] 115</code></pre>
+<p>3.4. Plot the relationship between height and sex in a line graph.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="descriptive-statistics-with-tidyverse.html#cb174-1" tabindex="-1"></a><span class="fu">plot</span>(df<span class="sc">$</span>Gender, df<span class="sc">$</span>Height)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+</div>
+<div id="data-manipulation-in-class-practice" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Data Manipulation: In-class practice<a href="descriptive-statistics-with-tidyverse.html#data-manipulation-in-class-practice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now, let’s practice a bit more. Follow these steps:</p>
+<p>We will now work with COVID-19 dataset. Let’s import it to our R
+session.</p>
+<p>We can use dplyr’s <code>read_csv()</code> package to import a spreadsheet in .csv
+format.</p>
+<p><em>Source</em>: <a href="https://github.com/sadettindemirel/Covid19-Turkey" class="uri">https://github.com/sadettindemirel/Covid19-Turkey</a></p>
+<p>When working with data, it’s important to create a workspace folder that
+contains both your data and R script. You can either download the .csv
+file and import it to R this way. Make sure that you set your working
+directory to the correct folder by going to Session -&gt; Set Working
+Directory -&gt; To Source File Location.</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="descriptive-statistics-with-tidyverse.html#cb175-1" tabindex="-1"></a>df_covid <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;http://kelesonur.github.io/compec-r/covid_sayi.csv&quot;</span>)</span>
+<span id="cb175-2"><a href="descriptive-statistics-with-tidyverse.html#cb175-2" tabindex="-1"></a><span class="fu">head</span>(df_covid)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 12
+##   tarih      gunluk_test gunluk_vaka gunluk_olum gunluk_iyilesen toplam_test toplam_vaka
+##   &lt;date&gt;           &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+## 1 2020-03-11           0           1           0               0           0           1
+## 2 2020-03-12           0           0           0               0           0           1
+## 3 2020-03-13           0           4           0               0           0           5
+## 4 2020-03-14           0           1           0               0           0           6
+## 5 2020-03-15           0          12           1               0           0          18
+## 6 2020-03-16           0          29           0               0           0          47
+## # … with 5 more variables: toplam_olum &lt;dbl&gt;, toplam_iyilesen &lt;dbl&gt;,
+## #   yogun_bakim_hasta &lt;dbl&gt;, toplam_intube &lt;dbl&gt;, agir_hasta &lt;dbl&gt;</code></pre>
+<ol style="list-style-type: decimal">
+<li>Create a histogram (of daily death toll) and time-series plot (x:
+time, y: daily death toll). You can use hist() and <code>boxplot()</code>
+functions respectively to do that. Add label names.</li>
+</ol>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="descriptive-statistics-with-tidyverse.html#cb177-1" tabindex="-1"></a><span class="co"># Your turn:</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>How many cases of COVID were detected and how many people died on
+July 20, 2020?</li>
+</ol>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="descriptive-statistics-with-tidyverse.html#cb178-1" tabindex="-1"></a><span class="co"># Your turn:</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Can you show the total number of COVID deaths and patients in
+intensive care between 2020-03-11 and 2020-07-20 in the timeline
+graph? Tip: You can use indexing to filter the dates and save them
+as a new data frame.</li>
+</ol>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="descriptive-statistics-with-tidyverse.html#cb179-1" tabindex="-1"></a><span class="co"># Your turn:</span></span></code></pre></div>
+</div>
+<div id="data-manipulation-with-tidyverse" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Data Manipulation with Tidyverse<a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So far, we have examined data frames using Base R, that is, the
+functions and operators native to R. However, today most data scientists
+using R do not process data with these, but with the more modern
+“Tidyverse” packages.</p>
+<p>These packages make organizing data much easier and more practical
+(Wickham, 2017).</p>
+<p>Let’s look at some important packages within Tidyverse:</p>
+<ol style="list-style-type: decimal">
+<li>tibble: <code>as.tibble()</code></li>
+<li>readr: <code>read_csv()</code></li>
+<li>dplyr: <code>subset(), select(), filter(), summarize()</code> and more…</li>
+<li>magrittr: <code>%&gt;%</code> operator</li>
+<li>ggplot2: <code>ggplot()</code></li>
+</ol>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="descriptive-statistics-with-tidyverse.html#cb180-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="tibble" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Tibble<a href="descriptive-statistics-with-tidyverse.html#tibble" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Tibble is essentially a more modern version of data frames in R. Here’s
+where Tibbles are superior to data frames: There is no need to use the
+head() function. It automatically shows us the first 10 rows. There is
+no need to use <code>nrow()</code> and <code>ncol()</code>. This information is included in
+the table. tells us the type of vectors in each column (character,
+integer, etc.)</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="descriptive-statistics-with-tidyverse.html#cb181-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> starwars</span>
+<span id="cb181-2"><a href="descriptive-statistics-with-tidyverse.html#cb181-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.tibble</span>(df)</span>
+<span id="cb181-3"><a href="descriptive-statistics-with-tidyverse.html#cb181-3" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 14
+##   name     height  mass hair_color skin_color eye_color birth_year sex   gender homeworld
+##   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    
+## 1 Luke Sk…    172    77 blond      fair       blue            19   male  mascu… Tatooine 
+## 2 C-3PO       167    75 &lt;NA&gt;       gold       yellow         112   none  mascu… Tatooine 
+## 3 R2-D2        96    32 &lt;NA&gt;       white, bl… red             33   none  mascu… Naboo    
+## 4 Darth V…    202   136 none       white      yellow          41.9 male  mascu… Tatooine 
+## 5 Leia Or…    150    49 brown      light      brown           19   fema… femin… Alderaan 
+## 6 Owen La…    178   120 brown, gr… light      blue            52   male  mascu… Tatooine 
+## # … with 4 more variables: species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;,
+## #   starships &lt;list&gt;</code></pre>
+</div>
+<div id="data-manipulation-with-dplyr" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Data manipulation with dplyr<a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>dplyr is the most practical package for editing data frames or tibbles.
+Let’s see what we can do with the functions included in it. For this we
+will use a dataset from a package called <code>gapminder</code>:</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:left;">
+continent
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+lifeExp
+</th>
+<th style="text-align:right;">
+pop
+</th>
+<th style="text-align:right;">
+gdpPercap
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+Asia
+</td>
+<td style="text-align:right;">
+1952
+</td>
+<td style="text-align:right;">
+28.801
+</td>
+<td style="text-align:right;">
+8425333
+</td>
+<td style="text-align:right;">
+779.4453
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+Asia
+</td>
+<td style="text-align:right;">
+1957
+</td>
+<td style="text-align:right;">
+30.332
+</td>
+<td style="text-align:right;">
+9240934
+</td>
+<td style="text-align:right;">
+820.8530
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+Asia
+</td>
+<td style="text-align:right;">
+1962
+</td>
+<td style="text-align:right;">
+31.997
+</td>
+<td style="text-align:right;">
+10267083
+</td>
+<td style="text-align:right;">
+853.1007
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+Asia
+</td>
+<td style="text-align:right;">
+1967
+</td>
+<td style="text-align:right;">
+34.020
+</td>
+<td style="text-align:right;">
+11537966
+</td>
+<td style="text-align:right;">
+836.1971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+Asia
+</td>
+<td style="text-align:right;">
+1972
+</td>
+<td style="text-align:right;">
+36.088
+</td>
+<td style="text-align:right;">
+13079460
+</td>
+<td style="text-align:right;">
+739.9811
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+Asia
+</td>
+<td style="text-align:right;">
+1977
+</td>
+<td style="text-align:right;">
+38.438
+</td>
+<td style="text-align:right;">
+14880372
+</td>
+<td style="text-align:right;">
+786.1134
+</td>
+</tr>
+</tbody>
+</table>
+<p>Let’s load the data:</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="descriptive-statistics-with-tidyverse.html#cb183-1" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb183-2"><a href="descriptive-statistics-with-tidyverse.html#cb183-2" tabindex="-1"></a>  </span>
+<span id="cb183-3"><a href="descriptive-statistics-with-tidyverse.html#cb183-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> gapminder</span></code></pre></div>
+<div id="filter-function" class="section level4 hasAnchor" number="3.4.2.1">
+<h4><span class="header-section-number">3.4.2.1</span> <code>filter()</code> function<a href="descriptive-statistics-with-tidyverse.html#filter-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We can easily filter the data we want by using this function:</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="descriptive-statistics-with-tidyverse.html#cb184-1" tabindex="-1"></a><span class="fu">filter</span>(df,country <span class="sc">==</span> <span class="st">&quot;Turkey&quot;</span>) </span>
+<span id="cb184-2"><a href="descriptive-statistics-with-tidyverse.html#cb184-2" tabindex="-1"></a></span>
+<span id="cb184-3"><a href="descriptive-statistics-with-tidyverse.html#cb184-3" tabindex="-1"></a><span class="fu">filter</span>(df, year <span class="sc">&gt;</span> <span class="dv">2002</span>) </span>
+<span id="cb184-4"><a href="descriptive-statistics-with-tidyverse.html#cb184-4" tabindex="-1"></a></span>
+<span id="cb184-5"><a href="descriptive-statistics-with-tidyverse.html#cb184-5" tabindex="-1"></a><span class="fu">filter</span>(df, year <span class="sc">&gt;</span> <span class="dv">2002</span> <span class="sc">&amp;</span> country <span class="sc">==</span> <span class="st">&quot;Germany&quot;</span>)</span></code></pre></div>
+<p>How can you filter for multiple countries? Any guesses?</p>
+</div>
+<div id="select-function" class="section level4 hasAnchor" number="3.4.2.2">
+<h4><span class="header-section-number">3.4.2.2</span> <code>select()</code> function:<a href="descriptive-statistics-with-tidyverse.html#select-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><code>select()</code> function allows us to select only the columns we want:</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="descriptive-statistics-with-tidyverse.html#cb185-1" tabindex="-1"></a><span class="fu">select</span>(df, country, pop, year) <span class="co"># only tak</span></span>
+<span id="cb185-2"><a href="descriptive-statistics-with-tidyverse.html#cb185-2" tabindex="-1"></a></span>
+<span id="cb185-3"><a href="descriptive-statistics-with-tidyverse.html#cb185-3" tabindex="-1"></a><span class="fu">select</span>(df, <span class="sc">-</span>continent) <span class="co"># kıta hariç bütün sütunları al</span></span>
+<span id="cb185-4"><a href="descriptive-statistics-with-tidyverse.html#cb185-4" tabindex="-1"></a></span>
+<span id="cb185-5"><a href="descriptive-statistics-with-tidyverse.html#cb185-5" tabindex="-1"></a><span class="fu">select</span>(df, pop<span class="sc">:</span>gdpPercap) <span class="co"># nüfustan gdp&#39;ye kadar bütün sütunları al</span></span></code></pre></div>
+</div>
+<div id="rename-function" class="section level4 hasAnchor" number="3.4.2.3">
+<h4><span class="header-section-number">3.4.2.3</span> <code>rename()</code> function:<a href="descriptive-statistics-with-tidyverse.html#rename-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We can change the names of the columns we want with this. If we want
+this to be saved, we need to overwrite the variable:</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="descriptive-statistics-with-tidyverse.html#cb186-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb186-2"><a href="descriptive-statistics-with-tidyverse.html#cb186-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">rename</span>(df, <span class="at">Country =</span> country, <span class="at">CONTINENT =</span> continent, <span class="at">YEAR =</span> year, <span class="at">LifeExpectancy =</span> lifeExp)</span>
+<span id="cb186-3"><a href="descriptive-statistics-with-tidyverse.html#cb186-3" tabindex="-1"></a></span>
+<span id="cb186-4"><a href="descriptive-statistics-with-tidyverse.html#cb186-4" tabindex="-1"></a><span class="fu">head</span>(df)</span>
+<span id="cb186-5"><a href="descriptive-statistics-with-tidyverse.html#cb186-5" tabindex="-1"></a></span>
+<span id="cb186-6"><a href="descriptive-statistics-with-tidyverse.html#cb186-6" tabindex="-1"></a><span class="co"># Extra: clean the column names</span></span>
+<span id="cb186-7"><a href="descriptive-statistics-with-tidyverse.html#cb186-7" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb186-8"><a href="descriptive-statistics-with-tidyverse.html#cb186-8" tabindex="-1"></a>df_cleaned <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(df)</span></code></pre></div>
+</div>
+<div id="mutate-function" class="section level4 hasAnchor" number="3.4.2.4">
+<h4><span class="header-section-number">3.4.2.4</span> <code>mutate()</code> function:<a href="descriptive-statistics-with-tidyverse.html#mutate-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We can make changes to a tibble with the mutate() function.</p>
+<p>For example, let’s create a new column and write the population there as
+one per million:</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="descriptive-statistics-with-tidyverse.html#cb187-1" tabindex="-1"></a>df_mutated <span class="ot">&lt;-</span> <span class="fu">mutate</span>(df_cleaned, <span class="at">pop_million =</span> pop <span class="sc">/</span> <span class="dv">1000000</span>)</span>
+<span id="cb187-2"><a href="descriptive-statistics-with-tidyverse.html#cb187-2" tabindex="-1"></a></span>
+<span id="cb187-3"><a href="descriptive-statistics-with-tidyverse.html#cb187-3" tabindex="-1"></a><span class="fu">head</span>(df_mutated)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 7
+##   country     continent  year life_expectancy      pop gdp_percap pop_million
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;           &lt;dbl&gt;    &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;
+## 1 Afghanistan Asia       1952            28.8  8425333       779.        8.43
+## 2 Afghanistan Asia       1957            30.3  9240934       821.        9.24
+## 3 Afghanistan Asia       1962            32.0 10267083       853.       10.3 
+## 4 Afghanistan Asia       1967            34.0 11537966       836.       11.5 
+## 5 Afghanistan Asia       1972            36.1 13079460       740.       13.1 
+## 6 Afghanistan Asia       1977            38.4 14880372       786.       14.9</code></pre>
+</div>
+<div id="arrange-function" class="section level4 hasAnchor" number="3.4.2.5">
+<h4><span class="header-section-number">3.4.2.5</span> <code>arrange()</code> function:<a href="descriptive-statistics-with-tidyverse.html#arrange-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="descriptive-statistics-with-tidyverse.html#cb189-1" tabindex="-1"></a><span class="co"># sort increasingly</span></span>
+<span id="cb189-2"><a href="descriptive-statistics-with-tidyverse.html#cb189-2" tabindex="-1"></a></span>
+<span id="cb189-3"><a href="descriptive-statistics-with-tidyverse.html#cb189-3" tabindex="-1"></a><span class="fu">arrange</span>(df_mutated, continent)</span>
+<span id="cb189-4"><a href="descriptive-statistics-with-tidyverse.html#cb189-4" tabindex="-1"></a></span>
+<span id="cb189-5"><a href="descriptive-statistics-with-tidyverse.html#cb189-5" tabindex="-1"></a><span class="fu">arrange</span>(df_mutated, gdp_percap)</span>
+<span id="cb189-6"><a href="descriptive-statistics-with-tidyverse.html#cb189-6" tabindex="-1"></a></span>
+<span id="cb189-7"><a href="descriptive-statistics-with-tidyverse.html#cb189-7" tabindex="-1"></a><span class="co"># sort in an descending order</span></span>
+<span id="cb189-8"><a href="descriptive-statistics-with-tidyverse.html#cb189-8" tabindex="-1"></a></span>
+<span id="cb189-9"><a href="descriptive-statistics-with-tidyverse.html#cb189-9" tabindex="-1"></a><span class="fu">arrange</span>(df_mutated, <span class="fu">desc</span>(year))</span></code></pre></div>
+</div>
+</div>
+<div id="pipe-with-the-magrittr-package" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Pipe with the magrittr package<a href="descriptive-statistics-with-tidyverse.html#pipe-with-the-magrittr-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The pipe operator is represented by the symbol %&gt;%. This operator takes
+the variable on its left and places it as the first argument of the
+function on its right. This operator will be preferred instead of using
+nested and long functions. This saves us from hard-to-read and nested
+functions and helps us follow a linear order:</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="descriptive-statistics-with-tidyverse.html#cb190-1" tabindex="-1"></a><span class="fu">filter</span>(df_mutated, country <span class="sc">==</span> <span class="st">&quot;Turkey&quot;</span>) <span class="co"># previous method</span></span>
+<span id="cb190-2"><a href="descriptive-statistics-with-tidyverse.html#cb190-2" tabindex="-1"></a></span>
+<span id="cb190-3"><a href="descriptive-statistics-with-tidyverse.html#cb190-3" tabindex="-1"></a>df_mutated <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;Turkey&quot;</span>) <span class="co"># with pipe</span></span>
+<span id="cb190-4"><a href="descriptive-statistics-with-tidyverse.html#cb190-4" tabindex="-1"></a></span>
+<span id="cb190-5"><a href="descriptive-statistics-with-tidyverse.html#cb190-5" tabindex="-1"></a><span class="fu">select</span>(<span class="fu">filter</span>(df_mutated, country <span class="sc">==</span> <span class="st">&quot;Turkey&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="st">&quot;2007&quot;</span>), pop) <span class="co"># previous method</span></span>
+<span id="cb190-6"><a href="descriptive-statistics-with-tidyverse.html#cb190-6" tabindex="-1"></a></span>
+<span id="cb190-7"><a href="descriptive-statistics-with-tidyverse.html#cb190-7" tabindex="-1"></a>df_mutated <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;Turkey&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="st">&quot;2007&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(pop) <span class="co"># pipe ile</span></span></code></pre></div>
+</div>
+<div id="visualization-with-the-ggplot2-package" class="section level3 hasAnchor" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Visualization with the ggplot2 package<a href="descriptive-statistics-with-tidyverse.html#visualization-with-the-ggplot2-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="scatterplots" class="section level3 hasAnchor" number="3.4.5">
+<h3><span class="header-section-number">3.4.5</span> Scatterplots<a href="descriptive-statistics-with-tidyverse.html#scatterplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You can use <code>geom_point().</code></p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="descriptive-statistics-with-tidyverse.html#cb191-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb191-2"><a href="descriptive-statistics-with-tidyverse.html#cb191-2" tabindex="-1"></a></span>
+<span id="cb191-3"><a href="descriptive-statistics-with-tidyverse.html#cb191-3" tabindex="-1"></a>df_mutated <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb191-4"><a href="descriptive-statistics-with-tidyverse.html#cb191-4" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdp_percap, <span class="at">y=</span>life_expectancy)) <span class="sc">+</span></span>
+<span id="cb191-5"><a href="descriptive-statistics-with-tidyverse.html#cb191-5" tabindex="-1"></a> <span class="fu">geom_point</span>() </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p>Or you can try using <code>geom_jitter()</code> or <code>geom_violin()</code></p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="descriptive-statistics-with-tidyverse.html#cb192-1" tabindex="-1"></a>df_mutated <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb192-2"><a href="descriptive-statistics-with-tidyverse.html#cb192-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdp_percap, <span class="at">y=</span>life_expectancy)) <span class="sc">+</span></span>
+<span id="cb192-3"><a href="descriptive-statistics-with-tidyverse.html#cb192-3" tabindex="-1"></a> <span class="fu">geom_violin</span>() </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p>You can use text labels.</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="descriptive-statistics-with-tidyverse.html#cb193-1" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> df_mutated <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb193-2"><a href="descriptive-statistics-with-tidyverse.html#cb193-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdp_percap, <span class="at">y=</span>life_expectancy, <span class="at">label =</span> country)) <span class="sc">+</span></span>
+<span id="cb193-3"><a href="descriptive-statistics-with-tidyverse.html#cb193-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb193-4"><a href="descriptive-statistics-with-tidyverse.html#cb193-4" tabindex="-1"></a>  <span class="fu">geom_text</span>()</span>
+<span id="cb193-5"><a href="descriptive-statistics-with-tidyverse.html#cb193-5" tabindex="-1"></a></span>
+<span id="cb193-6"><a href="descriptive-statistics-with-tidyverse.html#cb193-6" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Plot title&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;GDP&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Life Exp&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="descriptive-statistics-with-tidyverse.html#cb194-1" tabindex="-1"></a><span class="co"># save it</span></span>
+<span id="cb194-2"><a href="descriptive-statistics-with-tidyverse.html#cb194-2" tabindex="-1"></a><span class="co"># ggsave(&#39;plot1.png&#39;, width = 8, height = 6)</span></span></code></pre></div>
+<p>Using the color option:</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="descriptive-statistics-with-tidyverse.html#cb195-1" tabindex="-1"></a>df_mutated <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb195-2"><a href="descriptive-statistics-with-tidyverse.html#cb195-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdp_percap, <span class="at">y=</span>life_expectancy, <span class="at">label =</span> country, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb195-3"><a href="descriptive-statistics-with-tidyverse.html#cb195-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb195-4"><a href="descriptive-statistics-with-tidyverse.html#cb195-4" tabindex="-1"></a>  <span class="fu">geom_text</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p>Add new facets:</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="descriptive-statistics-with-tidyverse.html#cb196-1" tabindex="-1"></a> df_mutated <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb196-2"><a href="descriptive-statistics-with-tidyverse.html#cb196-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdp_percap, <span class="at">y=</span>life_expectancy, <span class="at">label =</span> country, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb196-3"><a href="descriptive-statistics-with-tidyverse.html#cb196-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb196-4"><a href="descriptive-statistics-with-tidyverse.html#cb196-4" tabindex="-1"></a>  <span class="fu">geom_text</span>() <span class="sc">+</span> </span>
+<span id="cb196-5"><a href="descriptive-statistics-with-tidyverse.html#cb196-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>continent)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+</div>
+<div id="bar-plots" class="section level3 hasAnchor" number="3.4.6">
+<h3><span class="header-section-number">3.4.6</span> Bar plots<a href="descriptive-statistics-with-tidyverse.html#bar-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="descriptive-statistics-with-tidyverse.html#cb197-1" tabindex="-1"></a>df_mutated <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Turkey&quot;</span>,<span class="st">&quot;Brazil&quot;</span>,<span class="st">&quot;Thailand&quot;</span>,<span class="st">&quot;Nigeria&quot;</span>,<span class="st">&quot;New Zealand&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb197-2"><a href="descriptive-statistics-with-tidyverse.html#cb197-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(continent,gdp_percap), <span class="at">y =</span> gdp_percap, <span class="at">fill =</span> continent)) <span class="sc">+</span></span>
+<span id="cb197-3"><a href="descriptive-statistics-with-tidyverse.html#cb197-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+</div>
+</div>
+<div id="in-class-exercises-1" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> In-class Exercises<a href="descriptive-statistics-with-tidyverse.html#in-class-exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>What years of information are included in the Gapminder data? Tip:
+You can find this out with the <code>unique()</code> command.</li>
+</ol>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="descriptive-statistics-with-tidyverse.html#cb198-1" tabindex="-1"></a><span class="co"># Your answer:</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>What are the mean and median of life years in 1962 and 2002? Tip:
+You can do this with the <code>filter()</code> and <code>select()</code> functions.</li>
+</ol>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="descriptive-statistics-with-tidyverse.html#cb199-1" tabindex="-1"></a><span class="co"># Your answer:</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Can you create a scatterplot of income (x-axis) and years of life
+expectancy (y-axis) for the European continent in 1960, 1980 and
+2000 using <code>ggplot()</code> and <code>facet_wrap()</code>? Country names must appear
+as text. Also color by continent. Tip: after filtering the data by
+these years you will need to call <code>facet_wrap(~year)</code>.</li>
+</ol>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="descriptive-statistics-with-tidyverse.html#cb200-1" tabindex="-1"></a><span class="co"># Your answer:</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Can you create a line plot and show Turkey’s population growth? Can
+you name the plot and axes? Tip: you will need to use the
+<code>geom_line()</code> function to create the line chart.</li>
+</ol>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="descriptive-statistics-with-tidyverse.html#cb201-1" tabindex="-1"></a><span class="co"># Your answer:</span></span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-r-programming.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inferential-statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/kelesonur/scode/edit/main/03-w2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/kelesonur/scode/blob/main/03-w2.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -4,27 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>YOUR TITLE HERE</title>
-  <meta name="description" content="YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <title>SCODE: R and Python Workshop</title>
+  <meta name="description" content="SCODE: R and Python Workshop" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="YOUR TITLE HERE" />
+  <meta property="og:title" content="SCODE: R and Python Workshop" />
   <meta property="og:type" content="book" />
-  
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="YOUR TITLE HERE" />
+  <meta name="twitter:title" content="SCODE: R and Python Workshop" />
   
   
   
 
-<meta name="author" content="YOUR NAME HERE" />
+<meta name="author" content="Onur Keleş &amp; Ömer Bayraklı" />
 
 
-<meta name="date" content="2020-08-10" />
+<meta name="date" content="2024-01-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +31,9 @@
   
   
 
-<link rel="next" href="the-pool-of-tears.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="next" href="introduction-to-r-programming.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,9 +49,86 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -66,12 +143,123 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">SCODE: R and Python Workshop</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Down the rabbit-hole</a></li>
-<li class="chapter" data-level="2" data-path="the-pool-of-tears.html"><a href="the-pool-of-tears.html"><i class="fa fa-check"></i><b>2</b> The pool of tears</a></li>
-<li class="chapter" data-level="3" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>3</b> A caucus-race and a long tale</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to SCODE!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instructors"><i class="fa fa-check"></i><b>1.1</b> Instructors</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i><b>1.2</b> Structure of the book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i><b>1.3</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html"><i class="fa fa-check"></i><b>2</b> Introduction to R Programming</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#what-is-it"><i class="fa fa-check"></i><b>2.0.1</b> What is it?</a></li>
+<li class="chapter" data-level="2.0.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#why-r"><i class="fa fa-check"></i><b>2.0.2</b> Why R?</a></li>
+<li class="chapter" data-level="2.0.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#how-will-we-code"><i class="fa fa-check"></i><b>2.0.3</b> How will we code?</a></li>
+<li class="chapter" data-level="2.0.4" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#cheat-sheets"><i class="fa fa-check"></i><b>2.0.4</b> Cheat sheets</a></li>
+<li class="chapter" data-level="2.0.5" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#real-world-use-cases-of-r"><i class="fa fa-check"></i><b>2.0.5</b> Real world use cases of R:</a></li>
+<li class="chapter" data-level="2.0.6" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#python-vs.-r"><i class="fa fa-check"></i><b>2.0.6</b> Python vs. R?</a></li>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#lets-start-coding"><i class="fa fa-check"></i><b>2.1</b> Let’s start coding!</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#functions-in-r"><i class="fa fa-check"></i><b>2.2</b> Functions in R</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#variables-in-r"><i class="fa fa-check"></i><b>2.3</b> Variables in R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#operations-with-variables"><i class="fa fa-check"></i><b>2.3.1</b> Operations with variables</a></li>
+<li class="chapter" data-level="2.3.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#logical-operators"><i class="fa fa-check"></i><b>2.3.2</b> Logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#data-types-in-r"><i class="fa fa-check"></i><b>2.4</b> Data types in R</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#vectors"><i class="fa fa-check"></i><b>2.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#data-frames"><i class="fa fa-check"></i><b>2.4.2</b> Data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#quick-visualization"><i class="fa fa-check"></i><b>2.5</b> Quick visualization</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#in-class-exercises"><i class="fa fa-check"></i><b>2.6</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-1"><i class="fa fa-check"></i><b>2.6.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="2.6.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-2"><i class="fa fa-check"></i><b>2.6.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="2.6.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-3"><i class="fa fa-check"></i><b>2.6.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#practice-questions-for-next-week"><i class="fa fa-check"></i><b>2.7</b> Practice questions for next week</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Descriptive statistics with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#answers-to-exercise-questions"><i class="fa fa-check"></i><b>3.1</b> Answers to Exercise Questions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-1-1"><i class="fa fa-check"></i><b>3.1.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="3.1.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-2-1"><i class="fa fa-check"></i><b>3.1.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="3.1.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-3-1"><i class="fa fa-check"></i><b>3.1.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#practice-questions-for-next-week-1"><i class="fa fa-check"></i><b>3.2</b> Practice questions for next week</a></li>
+<li class="chapter" data-level="3.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-in-class-practice"><i class="fa fa-check"></i><b>3.3</b> Data Manipulation: In-class practice</a></li>
+<li class="chapter" data-level="3.4" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-tidyverse"><i class="fa fa-check"></i><b>3.4</b> Data Manipulation with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#tibble"><i class="fa fa-check"></i><b>3.4.1</b> Tibble</a></li>
+<li class="chapter" data-level="3.4.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>3.4.2</b> Data manipulation with dplyr</a></li>
+<li class="chapter" data-level="3.4.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#pipe-with-the-magrittr-package"><i class="fa fa-check"></i><b>3.4.3</b> Pipe with the magrittr package</a></li>
+<li class="chapter" data-level="3.4.4" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#visualization-with-the-ggplot2-package"><i class="fa fa-check"></i><b>3.4.4</b> Visualization with the ggplot2 package</a></li>
+<li class="chapter" data-level="3.4.5" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#scatterplots"><i class="fa fa-check"></i><b>3.4.5</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.4.6" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#bar-plots"><i class="fa fa-check"></i><b>3.4.6</b> Bar plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#in-class-exercises-1"><i class="fa fa-check"></i><b>3.5</b> In-class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inferential-statistics.html"><a href="inferential-statistics.html"><i class="fa fa-check"></i><b>4</b> Inferential statistics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#answers-to-exercise-questions-1"><i class="fa fa-check"></i><b>4.1</b> Answers to Exercise Questions</a></li>
+<li class="chapter" data-level="4.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#creating-summary-tables-and-performing-simple-data-analysis-with-dplyr"><i class="fa fa-check"></i><b>4.2</b> Creating summary tables and performing simple data analysis with Dplyr</a></li>
+<li class="chapter" data-level="4.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#group_by-and-summarize"><i class="fa fa-check"></i><b>4.3</b> <code>group_by()</code> and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#linear-regression"><i class="fa fa-check"></i><b>4.4</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#time-series-data-analysis"><i class="fa fa-check"></i><b>4.5</b> Time Series Data Analysis</a></li>
+<li class="chapter" data-level="4.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#in-class-exercises-2"><i class="fa fa-check"></i><b>4.6</b> In-class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html"><i class="fa fa-check"></i><b>5</b> Twitter data analysis and RMarkdown</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#answers-to-exercise-questions-2"><i class="fa fa-check"></i><b>5.1</b> Answers to Exercise Questions</a></li>
+<li class="chapter" data-level="5.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-3"><i class="fa fa-check"></i><b>5.2</b> In-class Exercises</a></li>
+<li class="chapter" data-level="5.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-analysis-with-r"><i class="fa fa-check"></i><b>5.3</b> Twitter Analysis with R</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#why-perform-data-mining-on-twitter"><i class="fa fa-check"></i><b>5.3.1</b> Why Perform Data Mining on Twitter?</a></li>
+<li class="chapter" data-level="5.3.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#why-choose-r-over-other-platforms-e.g.-sprout-social-talkwalker"><i class="fa fa-check"></i><b>5.3.2</b> Why Choose R over Other Platforms (e.g., Sprout Social, Talkwalker)?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#installing-necessary-packages"><i class="fa fa-check"></i><b>5.4</b> Installing Necessary Packages</a></li>
+<li class="chapter" data-level="5.5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#loading-packages"><i class="fa fa-check"></i><b>5.5</b> Loading Packages</a></li>
+<li class="chapter" data-level="5.6" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-settings"><i class="fa fa-check"></i><b>5.6</b> Twitter Settings</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-api-settings"><i class="fa fa-check"></i><b>5.6.1</b> Twitter API Settings</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis"><i class="fa fa-check"></i><b>5.7</b> Timeline Analysis</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#fetching-tweets-from-an-account"><i class="fa fa-check"></i><b>5.7.1</b> Fetching Tweets from an Account</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#cleaning-the-tweets"><i class="fa fa-check"></i><b>5.8</b> Cleaning the Tweets</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#creating-a-stop-words-list-for-turkish"><i class="fa fa-check"></i><b>5.8.1</b> Creating a Stop Words List for Turkish</a></li>
+<li class="chapter" data-level="5.8.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#tokenizing-and-cleaning"><i class="fa fa-check"></i><b>5.8.2</b> Tokenizing and Cleaning</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#counting-words"><i class="fa fa-check"></i><b>5.9</b> Counting Words</a></li>
+<li class="chapter" data-level="5.10" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#creating-a-word-cloud"><i class="fa fa-check"></i><b>5.10</b> Creating a Word Cloud</a></li>
+<li class="chapter" data-level="5.11" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#hashtag-and-timeline-tweet-analysis"><i class="fa fa-check"></i><b>5.11</b> Hashtag and Timeline Tweet Analysis</a>
+<ul>
+<li class="chapter" data-level="5.11.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#analyzing-tweets-with-a-specific-hashtag"><i class="fa fa-check"></i><b>5.11.1</b> Analyzing Tweets with a Specific Hashtag</a></li>
+<li class="chapter" data-level="5.11.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis-1"><i class="fa fa-check"></i><b>5.11.2</b> Timeline Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.12" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#sentiment-analysis-in-turkish"><i class="fa fa-check"></i><b>5.12</b> Sentiment Analysis in Turkish</a>
+<ul>
+<li class="chapter" data-level="5.12.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#import-the-lexicon"><i class="fa fa-check"></i><b>5.12.1</b> Import the lexicon</a></li>
+<li class="chapter" data-level="5.12.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#examine-the-lexicon"><i class="fa fa-check"></i><b>5.12.2</b> Examine the lexicon</a></li>
+<li class="chapter" data-level="5.12.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#get-the-words-and-calculate-sentiment"><i class="fa fa-check"></i><b>5.12.3</b> Get the words and calculate sentiment</a></li>
+<li class="chapter" data-level="5.12.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#visualize-arousal-and-valence"><i class="fa fa-check"></i><b>5.12.4</b> Visualize arousal and valence</a></li>
+<li class="chapter" data-level="5.12.5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#most-positive-and-negative-words-used-by-the-person"><i class="fa fa-check"></i><b>5.12.5</b> Most positive and negative words used by the person</a></li>
+<li class="chapter" data-level="5.12.6" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#use-get_nrc_sentiment-for-english-sentiment-analysis"><i class="fa fa-check"></i><b>5.12.6</b> Use <code>get_nrc_sentiment()</code> for English sentiment analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.13" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-4"><i class="fa fa-check"></i><b>5.13</b> In-class Exercises</a></li>
+<li class="chapter" data-level="5.14" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>5.14</b> RMarkdown</a>
+<ul>
+<li class="chapter" data-level="5.14.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown-tutorial"><i class="fa fa-check"></i><b>5.14.1</b> <strong>RMarkdown Tutorial</strong></a></li>
+<li class="chapter" data-level="5.14.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#introduction-to-rmarkdown"><i class="fa fa-check"></i><b>5.14.2</b> Introduction to RMarkdown</a></li>
+<li class="chapter" data-level="5.14.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#getting-started-with-rmarkdown"><i class="fa fa-check"></i><b>5.14.3</b> Getting Started with RMarkdown</a></li>
+<li class="chapter" data-level="5.14.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-5"><i class="fa fa-check"></i><b>5.14.4</b> In-class Exercises:</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -83,7 +271,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SCODE: R and Python Workshop</a>
           </h1>
         </div>
 
@@ -92,13 +280,49 @@
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">YOUR TITLE HERE</h1>
-<p class="author"><em>YOUR NAME HERE</em></p>
-<p class="date"><em>2020-08-10</em></p>
+<h1 class="title">SCODE: R and Python Workshop</h1>
+<p class="author"><em>Onur Keleş &amp; Ömer Bayraklı</em></p>
+<p class="date"><em>2024-01-28</em></p>
 </div>
-<div id="down-the-rabbit-hole" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Down the rabbit-hole</h1>
+<div id="welcome-to-scode" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Welcome to SCODE!<a href="index.html#welcome-to-scode" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>SCODE (Workshop on Open-Source Coding for Social Science) is a project by Onur Keleş and Ömer Bayraklı that aims to teach data science with Python and R to students from a social science background. The first edition of SCODE was completed in Summer 2022 at Yıldız Technical University and the second and most recent edition ended in Spring 2013 at Boğaziçi University, hosting more than 100 students, 5 guest lecturers and over 12 weeks of training. We collected all the training materials on this Github bookdown, free to use or re-produce. Enjoy the content!</p>
+<div id="instructors" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Instructors<a href="index.html#instructors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="images/412742C6.JPG" width="163" /></p>
+<p><a href="http://linktr.ee/onrkls">Onur Keleş</a></p>
+<p>Onur Keleş is an M.A. student in the Department of Linguistics at Boğaziçi University, Istanbul, Turkey. He graduated from the Department of Foreign Language Education in July 2021. His main research interests include visual-gestural modality, quantitative linguistics, natural langauge processing and computational social science. He is currently employed as Research/Teaching Assistant in the Department of Linguistics at Boğaziçi University.</p>
+<p><img src="images/1686491683635.jpeg" width="163" /></p>
+<p><a href="http://twitter.com/omer_bayrakli/">Ömer Bayraklı</a></p>
+<p>Ömer Bayraklı is an undergraduate student at the Department of Econometrics and Quantitative Economics at Istanbul University. He also worked as Data Science intern at Dejure AI, a legal tech startup and Finance Department intern at Ardic Cable Trays. His main research interests include quantitative economics, data science, statistics, and machine learning.</p>
+</div>
+<div id="structure-of-the-book" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Structure of the book<a href="index.html#structure-of-the-book" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p><strong>Chapter 1</strong> - Introduction to R programming</p></li>
+<li><p><strong>Chapter 2</strong> - Descriptive statistics with Tidyverse</p></li>
+<li><p><strong>Chapter 3</strong> - Inferential statistics (linear regression)</p></li>
+<li><p><strong>Chapter 4</strong> - Twitter data analysis and RMarkdown</p></li>
+<li><p><strong>Chapter 5</strong> - Introduction to Python</p></li>
+<li><p><strong>Chapter 6</strong> - Data analysis with pandas</p></li>
+<li><p><strong>Chapter 7</strong> - Data visualization with matplotlib</p></li>
+<li><p><strong>Chapter 8</strong> - Machine learning with scikit-learn</p></li>
+</ul>
+<p><strong>Note:</strong> This is a beginner course! If you already know advanced
+statistics or R/Python, this workshop will not be for you!</p>
+</div>
+<div id="acknowledgements" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Acknowledgements<a href="index.html#acknowledgements" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We would like to thank our guest lecturers for their contributions to the workshop:</p>
+<ul>
+<li>Mehmet Akıncı</li>
+<li>Didem Gündoğdu</li>
+<li>Onur Temiz</li>
+<li>Yunus Emre Gündoğmuş</li>
+<li>Karahan Şahin</li>
+</ul>
 
+</div>
 </div>
             </section>
 
@@ -106,11 +330,10 @@
         </div>
       </div>
 
-<a href="the-pool-of-tears.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-to-r-programming.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -129,6 +352,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -137,7 +361,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/master/index.Rmd",
+"link": "https://github.com/kelesonur/scode/edit/main/index.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -145,10 +369,14 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/master/index.Rmd",
+"link": "https://github.com/kelesonur/scode/blob/main/index.Rmd",
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -156,6 +384,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

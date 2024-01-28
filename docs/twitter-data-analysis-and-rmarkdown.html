@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Twitter data analysis and RMarkdown | SCODE: R and Python Workshop</title>
+  <meta name="description" content="Chapter 5 Twitter data analysis and RMarkdown | SCODE: R and Python Workshop" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Twitter data analysis and RMarkdown | SCODE: R and Python Workshop" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Twitter data analysis and RMarkdown | SCODE: R and Python Workshop" />
+  
+  
+  
+
+<meta name="author" content="Onur Keleş &amp; Ömer Bayraklı" />
+
+
+<meta name="date" content="2024-01-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="inferential-statistics.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SCODE: R and Python Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to SCODE!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instructors"><i class="fa fa-check"></i><b>1.1</b> Instructors</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i><b>1.2</b> Structure of the book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i><b>1.3</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html"><i class="fa fa-check"></i><b>2</b> Introduction to R Programming</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#what-is-it"><i class="fa fa-check"></i><b>2.0.1</b> What is it?</a></li>
+<li class="chapter" data-level="2.0.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#why-r"><i class="fa fa-check"></i><b>2.0.2</b> Why R?</a></li>
+<li class="chapter" data-level="2.0.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#how-will-we-code"><i class="fa fa-check"></i><b>2.0.3</b> How will we code?</a></li>
+<li class="chapter" data-level="2.0.4" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#cheat-sheets"><i class="fa fa-check"></i><b>2.0.4</b> Cheat sheets</a></li>
+<li class="chapter" data-level="2.0.5" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#real-world-use-cases-of-r"><i class="fa fa-check"></i><b>2.0.5</b> Real world use cases of R:</a></li>
+<li class="chapter" data-level="2.0.6" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#python-vs.-r"><i class="fa fa-check"></i><b>2.0.6</b> Python vs. R?</a></li>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#lets-start-coding"><i class="fa fa-check"></i><b>2.1</b> Let’s start coding!</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#functions-in-r"><i class="fa fa-check"></i><b>2.2</b> Functions in R</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#variables-in-r"><i class="fa fa-check"></i><b>2.3</b> Variables in R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#operations-with-variables"><i class="fa fa-check"></i><b>2.3.1</b> Operations with variables</a></li>
+<li class="chapter" data-level="2.3.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#logical-operators"><i class="fa fa-check"></i><b>2.3.2</b> Logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#data-types-in-r"><i class="fa fa-check"></i><b>2.4</b> Data types in R</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#vectors"><i class="fa fa-check"></i><b>2.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#data-frames"><i class="fa fa-check"></i><b>2.4.2</b> Data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#quick-visualization"><i class="fa fa-check"></i><b>2.5</b> Quick visualization</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#in-class-exercises"><i class="fa fa-check"></i><b>2.6</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-1"><i class="fa fa-check"></i><b>2.6.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="2.6.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-2"><i class="fa fa-check"></i><b>2.6.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="2.6.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-3"><i class="fa fa-check"></i><b>2.6.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#practice-questions-for-next-week"><i class="fa fa-check"></i><b>2.7</b> Practice questions for next week</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Descriptive statistics with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#answers-to-exercise-questions"><i class="fa fa-check"></i><b>3.1</b> Answers to Exercise Questions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-1-1"><i class="fa fa-check"></i><b>3.1.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="3.1.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-2-1"><i class="fa fa-check"></i><b>3.1.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="3.1.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-3-1"><i class="fa fa-check"></i><b>3.1.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#practice-questions-for-next-week-1"><i class="fa fa-check"></i><b>3.2</b> Practice questions for next week</a></li>
+<li class="chapter" data-level="3.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-in-class-practice"><i class="fa fa-check"></i><b>3.3</b> Data Manipulation: In-class practice</a></li>
+<li class="chapter" data-level="3.4" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-tidyverse"><i class="fa fa-check"></i><b>3.4</b> Data Manipulation with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#tibble"><i class="fa fa-check"></i><b>3.4.1</b> Tibble</a></li>
+<li class="chapter" data-level="3.4.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>3.4.2</b> Data manipulation with dplyr</a></li>
+<li class="chapter" data-level="3.4.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#pipe-with-the-magrittr-package"><i class="fa fa-check"></i><b>3.4.3</b> Pipe with the magrittr package</a></li>
+<li class="chapter" data-level="3.4.4" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#visualization-with-the-ggplot2-package"><i class="fa fa-check"></i><b>3.4.4</b> Visualization with the ggplot2 package</a></li>
+<li class="chapter" data-level="3.4.5" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#scatterplots"><i class="fa fa-check"></i><b>3.4.5</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.4.6" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#bar-plots"><i class="fa fa-check"></i><b>3.4.6</b> Bar plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#in-class-exercises-1"><i class="fa fa-check"></i><b>3.5</b> In-class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inferential-statistics.html"><a href="inferential-statistics.html"><i class="fa fa-check"></i><b>4</b> Inferential statistics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#answers-to-exercise-questions-1"><i class="fa fa-check"></i><b>4.1</b> Answers to Exercise Questions</a></li>
+<li class="chapter" data-level="4.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#creating-summary-tables-and-performing-simple-data-analysis-with-dplyr"><i class="fa fa-check"></i><b>4.2</b> Creating summary tables and performing simple data analysis with Dplyr</a></li>
+<li class="chapter" data-level="4.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#group_by-and-summarize"><i class="fa fa-check"></i><b>4.3</b> <code>group_by()</code> and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#linear-regression"><i class="fa fa-check"></i><b>4.4</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#time-series-data-analysis"><i class="fa fa-check"></i><b>4.5</b> Time Series Data Analysis</a></li>
+<li class="chapter" data-level="4.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#in-class-exercises-2"><i class="fa fa-check"></i><b>4.6</b> In-class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html"><i class="fa fa-check"></i><b>5</b> Twitter data analysis and RMarkdown</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#answers-to-exercise-questions-2"><i class="fa fa-check"></i><b>5.1</b> Answers to Exercise Questions</a></li>
+<li class="chapter" data-level="5.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-3"><i class="fa fa-check"></i><b>5.2</b> In-class Exercises</a></li>
+<li class="chapter" data-level="5.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-analysis-with-r"><i class="fa fa-check"></i><b>5.3</b> Twitter Analysis with R</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#why-perform-data-mining-on-twitter"><i class="fa fa-check"></i><b>5.3.1</b> Why Perform Data Mining on Twitter?</a></li>
+<li class="chapter" data-level="5.3.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#why-choose-r-over-other-platforms-e.g.-sprout-social-talkwalker"><i class="fa fa-check"></i><b>5.3.2</b> Why Choose R over Other Platforms (e.g., Sprout Social, Talkwalker)?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#installing-necessary-packages"><i class="fa fa-check"></i><b>5.4</b> Installing Necessary Packages</a></li>
+<li class="chapter" data-level="5.5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#loading-packages"><i class="fa fa-check"></i><b>5.5</b> Loading Packages</a></li>
+<li class="chapter" data-level="5.6" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-settings"><i class="fa fa-check"></i><b>5.6</b> Twitter Settings</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-api-settings"><i class="fa fa-check"></i><b>5.6.1</b> Twitter API Settings</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis"><i class="fa fa-check"></i><b>5.7</b> Timeline Analysis</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#fetching-tweets-from-an-account"><i class="fa fa-check"></i><b>5.7.1</b> Fetching Tweets from an Account</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#cleaning-the-tweets"><i class="fa fa-check"></i><b>5.8</b> Cleaning the Tweets</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#creating-a-stop-words-list-for-turkish"><i class="fa fa-check"></i><b>5.8.1</b> Creating a Stop Words List for Turkish</a></li>
+<li class="chapter" data-level="5.8.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#tokenizing-and-cleaning"><i class="fa fa-check"></i><b>5.8.2</b> Tokenizing and Cleaning</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#counting-words"><i class="fa fa-check"></i><b>5.9</b> Counting Words</a></li>
+<li class="chapter" data-level="5.10" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#creating-a-word-cloud"><i class="fa fa-check"></i><b>5.10</b> Creating a Word Cloud</a></li>
+<li class="chapter" data-level="5.11" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#hashtag-and-timeline-tweet-analysis"><i class="fa fa-check"></i><b>5.11</b> Hashtag and Timeline Tweet Analysis</a>
+<ul>
+<li class="chapter" data-level="5.11.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#analyzing-tweets-with-a-specific-hashtag"><i class="fa fa-check"></i><b>5.11.1</b> Analyzing Tweets with a Specific Hashtag</a></li>
+<li class="chapter" data-level="5.11.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis-1"><i class="fa fa-check"></i><b>5.11.2</b> Timeline Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.12" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#sentiment-analysis-in-turkish"><i class="fa fa-check"></i><b>5.12</b> Sentiment Analysis in Turkish</a>
+<ul>
+<li class="chapter" data-level="5.12.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#import-the-lexicon"><i class="fa fa-check"></i><b>5.12.1</b> Import the lexicon</a></li>
+<li class="chapter" data-level="5.12.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#examine-the-lexicon"><i class="fa fa-check"></i><b>5.12.2</b> Examine the lexicon</a></li>
+<li class="chapter" data-level="5.12.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#get-the-words-and-calculate-sentiment"><i class="fa fa-check"></i><b>5.12.3</b> Get the words and calculate sentiment</a></li>
+<li class="chapter" data-level="5.12.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#visualize-arousal-and-valence"><i class="fa fa-check"></i><b>5.12.4</b> Visualize arousal and valence</a></li>
+<li class="chapter" data-level="5.12.5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#most-positive-and-negative-words-used-by-the-person"><i class="fa fa-check"></i><b>5.12.5</b> Most positive and negative words used by the person</a></li>
+<li class="chapter" data-level="5.12.6" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#use-get_nrc_sentiment-for-english-sentiment-analysis"><i class="fa fa-check"></i><b>5.12.6</b> Use <code>get_nrc_sentiment()</code> for English sentiment analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.13" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-4"><i class="fa fa-check"></i><b>5.13</b> In-class Exercises</a></li>
+<li class="chapter" data-level="5.14" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>5.14</b> RMarkdown</a>
+<ul>
+<li class="chapter" data-level="5.14.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown-tutorial"><i class="fa fa-check"></i><b>5.14.1</b> <strong>RMarkdown Tutorial</strong></a></li>
+<li class="chapter" data-level="5.14.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#introduction-to-rmarkdown"><i class="fa fa-check"></i><b>5.14.2</b> Introduction to RMarkdown</a></li>
+<li class="chapter" data-level="5.14.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#getting-started-with-rmarkdown"><i class="fa fa-check"></i><b>5.14.3</b> Getting Started with RMarkdown</a></li>
+<li class="chapter" data-level="5.14.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-5"><i class="fa fa-check"></i><b>5.14.4</b> In-class Exercises:</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SCODE: R and Python Workshop</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="twitter-data-analysis-and-rmarkdown" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Twitter data analysis and RMarkdown<a href="twitter-data-analysis-and-rmarkdown.html#twitter-data-analysis-and-rmarkdown" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="answers-to-exercise-questions-2" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Answers to Exercise Questions<a href="twitter-data-analysis-and-rmarkdown.html#answers-to-exercise-questions-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="in-class-exercises-3" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> In-class Exercises<a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>1.1.</strong> Work with the <code>mtcars</code> dataset. Use group_by() and summarize()
+to find the average miles per gallon for each number of cylinders.</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb234-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb234-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb234-2" tabindex="-1"></a></span>
+<span id="cb234-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb234-3" tabindex="-1"></a>avg_mpg_per_cyl <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">avg_mpg =</span> <span class="fu">mean</span>(mpg))</span>
+<span id="cb234-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb234-4" tabindex="-1"></a></span>
+<span id="cb234-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb234-5" tabindex="-1"></a>avg_mpg_per_cyl</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##     cyl avg_mpg
+##   &lt;dbl&gt;   &lt;dbl&gt;
+## 1     4    26.7
+## 2     6    19.7
+## 3     8    15.1</code></pre>
+<p><strong>1.2.</strong> Create a linear regression model. Predict the miles per gallon
+for a car with 6 cylinders and a weight of 3000 lbs.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb236-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> cyl <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb236-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb236-2" tabindex="-1"></a>predicted_mpg <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">cyl =</span> <span class="dv">6</span>, <span class="at">wt =</span> <span class="dv">3000</span><span class="sc">/</span><span class="dv">1000</span>)) <span class="co"># weight converted to 1000s lbs</span></span>
+<span id="cb236-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb236-3" tabindex="-1"></a>predicted_mpg</span></code></pre></div>
+<pre><code>##        1 
+## 21.06658</code></pre>
+<p><strong>1.3.</strong> Plot the regression line.</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb238-1" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb238-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb238-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb238-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb238-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb238-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb238-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">y =</span> predicted_mpg), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb238-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb238-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Regression Line: MPG vs. Weight&quot;</span>,</span>
+<span id="cb238-6"><a href="twitter-data-analysis-and-rmarkdown.html#cb238-6" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Weight (1000 lbs)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Miles per Gallon&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+<hr />
+<p><strong>2.1.</strong> Work with another time series dataset called <code>BJsales</code> in R.
+Sales, 150 months; taken from Box and Jenkins (1970). Visualize the time
+series data.</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb239-1" tabindex="-1"></a><span class="fu">plot</span>(BJsales, <span class="at">main =</span> <span class="st">&quot;BJ Sales Time Series&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Sales&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Months&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p><strong>2.2.</strong> Use linear regression to model the trend component. Predict the
+number of sales for the next 10 months</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb240-1" tabindex="-1"></a>df_time_series <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Y=</span><span class="fu">as.matrix</span>(BJsales), <span class="at">Time =</span> <span class="fu">time</span>(BJsales))</span>
+<span id="cb240-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb240-2" tabindex="-1"></a>model_BJ <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> Time, <span class="at">data =</span> df_time_series)</span>
+<span id="cb240-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb240-3" tabindex="-1"></a>future_time <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Time =</span> <span class="fu">c</span>(<span class="dv">151</span><span class="sc">:</span><span class="dv">160</span>))</span>
+<span id="cb240-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb240-4" tabindex="-1"></a>predicted_sales <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_BJ, <span class="at">newdata =</span> future_time)</span></code></pre></div>
+<p><strong>2.3.</strong> Plot the regression line.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb241-1" tabindex="-1"></a>df_time_series <span class="sc">%&gt;%</span> </span>
+<span id="cb241-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb241-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(Time, Y)) <span class="sc">+</span></span>
+<span id="cb241-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb241-3" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb241-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb241-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb241-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb241-5" tabindex="-1"></a>  <span class="co"># add future predictions</span></span>
+<span id="cb241-6"><a href="twitter-data-analysis-and-rmarkdown.html#cb241-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">Time =</span> future_time<span class="sc">$</span>Time, <span class="at">Y =</span> predicted_sales), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+</div>
+<div id="twitter-analysis-with-r" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Twitter Analysis with R<a href="twitter-data-analysis-and-rmarkdown.html#twitter-analysis-with-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="why-perform-data-mining-on-twitter" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Why Perform Data Mining on Twitter?<a href="twitter-data-analysis-and-rmarkdown.html#why-perform-data-mining-on-twitter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Twitter, with its 217 million active users, sees an average of 500
+million tweets per day. This high volume makes social media platforms
+like Twitter a rich source of user-generated textual data. By processing
+and interpreting these tweets, we can gain insights into people’s
+preferences, sentiments, and trends on various topics.</p>
+<p>Twitter mining can be utilized for analyzing advertising campaigns,
+studying customer behavior, predicting election outcomes, and even in
+academic research.</p>
+</div>
+<div id="why-choose-r-over-other-platforms-e.g.-sprout-social-talkwalker" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Why Choose R over Other Platforms (e.g., Sprout Social, Talkwalker)?<a href="twitter-data-analysis-and-rmarkdown.html#why-choose-r-over-other-platforms-e.g.-sprout-social-talkwalker" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>R is free, while other services are not.</li>
+<li>R offers wider opportunities and customization for analysis.</li>
+<li>You can analyze any user or group of users, not just your own
+account.</li>
+</ul>
+<p>Source: <a href="https://towardsdatascience.com/a-guide-to-mining-and-analysing-tweets-with-r-2f56818fdd16">A Guide to Mining and Analysing Tweets with
+R</a></p>
+</div>
+</div>
+<div id="installing-necessary-packages" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Installing Necessary Packages<a href="twitter-data-analysis-and-rmarkdown.html#installing-necessary-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb242-1" tabindex="-1"></a><span class="co">#install.packages(&quot;rtweet&quot;) </span></span>
+<span id="cb242-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb242-2" tabindex="-1"></a><span class="co">#install.packages(&quot;wordcloud&quot;)</span></span>
+<span id="cb242-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb242-3" tabindex="-1"></a><span class="co">#install.packages(&quot;stopwords&quot;)</span></span>
+<span id="cb242-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb242-4" tabindex="-1"></a><span class="co">#install.packages(&quot;syuzhet&quot;)</span></span>
+<span id="cb242-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb242-5" tabindex="-1"></a><span class="co">#install.packages(&quot;xlsx&quot;)</span></span></code></pre></div>
+</div>
+<div id="loading-packages" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Loading Packages<a href="twitter-data-analysis-and-rmarkdown.html#loading-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb243-1" tabindex="-1"></a><span class="fu">library</span>(stringr)    <span class="co"># for str_replace_all function (cleaning tweets)</span></span>
+<span id="cb243-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb243-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)      <span class="co"># for data frame manipulation functions like anti_join, inner_join, count, ungroup</span></span>
+<span id="cb243-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb243-3" tabindex="-1"></a><span class="fu">library</span>(magrittr)   <span class="co"># for pipe operator %&gt;%</span></span>
+<span id="cb243-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb243-4" tabindex="-1"></a><span class="fu">library</span>(ggplot2)    <span class="co"># for data visualization</span></span>
+<span id="cb243-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb243-5" tabindex="-1"></a><span class="fu">library</span>(readr)      <span class="co"># for reading data frames</span></span>
+<span id="cb243-6"><a href="twitter-data-analysis-and-rmarkdown.html#cb243-6" tabindex="-1"></a><span class="fu">library</span>(rtweet)     <span class="co"># for fetching tweets</span></span>
+<span id="cb243-7"><a href="twitter-data-analysis-and-rmarkdown.html#cb243-7" tabindex="-1"></a><span class="fu">library</span>(wordcloud)  <span class="co"># for creating word clouds</span></span>
+<span id="cb243-8"><a href="twitter-data-analysis-and-rmarkdown.html#cb243-8" tabindex="-1"></a><span class="fu">library</span>(stopwords)  <span class="co"># for a package of stop words</span></span>
+<span id="cb243-9"><a href="twitter-data-analysis-and-rmarkdown.html#cb243-9" tabindex="-1"></a><span class="co">#library(syuzhet)    # for sentiment analysis in English</span></span>
+<span id="cb243-10"><a href="twitter-data-analysis-and-rmarkdown.html#cb243-10" tabindex="-1"></a><span class="fu">library</span>(xlsx)       <span class="co"># for Excel</span></span></code></pre></div>
+</div>
+<div id="twitter-settings" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Twitter Settings<a href="twitter-data-analysis-and-rmarkdown.html#twitter-settings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To analyze Twitter data, you need access to the Twitter API. This
+requires an application for a Twitter Developer account. Once approved,
+you will be provided with personal keys for access.</p>
+<div id="twitter-api-settings" class="section level3 hasAnchor" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Twitter API Settings<a href="twitter-data-analysis-and-rmarkdown.html#twitter-api-settings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Note: The following code will not work as the keys are placeholders.
+Replace them with your personal keys.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb244-1" tabindex="-1"></a>token <span class="ot">&lt;-</span> <span class="fu">create_token</span>(</span>
+<span id="cb244-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb244-2" tabindex="-1"></a>  <span class="at">app =</span> <span class="st">&quot;mytwitterapp&quot;</span>,</span>
+<span id="cb244-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb244-3" tabindex="-1"></a>  <span class="at">consumer_key =</span> <span class="st">&quot;your_consumer_key&quot;</span>,</span>
+<span id="cb244-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb244-4" tabindex="-1"></a>  <span class="at">consumer_secret =</span> <span class="st">&quot;your_consumer_secret&quot;</span>,</span>
+<span id="cb244-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb244-5" tabindex="-1"></a>  <span class="at">access_token =</span> <span class="st">&quot;your_access_token&quot;</span>,</span>
+<span id="cb244-6"><a href="twitter-data-analysis-and-rmarkdown.html#cb244-6" tabindex="-1"></a>  <span class="at">access_secret =</span> <span class="st">&quot;your_access_secret&quot;</span>,</span>
+<span id="cb244-7"><a href="twitter-data-analysis-and-rmarkdown.html#cb244-7" tabindex="-1"></a>  <span class="at">set_renv =</span> <span class="cn">TRUE</span></span>
+<span id="cb244-8"><a href="twitter-data-analysis-and-rmarkdown.html#cb244-8" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+</div>
+<div id="timeline-analysis" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> Timeline Analysis<a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s fetch all tweets from a user’s timeline and create a word cloud
+based on the most frequently used words.</p>
+<div id="fetching-tweets-from-an-account" class="section level3 hasAnchor" number="5.7.1">
+<h3><span class="header-section-number">5.7.1</span> Fetching Tweets from an Account<a href="twitter-data-analysis-and-rmarkdown.html#fetching-tweets-from-an-account" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb245-1" tabindex="-1"></a>my_tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="st">&quot;username&quot;</span>, <span class="at">n =</span> <span class="dv">20</span>, <span class="at">include_rts =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Let’s look at the column names:</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb246-1" tabindex="-1"></a><span class="fu">colnames</span>(my_tweets)</span></code></pre></div>
+<p>You can download the Tweets data I scraped with this link:
+<a href="http://kelesonur.github.io/compec-r/tweets_ince.csv" class="uri">http://kelesonur.github.io/compec-r/tweets_ince.csv</a></p>
+</div>
+</div>
+<div id="cleaning-the-tweets" class="section level2 hasAnchor" number="5.8">
+<h2><span class="header-section-number">5.8</span> Cleaning the Tweets<a href="twitter-data-analysis-and-rmarkdown.html#cleaning-the-tweets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before analyzing the content, it’s essential to clean the tweets to
+remove unwanted characters, URLs, mentions, hashtags, and convert them
+to lower case for uniformity.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-1" tabindex="-1"></a>clean_tweets <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb247-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-2" tabindex="-1"></a>  x <span class="sc">%&gt;%</span></span>
+<span id="cb247-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-3" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot; ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb247-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-4" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;&amp;amp;&quot;</span>, <span class="st">&quot;and&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb247-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-5" tabindex="-1"></a>    <span class="fu">str_replace</span>(<span class="st">&quot;RT @[a-z,A-Z]*: &quot;</span>,<span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb247-6"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-6" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;[[:punct:]]&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb247-7"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-7" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;@[a-z,A-Z]*&quot;</span>,<span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb247-8"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-8" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;#[a-z,A-Z]*&quot;</span>,<span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb247-9"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-9" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;^RT:? &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb247-10"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-10" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;@[[:alnum:]]+&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb247-11"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-11" tabindex="-1"></a>    <span class="fu">str_remove_all</span>(<span class="st">&quot;#[[:alnum:]]+&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb247-12"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-12" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;</span><span class="sc">\\\n</span><span class="st">&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb247-13"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-13" tabindex="-1"></a>    <span class="fu">str_to_lower</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb247-14"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-14" tabindex="-1"></a>    <span class="fu">str_trim</span>(<span class="st">&quot;both&quot;</span>)</span>
+<span id="cb247-15"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-15" tabindex="-1"></a>}</span>
+<span id="cb247-16"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-16" tabindex="-1"></a></span>
+<span id="cb247-17"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-17" tabindex="-1"></a>clean_tweet <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">&quot;&amp;amp&quot;</span>, <span class="st">&quot;&quot;</span>, my_tweets<span class="sc">$</span>text)</span>
+<span id="cb247-18"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-18" tabindex="-1"></a>clean_tweet <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">&quot;(RT|via)((?:</span><span class="sc">\\</span><span class="st">b</span><span class="sc">\\</span><span class="st">W*@</span><span class="sc">\\</span><span class="st">w+)+)&quot;</span>, <span class="st">&quot;&quot;</span>, clean_tweet)</span>
+<span id="cb247-19"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-19" tabindex="-1"></a>clean_tweet <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">&quot;@</span><span class="sc">\\</span><span class="st">w+&quot;</span>, <span class="st">&quot;&quot;</span>, clean_tweet)</span>
+<span id="cb247-20"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-20" tabindex="-1"></a>clean_tweet <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">&quot;[[:punct:]]&quot;</span>, <span class="st">&quot;&quot;</span>, clean_tweet)</span>
+<span id="cb247-21"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-21" tabindex="-1"></a>clean_tweet <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">&quot;[[:digit:]]&quot;</span>, <span class="st">&quot;&quot;</span>, clean_tweet)</span>
+<span id="cb247-22"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-22" tabindex="-1"></a>clean_tweet <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">&quot;http</span><span class="sc">\\</span><span class="st">w+&quot;</span>, <span class="st">&quot;&quot;</span>, clean_tweet)</span>
+<span id="cb247-23"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-23" tabindex="-1"></a>clean_tweet <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">&quot;[ </span><span class="sc">\t</span><span class="st">]{2,}&quot;</span>, <span class="st">&quot;&quot;</span>, clean_tweet)</span>
+<span id="cb247-24"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-24" tabindex="-1"></a>clean_tweet <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">&quot;^</span><span class="sc">\\</span><span class="st">s+|</span><span class="sc">\\</span><span class="st">s+$&quot;</span>, <span class="st">&quot;&quot;</span>, clean_tweet)</span>
+<span id="cb247-25"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-25" tabindex="-1"></a></span>
+<span id="cb247-26"><a href="twitter-data-analysis-and-rmarkdown.html#cb247-26" tabindex="-1"></a>my_tweets<span class="sc">$</span>text_clean <span class="ot">&lt;-</span> clean_tweet <span class="sc">%&gt;%</span> clean_tweets</span></code></pre></div>
+<div id="creating-a-stop-words-list-for-turkish" class="section level3 hasAnchor" number="5.8.1">
+<h3><span class="header-section-number">5.8.1</span> Creating a Stop Words List for Turkish<a href="twitter-data-analysis-and-rmarkdown.html#creating-a-stop-words-list-for-turkish" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb248-1" tabindex="-1"></a>stop_turkish <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">word =</span> stopwords<span class="sc">::</span><span class="fu">stopwords</span>(<span class="st">&quot;tr&quot;</span>, <span class="at">source =</span> <span class="st">&quot;stopwords-iso&quot;</span>), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb248-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb248-2" tabindex="-1"></a></span>
+<span id="cb248-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb248-3" tabindex="-1"></a><span class="fu">head</span>(stop_turkish)</span></code></pre></div>
+</div>
+<div id="tokenizing-and-cleaning" class="section level3 hasAnchor" number="5.8.2">
+<h3><span class="header-section-number">5.8.2</span> Tokenizing and Cleaning<a href="twitter-data-analysis-and-rmarkdown.html#tokenizing-and-cleaning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb249-1" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb249-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb249-2" tabindex="-1"></a></span>
+<span id="cb249-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb249-3" tabindex="-1"></a>tweets_clean <span class="ot">&lt;-</span> my_tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb249-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb249-4" tabindex="-1"></a>  <span class="fu">select</span>(text_clean) <span class="sc">%&gt;%</span> </span>
+<span id="cb249-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb249-5" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text_clean) <span class="sc">%&gt;%</span> </span>
+<span id="cb249-6"><a href="twitter-data-analysis-and-rmarkdown.html#cb249-6" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words) <span class="sc">%&gt;%</span> </span>
+<span id="cb249-7"><a href="twitter-data-analysis-and-rmarkdown.html#cb249-7" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_turkish)</span>
+<span id="cb249-8"><a href="twitter-data-analysis-and-rmarkdown.html#cb249-8" tabindex="-1"></a></span>
+<span id="cb249-9"><a href="twitter-data-analysis-and-rmarkdown.html#cb249-9" tabindex="-1"></a>tweets_clean <span class="sc">%&lt;&gt;%</span> <span class="fu">rename</span>(<span class="at">Word =</span> word)<span class="st">`</span></span></code></pre></div>
+</div>
+</div>
+<div id="counting-words" class="section level2 hasAnchor" number="5.9">
+<h2><span class="header-section-number">5.9</span> Counting Words<a href="twitter-data-analysis-and-rmarkdown.html#counting-words" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb250-1" tabindex="-1"></a>words <span class="ot">&lt;-</span> tweets_clean <span class="sc">%&gt;%</span></span>
+<span id="cb250-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb250-2" tabindex="-1"></a>  <span class="fu">count</span>(Word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb250-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb250-3" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb250-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb250-4" tabindex="-1"></a></span>
+<span id="cb250-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb250-5" tabindex="-1"></a><span class="fu">head</span>(words)</span></code></pre></div>
+</div>
+<div id="creating-a-word-cloud" class="section level2 hasAnchor" number="5.10">
+<h2><span class="header-section-number">5.10</span> Creating a Word Cloud<a href="twitter-data-analysis-and-rmarkdown.html#creating-a-word-cloud" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb251-1" tabindex="-1"></a><span class="fu">library</span>(wordcloud) </span>
+<span id="cb251-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb251-2" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb251-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb251-3" tabindex="-1"></a></span>
+<span id="cb251-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb251-4" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words =</span> words<span class="sc">$</span>Word, <span class="at">freq =</span> words<span class="sc">$</span>n, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words =</span> <span class="dv">200</span>, <span class="at">random.order =</span> <span class="cn">FALSE</span>, <span class="at">rot.per =</span> <span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Dark2&quot;</span>))<span class="st">`</span></span></code></pre></div>
+</div>
+<div id="hashtag-and-timeline-tweet-analysis" class="section level2 hasAnchor" number="5.11">
+<h2><span class="header-section-number">5.11</span> Hashtag and Timeline Tweet Analysis<a href="twitter-data-analysis-and-rmarkdown.html#hashtag-and-timeline-tweet-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="analyzing-tweets-with-a-specific-hashtag" class="section level3 hasAnchor" number="5.11.1">
+<h3><span class="header-section-number">5.11.1</span> Analyzing Tweets with a Specific Hashtag<a href="twitter-data-analysis-and-rmarkdown.html#analyzing-tweets-with-a-specific-hashtag" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb252-1" tabindex="-1"></a>tesla_tweets <span class="ot">&lt;-</span> <span class="fu">search_tweets</span>(<span class="st">&quot;#Tesla&quot;</span>, <span class="at">lang =</span> <span class="st">&quot;tr&quot;</span>, <span class="at">n =</span> <span class="dv">30</span>, <span class="at">include_rts =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb252-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb252-2" tabindex="-1"></a></span>
+<span id="cb252-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb252-3" tabindex="-1"></a><span class="fu">head</span>(tesla_tweets)</span></code></pre></div>
+</div>
+<div id="timeline-analysis-1" class="section level3 hasAnchor" number="5.11.2">
+<h3><span class="header-section-number">5.11.2</span> Timeline Analysis<a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb253-1" tabindex="-1"></a><span class="fu">ts_plot</span>(tesla_tweets, <span class="st">&quot;hours&quot;</span>, <span class="at">trim =</span> 0L)</span></code></pre></div>
+</div>
+</div>
+<div id="sentiment-analysis-in-turkish" class="section level2 hasAnchor" number="5.12">
+<h2><span class="header-section-number">5.12</span> Sentiment Analysis in Turkish<a href="twitter-data-analysis-and-rmarkdown.html#sentiment-analysis-in-turkish" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sentiment analysis, also known as opinion mining, is a method used in
+natural language processing to identify and categorize opinions
+expressed in a text. The goal is to determine the writer’s or speaker’s
+attitude towards a particular topic, product, or service as positive,
+negative, or neutral. This technique is widely used to analyze customer
+feedback, social media conversations, and product reviews, helping
+businesses and organizations gauge public opinion, monitor brand and
+product sentiment, and understand customer needs and concerns. Advanced
+sentiment analysis may also capture emotional nuances and intensity,
+providing deeper insights into the underlying sentiments.</p>
+<div id="import-the-lexicon" class="section level3 hasAnchor" number="5.12.1">
+<h3><span class="header-section-number">5.12.1</span> Import the lexicon<a href="twitter-data-analysis-and-rmarkdown.html#import-the-lexicon" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To do a sentiment analysis in Turkish, we need a lexicon. You can
+download the lexicon with this link:
+<a href="http://kelesonur.github.io/compec-r/Turkish-tr-NRC-VAD-Lexicon.txt" class="uri">http://kelesonur.github.io/compec-r/Turkish-tr-NRC-VAD-Lexicon.txt</a></p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb254-1" tabindex="-1"></a>Lexicon <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="at">file =</span> <span class="st">&quot;Turkish-tr-NRC-VAD-Lexicon.txt&quot;</span>, <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, </span>
+<span id="cb254-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb254-2" tabindex="-1"></a>                      <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">date_names =</span> <span class="st">&quot;tr&quot;</span>, <span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>))</span></code></pre></div>
+</div>
+<div id="examine-the-lexicon" class="section level3 hasAnchor" number="5.12.2">
+<h3><span class="header-section-number">5.12.2</span> Examine the lexicon<a href="twitter-data-analysis-and-rmarkdown.html#examine-the-lexicon" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb255-1" tabindex="-1"></a><span class="fu">head</span>(Lexicon, <span class="dv">10</span>)</span></code></pre></div>
+<div id="prepare-the-turkish-lexicon" class="section level4 hasAnchor" number="5.12.2.1">
+<h4><span class="header-section-number">5.12.2.1</span> Prepare the Turkish lexicon<a href="twitter-data-analysis-and-rmarkdown.html#prepare-the-turkish-lexicon" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb256-1" tabindex="-1"></a>Lexicon <span class="sc">%&lt;&gt;%</span> <span class="fu">rename</span>(<span class="at">turkishword =</span> <span class="st">&quot;Turkish-tr&quot;</span>)</span>
+<span id="cb256-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb256-2" tabindex="-1"></a>TR_Lexicon <span class="ot">&lt;-</span> Lexicon <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Word)</span>
+<span id="cb256-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb256-3" tabindex="-1"></a>TR_Lexicon <span class="sc">%&lt;&gt;%</span> <span class="fu">rename</span>(<span class="at">Word =</span> turkishword)</span>
+<span id="cb256-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb256-4" tabindex="-1"></a>TR_Lexicon <span class="ot">=</span> TR_Lexicon[<span class="sc">!</span><span class="fu">duplicated</span>(TR_Lexicon<span class="sc">$</span>Word),]</span></code></pre></div>
+</div>
+</div>
+<div id="get-the-words-and-calculate-sentiment" class="section level3 hasAnchor" number="5.12.3">
+<h3><span class="header-section-number">5.12.3</span> Get the words and calculate sentiment<a href="twitter-data-analysis-and-rmarkdown.html#get-the-words-and-calculate-sentiment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb257-1" tabindex="-1"></a>sentiment <span class="ot">&lt;-</span> tweets_clean <span class="sc">%&gt;%</span></span>
+<span id="cb257-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb257-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(TR_Lexicon) <span class="sc">%&gt;%</span></span>
+<span id="cb257-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb257-3" tabindex="-1"></a>  <span class="fu">count</span>(Word, Arousal, Valence, Dominance, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb257-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb257-4" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb257-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb257-5" tabindex="-1"></a></span>
+<span id="cb257-6"><a href="twitter-data-analysis-and-rmarkdown.html#cb257-6" tabindex="-1"></a><span class="fu">head</span>(sentiment)</span></code></pre></div>
+<p>Arousal, dominance, and valence are three dimensions often used in
+psychology to describe and measure emotions:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Arousal</strong>: This dimension refers to the level of alertness or
+stimulation an emotion provokes. It ranges from calm or low arousal
+(e.g., relaxed, bored) to excited or high arousal (e.g., angry,
+ecstatic). It represents the intensity of the emotion but not its
+nature (positive or negative).</p></li>
+<li><p><strong>Dominance</strong>: This dimension pertains to the sense of control or
+power associated with an emotion. Low dominance indicates feelings
+of being controlled or submissive (e.g., scared, anxious), while
+high dominance involves feeling in control or empowered (e.g.,
+authoritative, independent). It reflects the degree of control a
+person feels they have in a particular emotional state.</p></li>
+<li><p><strong>Valence</strong>: Valence is about the intrinsic attractiveness (positive
+valence) or averseness (negative valence) of an emotion. Simply put,
+it describes the pleasantness or unpleasantness of an emotion.
+Happiness, joy, and love are examples of emotions with positive
+valence, whereas sadness, anger, and fear are associated with
+negative valence.</p></li>
+</ol>
+<p>These three dimensions are used in models like the PAD
+(Pleasure-Arousal-Dominance) emotional state model, which is applied in
+various fields including psychology, affective computing, and even
+marketing research, to understand and predict human emotions and
+behaviors.</p>
+</div>
+<div id="visualize-arousal-and-valence" class="section level3 hasAnchor" number="5.12.4">
+<h3><span class="header-section-number">5.12.4</span> Visualize arousal and valence<a href="twitter-data-analysis-and-rmarkdown.html#visualize-arousal-and-valence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb258-1" tabindex="-1"></a>p_boxplot <span class="ot">&lt;-</span> <span class="fu">boxplot</span>(sentiment<span class="sc">$</span>Arousal, sentiment<span class="sc">$</span>Valence, sentiment<span class="sc">$</span>Dominance,</span>
+<span id="cb258-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb258-2" tabindex="-1"></a>              <span class="at">main =</span> <span class="st">&quot;Sentiment Analysis&quot;</span>,</span>
+<span id="cb258-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb258-3" tabindex="-1"></a>              <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;Arousal&quot;</span>, <span class="st">&quot;Valence&quot;</span>, <span class="st">&quot;Dominance&quot;</span>))</span>
+<span id="cb258-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb258-4" tabindex="-1"></a><span class="fu">View</span>(p_boxplot)</span></code></pre></div>
+</div>
+<div id="most-positive-and-negative-words-used-by-the-person" class="section level3 hasAnchor" number="5.12.5">
+<h3><span class="header-section-number">5.12.5</span> Most positive and negative words used by the person<a href="twitter-data-analysis-and-rmarkdown.html#most-positive-and-negative-words-used-by-the-person" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-1" tabindex="-1"></a>positive <span class="ot">&lt;-</span> sentiment <span class="sc">%&gt;%</span></span>
+<span id="cb259-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-2" tabindex="-1"></a>  <span class="fu">subset</span>(Valence <span class="sc">&gt;</span> <span class="fl">0.90</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb259-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Word) <span class="sc">%&gt;%</span></span>
+<span id="cb259-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-4" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb259-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-5" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb259-6"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Word =</span> <span class="fu">reorder</span>(Word, Valence)) <span class="sc">%&gt;%</span></span>
+<span id="cb259-7"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Word, Valence)) <span class="sc">+</span></span>
+<span id="cb259-8"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb259-9"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Most Positive Words&quot;</span>,</span>
+<span id="cb259-10"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-10" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Valence&quot;</span>,</span>
+<span id="cb259-11"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb259-12"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-12" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb259-13"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-13" tabindex="-1"></a></span>
+<span id="cb259-14"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-14" tabindex="-1"></a>positive</span>
+<span id="cb259-15"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-15" tabindex="-1"></a></span>
+<span id="cb259-16"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-16" tabindex="-1"></a><span class="co"># Negativity</span></span>
+<span id="cb259-17"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-17" tabindex="-1"></a></span>
+<span id="cb259-18"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-18" tabindex="-1"></a>negative <span class="ot">&lt;-</span> sentiment <span class="sc">%&gt;%</span></span>
+<span id="cb259-19"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-19" tabindex="-1"></a>  <span class="fu">subset</span>(Valence <span class="sc">&lt;</span> <span class="fl">0.10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb259-20"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-20" tabindex="-1"></a>  <span class="fu">group_by</span>(Word) <span class="sc">%&gt;%</span></span>
+<span id="cb259-21"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-21" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb259-22"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-22" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb259-23"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-23" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Word =</span> <span class="fu">reorder</span>(Word, Valence)) <span class="sc">%&gt;%</span></span>
+<span id="cb259-24"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-24" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Word, Valence)) <span class="sc">+</span></span>
+<span id="cb259-25"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-25" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb259-26"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-26" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Most negative words&quot;</span>,</span>
+<span id="cb259-27"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-27" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Valence&quot;</span>,</span>
+<span id="cb259-28"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-28" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb259-29"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-29" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb259-30"><a href="twitter-data-analysis-and-rmarkdown.html#cb259-30" tabindex="-1"></a>negative</span></code></pre></div>
+</div>
+<div id="use-get_nrc_sentiment-for-english-sentiment-analysis" class="section level3 hasAnchor" number="5.12.6">
+<h3><span class="header-section-number">5.12.6</span> Use <code>get_nrc_sentiment()</code> for English sentiment analysis<a href="twitter-data-analysis-and-rmarkdown.html#use-get_nrc_sentiment-for-english-sentiment-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-1" tabindex="-1"></a>words <span class="ot">&lt;-</span> <span class="fu">iconv</span>(words, <span class="at">from=</span><span class="st">&quot;UTF-8&quot;</span>, <span class="at">to=</span><span class="st">&quot;ASCII&quot;</span>, <span class="at">sub=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb260-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-2" tabindex="-1"></a></span>
+<span id="cb260-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-3" tabindex="-1"></a>ew_sentiment<span class="ot">&lt;-</span><span class="fu">get_nrc_sentiment</span>((words))</span>
+<span id="cb260-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-4" tabindex="-1"></a></span>
+<span id="cb260-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-5" tabindex="-1"></a>sentimentscores<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">colSums</span>(ew_sentiment[,]))</span>
+<span id="cb260-6"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-6" tabindex="-1"></a></span>
+<span id="cb260-7"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-7" tabindex="-1"></a><span class="fu">names</span>(sentimentscores) <span class="ot">&lt;-</span> <span class="st">&quot;Score&quot;</span></span>
+<span id="cb260-8"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-8" tabindex="-1"></a></span>
+<span id="cb260-9"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-9" tabindex="-1"></a>sentimentscores <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="st">&quot;sentiment&quot;</span><span class="ot">=</span><span class="fu">rownames</span>(sentimentscores),sentimentscores)</span>
+<span id="cb260-10"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-10" tabindex="-1"></a></span>
+<span id="cb260-11"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-11" tabindex="-1"></a><span class="fu">rownames</span>(sentimentscores) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb260-12"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-12" tabindex="-1"></a></span>
+<span id="cb260-13"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-13" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>sentimentscores,<span class="fu">aes</span>(<span class="at">x=</span>sentiment,<span class="at">y=</span>Score))<span class="sc">+</span></span>
+<span id="cb260-14"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-14" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill=</span>sentiment),<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)<span class="sc">+</span></span>
+<span id="cb260-15"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb260-16"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-16" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Sentiments&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Scores&quot;</span>)<span class="sc">+</span></span>
+<span id="cb260-17"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-17" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Total sentiment based on scores&quot;</span>)<span class="sc">+</span></span>
+<span id="cb260-18"><a href="twitter-data-analysis-and-rmarkdown.html#cb260-18" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+</div>
+</div>
+<div id="in-class-exercises-4" class="section level2 hasAnchor" number="5.13">
+<h2><span class="header-section-number">5.13</span> In-class Exercises<a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We have fetched Muharrem İnce’s tweets for you and shared them as a .csv
+file earlier. Do the following task in groups using this csv:</p>
+<ol style="list-style-type: decimal">
+<li><p>Sentiment Analysis</p></li>
+<li><p>Tweet Series Analysis</p></li>
+<li><p>Word Cloud</p></li>
+</ol>
+</div>
+<div id="rmarkdown" class="section level2 hasAnchor" number="5.14">
+<h2><span class="header-section-number">5.14</span> RMarkdown<a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="rmarkdown-tutorial" class="section level3 hasAnchor" number="5.14.1">
+<h3><span class="header-section-number">5.14.1</span> <strong>RMarkdown Tutorial</strong><a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown-tutorial" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="introduction-to-rmarkdown" class="section level3 hasAnchor" number="5.14.2">
+<h3><span class="header-section-number">5.14.2</span> Introduction to RMarkdown<a href="twitter-data-analysis-and-rmarkdown.html#introduction-to-rmarkdown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>RMarkdown is a powerful tool for creating dynamic documents,
+presentations, and reports that combine R code with written narratives.
+It allows you to embed R code within Markdown documents, which is
+particularly useful for data analysis, academic research, and
+reproducible reporting.</p>
+</div>
+<div id="getting-started-with-rmarkdown" class="section level3 hasAnchor" number="5.14.3">
+<h3><span class="header-section-number">5.14.3</span> Getting Started with RMarkdown<a href="twitter-data-analysis-and-rmarkdown.html#getting-started-with-rmarkdown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To use RMarkdown, you need to have R and RStudio installed. RStudio is
+an integrated development environment (IDE) for R that provides a
+convenient interface for working with RMarkdown. You have already
+completed this step!</p>
+<div id="installing-r-and-rstudio" class="section level4 hasAnchor" number="5.14.3.1">
+<h4><span class="header-section-number">5.14.3.1</span> Installing R and RStudio<a href="twitter-data-analysis-and-rmarkdown.html#installing-r-and-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li><p><strong>Install R</strong>: Download and install R from
+<a href="https://cran.r-project.org/">CRAN</a>.</p></li>
+<li><p><strong>Install RStudio</strong>: Download and install RStudio from <a href="https://www.rstudio.com/products/rstudio/download/">RStudio’s
+website</a>.</p></li>
+</ol>
+</div>
+<div id="installing-the-rmarkdown-package" class="section level4 hasAnchor" number="5.14.3.2">
+<h4><span class="header-section-number">5.14.3.2</span> Installing the RMarkdown Package<a href="twitter-data-analysis-and-rmarkdown.html#installing-the-rmarkdown-package" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Open RStudio and install the <strong><code>rmarkdown</code></strong> package by running:</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb261-1" tabindex="-1"></a><span class="co"># install.packages(&quot;rmarkdown&quot;)</span></span></code></pre></div>
+</div>
+<div id="creating-your-first-rmarkdown-document" class="section level4 hasAnchor" number="5.14.3.3">
+<h4><span class="header-section-number">5.14.3.3</span> Creating Your First RMarkdown Document<a href="twitter-data-analysis-and-rmarkdown.html#creating-your-first-rmarkdown-document" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li><p><strong>Create a New RMarkdown Document</strong>: In RStudio, go to
+<strong><code>File &gt; New File &gt; R Markdown...</code></strong>. You’ll be prompted to create
+a new document.</p></li>
+<li><p><strong>Choose Document Type</strong>: Select the type of document you want to
+create (e.g., HTML, PDF, Word). Click <strong><code>OK</code></strong>.</p></li>
+<li><p><strong>RMarkdown Structure</strong>: An RMarkdown file opens with some default
+content. It contains:</p>
+<ul>
+<li><p><strong>YAML Header</strong>: At the top, enclosed within <strong><code>---</code></strong>, where
+you specify document settings like title, author, and output
+format.</p></li>
+<li><p><strong>Markdown Text</strong>: For writing narrative text. Markdown is a
+simple formatting syntax.</p></li>
+<li><p><strong>Code Chunks</strong>: Enclosed in <strong><code>```{r}</code></strong> and
+<strong><code>```</code></strong>, where you write R code.</p></li>
+<li></li>
+</ul></li>
+</ol>
+</div>
+<div id="example-document" class="section level4 hasAnchor" number="5.14.3.4">
+<h4><span class="header-section-number">5.14.3.4</span> Example Document<a href="twitter-data-analysis-and-rmarkdown.html#example-document" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="twitter-data-analysis-and-rmarkdown.html#cb262-1" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb262-2"><a href="twitter-data-analysis-and-rmarkdown.html#cb262-2" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">&quot;RMarkdown Example&quot;</span></span>
+<span id="cb262-3"><a href="twitter-data-analysis-and-rmarkdown.html#cb262-3" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">&quot;Your Name&quot;</span></span>
+<span id="cb262-4"><a href="twitter-data-analysis-and-rmarkdown.html#cb262-4" tabindex="-1"></a>date<span class="sc">:</span> <span class="st">&quot;Today&#39;s Date&quot;</span></span>
+<span id="cb262-5"><a href="twitter-data-analysis-and-rmarkdown.html#cb262-5" tabindex="-1"></a>output<span class="sc">:</span> html_document</span>
+<span id="cb262-6"><a href="twitter-data-analysis-and-rmarkdown.html#cb262-6" tabindex="-1"></a><span class="sc">---</span></span></code></pre></div>
+<p>This is an R Markdown document. Markdown is a simple formatting syntax
+for authoring HTML, PDF, and MS Word documents.</p>
+</div>
+<div id="compiling-the-document" class="section level4 hasAnchor" number="5.14.3.5">
+<h4><span class="header-section-number">5.14.3.5</span> Compiling the Document<a href="twitter-data-analysis-and-rmarkdown.html#compiling-the-document" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To compile the document into your chosen format (HTML, PDF, or Word),
+click the `Knit` button in RStudio. This will execute the R code
+within the document and combine the results with the narrative text.</p>
+<p>To conclude, RMarkdown is a versatile tool for combining code, data
+analysis, and narrative in a single document. It’s highly useful for
+reproducible research and reporting.</p>
+<p>Let’s now do some hands-on tutorial on RMarkdown!</p>
+</div>
+</div>
+<div id="in-class-exercises-5" class="section level3 hasAnchor" number="5.14.4">
+<h3><span class="header-section-number">5.14.4</span> In-class Exercises:<a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Write an RMarkdown report (pdf, word, or html document) that include
+your analysis of Muharrem İnce tweets.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="inferential-statistics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/kelesonur/scode/edit/main/05-w4.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/kelesonur/scode/blob/main/05-w4.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

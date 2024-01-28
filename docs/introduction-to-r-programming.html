@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Introduction to R Programming | SCODE: R and Python Workshop</title>
+  <meta name="description" content="Chapter 2 Introduction to R Programming | SCODE: R and Python Workshop" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Introduction to R Programming | SCODE: R and Python Workshop" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Introduction to R Programming | SCODE: R and Python Workshop" />
+  
+  
+  
+
+<meta name="author" content="Onur Keleş &amp; Ömer Bayraklı" />
+
+
+<meta name="date" content="2024-01-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="descriptive-statistics-with-tidyverse.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SCODE: R and Python Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to SCODE!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instructors"><i class="fa fa-check"></i><b>1.1</b> Instructors</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i><b>1.2</b> Structure of the book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i><b>1.3</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html"><i class="fa fa-check"></i><b>2</b> Introduction to R Programming</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#what-is-it"><i class="fa fa-check"></i><b>2.0.1</b> What is it?</a></li>
+<li class="chapter" data-level="2.0.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#why-r"><i class="fa fa-check"></i><b>2.0.2</b> Why R?</a></li>
+<li class="chapter" data-level="2.0.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#how-will-we-code"><i class="fa fa-check"></i><b>2.0.3</b> How will we code?</a></li>
+<li class="chapter" data-level="2.0.4" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#cheat-sheets"><i class="fa fa-check"></i><b>2.0.4</b> Cheat sheets</a></li>
+<li class="chapter" data-level="2.0.5" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#real-world-use-cases-of-r"><i class="fa fa-check"></i><b>2.0.5</b> Real world use cases of R:</a></li>
+<li class="chapter" data-level="2.0.6" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#python-vs.-r"><i class="fa fa-check"></i><b>2.0.6</b> Python vs. R?</a></li>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#lets-start-coding"><i class="fa fa-check"></i><b>2.1</b> Let’s start coding!</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#functions-in-r"><i class="fa fa-check"></i><b>2.2</b> Functions in R</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#variables-in-r"><i class="fa fa-check"></i><b>2.3</b> Variables in R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#operations-with-variables"><i class="fa fa-check"></i><b>2.3.1</b> Operations with variables</a></li>
+<li class="chapter" data-level="2.3.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#logical-operators"><i class="fa fa-check"></i><b>2.3.2</b> Logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#data-types-in-r"><i class="fa fa-check"></i><b>2.4</b> Data types in R</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#vectors"><i class="fa fa-check"></i><b>2.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#data-frames"><i class="fa fa-check"></i><b>2.4.2</b> Data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#quick-visualization"><i class="fa fa-check"></i><b>2.5</b> Quick visualization</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#in-class-exercises"><i class="fa fa-check"></i><b>2.6</b> In-Class Exercises</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-1"><i class="fa fa-check"></i><b>2.6.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="2.6.2" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-2"><i class="fa fa-check"></i><b>2.6.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="2.6.3" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#exercise-3"><i class="fa fa-check"></i><b>2.6.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-r-programming.html"><a href="introduction-to-r-programming.html#practice-questions-for-next-week"><i class="fa fa-check"></i><b>2.7</b> Practice questions for next week</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Descriptive statistics with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#answers-to-exercise-questions"><i class="fa fa-check"></i><b>3.1</b> Answers to Exercise Questions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-1-1"><i class="fa fa-check"></i><b>3.1.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="3.1.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-2-1"><i class="fa fa-check"></i><b>3.1.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="3.1.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#exercise-3-1"><i class="fa fa-check"></i><b>3.1.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#practice-questions-for-next-week-1"><i class="fa fa-check"></i><b>3.2</b> Practice questions for next week</a></li>
+<li class="chapter" data-level="3.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-in-class-practice"><i class="fa fa-check"></i><b>3.3</b> Data Manipulation: In-class practice</a></li>
+<li class="chapter" data-level="3.4" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-tidyverse"><i class="fa fa-check"></i><b>3.4</b> Data Manipulation with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#tibble"><i class="fa fa-check"></i><b>3.4.1</b> Tibble</a></li>
+<li class="chapter" data-level="3.4.2" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>3.4.2</b> Data manipulation with dplyr</a></li>
+<li class="chapter" data-level="3.4.3" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#pipe-with-the-magrittr-package"><i class="fa fa-check"></i><b>3.4.3</b> Pipe with the magrittr package</a></li>
+<li class="chapter" data-level="3.4.4" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#visualization-with-the-ggplot2-package"><i class="fa fa-check"></i><b>3.4.4</b> Visualization with the ggplot2 package</a></li>
+<li class="chapter" data-level="3.4.5" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#scatterplots"><i class="fa fa-check"></i><b>3.4.5</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.4.6" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#bar-plots"><i class="fa fa-check"></i><b>3.4.6</b> Bar plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="descriptive-statistics-with-tidyverse.html"><a href="descriptive-statistics-with-tidyverse.html#in-class-exercises-1"><i class="fa fa-check"></i><b>3.5</b> In-class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inferential-statistics.html"><a href="inferential-statistics.html"><i class="fa fa-check"></i><b>4</b> Inferential statistics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="inferential-statistics.html"><a href="inferential-statistics.html#answers-to-exercise-questions-1"><i class="fa fa-check"></i><b>4.1</b> Answers to Exercise Questions</a></li>
+<li class="chapter" data-level="4.2" data-path="inferential-statistics.html"><a href="inferential-statistics.html#creating-summary-tables-and-performing-simple-data-analysis-with-dplyr"><i class="fa fa-check"></i><b>4.2</b> Creating summary tables and performing simple data analysis with Dplyr</a></li>
+<li class="chapter" data-level="4.3" data-path="inferential-statistics.html"><a href="inferential-statistics.html#group_by-and-summarize"><i class="fa fa-check"></i><b>4.3</b> <code>group_by()</code> and <code>summarize()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="inferential-statistics.html"><a href="inferential-statistics.html#linear-regression"><i class="fa fa-check"></i><b>4.4</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="inferential-statistics.html"><a href="inferential-statistics.html#time-series-data-analysis"><i class="fa fa-check"></i><b>4.5</b> Time Series Data Analysis</a></li>
+<li class="chapter" data-level="4.6" data-path="inferential-statistics.html"><a href="inferential-statistics.html#in-class-exercises-2"><i class="fa fa-check"></i><b>4.6</b> In-class Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html"><i class="fa fa-check"></i><b>5</b> Twitter data analysis and RMarkdown</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#answers-to-exercise-questions-2"><i class="fa fa-check"></i><b>5.1</b> Answers to Exercise Questions</a></li>
+<li class="chapter" data-level="5.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-3"><i class="fa fa-check"></i><b>5.2</b> In-class Exercises</a></li>
+<li class="chapter" data-level="5.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-analysis-with-r"><i class="fa fa-check"></i><b>5.3</b> Twitter Analysis with R</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#why-perform-data-mining-on-twitter"><i class="fa fa-check"></i><b>5.3.1</b> Why Perform Data Mining on Twitter?</a></li>
+<li class="chapter" data-level="5.3.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#why-choose-r-over-other-platforms-e.g.-sprout-social-talkwalker"><i class="fa fa-check"></i><b>5.3.2</b> Why Choose R over Other Platforms (e.g., Sprout Social, Talkwalker)?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#installing-necessary-packages"><i class="fa fa-check"></i><b>5.4</b> Installing Necessary Packages</a></li>
+<li class="chapter" data-level="5.5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#loading-packages"><i class="fa fa-check"></i><b>5.5</b> Loading Packages</a></li>
+<li class="chapter" data-level="5.6" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-settings"><i class="fa fa-check"></i><b>5.6</b> Twitter Settings</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#twitter-api-settings"><i class="fa fa-check"></i><b>5.6.1</b> Twitter API Settings</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis"><i class="fa fa-check"></i><b>5.7</b> Timeline Analysis</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#fetching-tweets-from-an-account"><i class="fa fa-check"></i><b>5.7.1</b> Fetching Tweets from an Account</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#cleaning-the-tweets"><i class="fa fa-check"></i><b>5.8</b> Cleaning the Tweets</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#creating-a-stop-words-list-for-turkish"><i class="fa fa-check"></i><b>5.8.1</b> Creating a Stop Words List for Turkish</a></li>
+<li class="chapter" data-level="5.8.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#tokenizing-and-cleaning"><i class="fa fa-check"></i><b>5.8.2</b> Tokenizing and Cleaning</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#counting-words"><i class="fa fa-check"></i><b>5.9</b> Counting Words</a></li>
+<li class="chapter" data-level="5.10" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#creating-a-word-cloud"><i class="fa fa-check"></i><b>5.10</b> Creating a Word Cloud</a></li>
+<li class="chapter" data-level="5.11" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#hashtag-and-timeline-tweet-analysis"><i class="fa fa-check"></i><b>5.11</b> Hashtag and Timeline Tweet Analysis</a>
+<ul>
+<li class="chapter" data-level="5.11.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#analyzing-tweets-with-a-specific-hashtag"><i class="fa fa-check"></i><b>5.11.1</b> Analyzing Tweets with a Specific Hashtag</a></li>
+<li class="chapter" data-level="5.11.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#timeline-analysis-1"><i class="fa fa-check"></i><b>5.11.2</b> Timeline Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.12" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#sentiment-analysis-in-turkish"><i class="fa fa-check"></i><b>5.12</b> Sentiment Analysis in Turkish</a>
+<ul>
+<li class="chapter" data-level="5.12.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#import-the-lexicon"><i class="fa fa-check"></i><b>5.12.1</b> Import the lexicon</a></li>
+<li class="chapter" data-level="5.12.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#examine-the-lexicon"><i class="fa fa-check"></i><b>5.12.2</b> Examine the lexicon</a></li>
+<li class="chapter" data-level="5.12.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#get-the-words-and-calculate-sentiment"><i class="fa fa-check"></i><b>5.12.3</b> Get the words and calculate sentiment</a></li>
+<li class="chapter" data-level="5.12.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#visualize-arousal-and-valence"><i class="fa fa-check"></i><b>5.12.4</b> Visualize arousal and valence</a></li>
+<li class="chapter" data-level="5.12.5" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#most-positive-and-negative-words-used-by-the-person"><i class="fa fa-check"></i><b>5.12.5</b> Most positive and negative words used by the person</a></li>
+<li class="chapter" data-level="5.12.6" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#use-get_nrc_sentiment-for-english-sentiment-analysis"><i class="fa fa-check"></i><b>5.12.6</b> Use <code>get_nrc_sentiment()</code> for English sentiment analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.13" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-4"><i class="fa fa-check"></i><b>5.13</b> In-class Exercises</a></li>
+<li class="chapter" data-level="5.14" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>5.14</b> RMarkdown</a>
+<ul>
+<li class="chapter" data-level="5.14.1" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#rmarkdown-tutorial"><i class="fa fa-check"></i><b>5.14.1</b> <strong>RMarkdown Tutorial</strong></a></li>
+<li class="chapter" data-level="5.14.2" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#introduction-to-rmarkdown"><i class="fa fa-check"></i><b>5.14.2</b> Introduction to RMarkdown</a></li>
+<li class="chapter" data-level="5.14.3" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#getting-started-with-rmarkdown"><i class="fa fa-check"></i><b>5.14.3</b> Getting Started with RMarkdown</a></li>
+<li class="chapter" data-level="5.14.4" data-path="twitter-data-analysis-and-rmarkdown.html"><a href="twitter-data-analysis-and-rmarkdown.html#in-class-exercises-5"><i class="fa fa-check"></i><b>5.14.4</b> In-class Exercises:</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SCODE: R and Python Workshop</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-r-programming" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Introduction to R Programming<a href="introduction-to-r-programming.html#introduction-to-r-programming" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="what-is-it" class="section level3 hasAnchor" number="2.0.1">
+<h3><span class="header-section-number">2.0.1</span> What is it?<a href="introduction-to-r-programming.html#what-is-it" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>R is a programming language widely used especially in data science. It
+is possible to do data mining, data processing, statistical programming
+and machine learning with it. It is a leading language, especially among
+researchers in natural or social sciences.</p>
+</div>
+<div id="why-r" class="section level3 hasAnchor" number="2.0.2">
+<h3><span class="header-section-number">2.0.2</span> Why R?<a href="introduction-to-r-programming.html#why-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Completely free and open source</p></li>
+<li><p>Open science and scientific reproducibility</p></li>
+<li><p>Customized analyses</p></li>
+</ul>
+</div>
+<div id="how-will-we-code" class="section level3 hasAnchor" number="2.0.3">
+<h3><span class="header-section-number">2.0.3</span> How will we code?<a href="introduction-to-r-programming.html#how-will-we-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Throughout the workshop, we will use RStudio by Posit, which is the most
+popular IDE for R. There are also other options like RStudio Cloud or
+Google Colab that allow you to write code in your web browser.</p>
+</div>
+<div id="cheat-sheets" class="section level3 hasAnchor" number="2.0.4">
+<h3><span class="header-section-number">2.0.4</span> Cheat sheets<a href="introduction-to-r-programming.html#cheat-sheets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Base R:</strong></p>
+<p><a href="https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf" class="uri">https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf</a></p>
+<p><strong>Data manipulation with tidyverse:</strong></p>
+<p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf</a></p>
+<p><strong>Introduction book:</strong></p>
+<p><a href="https://intro2r.com/simple-base-r-plots.html" class="uri">https://intro2r.com</a></p>
+<p><strong>Turkish cheat sheets:</strong></p>
+<p><a href="https://github.com/rstudio/cheatsheets/blob/main/translations/turkish/base-r_tr.pdf" class="uri">https://github.com/rstudio/cheatsheets/blob/main/translations/turkish/base-r_tr.pdf</a>
+<a href="https://github.com/rstudio/cheatsheets/blob/main/translations/turkish/data-transformation_tr.pdf" class="uri">https://github.com/rstudio/cheatsheets/blob/main/translations/turkish/data-transformation_tr.pdf</a>
+<a href="https://github.com/rstudio/cheatsheets/blob/main/translations/turkish/data-visualization_tr.pdf" class="uri">https://github.com/rstudio/cheatsheets/blob/main/translations/turkish/data-visualization_tr.pdf</a></p>
+<p><strong>Also see <a href="http://datacamp.com">DataCamp</a>!</strong></p>
+</div>
+<div id="real-world-use-cases-of-r" class="section level3 hasAnchor" number="2.0.5">
+<h3><span class="header-section-number">2.0.5</span> Real world use cases of R:<a href="introduction-to-r-programming.html#real-world-use-cases-of-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="images/Applications-of-R-1.webp" width="600" /></p>
+</div>
+<div id="python-vs.-r" class="section level3 hasAnchor" number="2.0.6">
+<h3><span class="header-section-number">2.0.6</span> Python vs. R?<a href="introduction-to-r-programming.html#python-vs.-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="images/7qy8yw.jpg" width="300" /></p>
+</div>
+<div id="lets-start-coding" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Let’s start coding!<a href="introduction-to-r-programming.html#lets-start-coding" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction-to-r-programming.html#cb1-1" tabindex="-1"></a><span class="co"># Addition</span></span>
+<span id="cb1-2"><a href="introduction-to-r-programming.html#cb1-2" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction-to-r-programming.html#cb3-1" tabindex="-1"></a><span class="co"># Subtraction</span></span>
+<span id="cb3-2"><a href="introduction-to-r-programming.html#cb3-2" tabindex="-1"></a><span class="dv">3</span> <span class="sc">-</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction-to-r-programming.html#cb5-1" tabindex="-1"></a><span class="co"># Multiplication</span></span>
+<span id="cb5-2"><a href="introduction-to-r-programming.html#cb5-2" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="introduction-to-r-programming.html#cb7-1" tabindex="-1"></a><span class="co"># Division</span></span>
+<span id="cb7-2"><a href="introduction-to-r-programming.html#cb7-2" tabindex="-1"></a><span class="dv">3</span> <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 1.5</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="introduction-to-r-programming.html#cb9-1" tabindex="-1"></a><span class="co"># Exponentiation</span></span>
+<span id="cb9-2"><a href="introduction-to-r-programming.html#cb9-2" tabindex="-1"></a><span class="dv">2</span> <span class="sc">^</span> <span class="dv">5</span></span></code></pre></div>
+<pre><code>## [1] 32</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="introduction-to-r-programming.html#cb11-1" tabindex="-1"></a><span class="co"># Order of operations</span></span>
+<span id="cb11-2"><a href="introduction-to-r-programming.html#cb11-2" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> <span class="dv">4</span></span></code></pre></div>
+<pre><code>## [1] 14</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="introduction-to-r-programming.html#cb13-1" tabindex="-1"></a>(<span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">4</span></span></code></pre></div>
+<pre><code>## [1] 20</code></pre>
+</div>
+<div id="functions-in-r" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Functions in R<a href="introduction-to-r-programming.html#functions-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In R, instead of using mathematical operators like this, we will
+primarily use “functions” that allow us to perform various tasks. Each
+function takes specific arguments. Arguments are the inputs to the
+function, i.e., the objects on which the function operates. Some of
+these arguments may be required to be explicitly specified. If a
+function requires multiple arguments, the arguments are separated by
+commas.</p>
+<p>Functions are a way to package up and reuse code.</p>
+<p>The function below is called “add_two” and it adds two to any number you
+give it.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="introduction-to-r-programming.html#cb15-1" tabindex="-1"></a>add_two <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb15-2"><a href="introduction-to-r-programming.html#cb15-2" tabindex="-1"></a>  x <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb15-3"><a href="introduction-to-r-programming.html#cb15-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now we can use the function we just created.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="introduction-to-r-programming.html#cb16-1" tabindex="-1"></a><span class="fu">add_two</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>Other functions are built into R. For example, the “log” function
+computes the natural logarithm.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="introduction-to-r-programming.html#cb18-1" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## [1] 2.302585</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="introduction-to-r-programming.html#cb20-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="introduction-to-r-programming.html#cb22-1" tabindex="-1"></a><span class="fu">abs</span>(<span class="sc">-</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>You can also use functions inside other functions.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="introduction-to-r-programming.html#cb24-1" tabindex="-1"></a><span class="fu">log</span>(<span class="fu">sqrt</span>(<span class="dv">4</span>))</span></code></pre></div>
+<pre><code>## [1] 0.6931472</code></pre>
+</div>
+<div id="variables-in-r" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Variables in R<a href="introduction-to-r-programming.html#variables-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A variable in a computer’s memory can be any object that is defined. We
+can give it any name and value we want. The computer stores the values
+we assign to variables in memory, and later, we can access the values
+within that variable.</p>
+<p>In R, we assign variables using the &lt;- operator.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="introduction-to-r-programming.html#cb26-1" tabindex="-1"></a><span class="co"># this code will not produce any output but will assign the value 100 to the variable &#39;var&#39;</span></span>
+<span id="cb26-2"><a href="introduction-to-r-programming.html#cb26-2" tabindex="-1"></a>var <span class="ot">&lt;-</span> (<span class="dv">2</span><span class="sc">*</span><span class="dv">5</span>)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb26-3"><a href="introduction-to-r-programming.html#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="introduction-to-r-programming.html#cb26-4" tabindex="-1"></a><span class="co"># if we want to see the value of the variable, we can just type the name of the variable or print it to the console</span></span>
+<span id="cb26-5"><a href="introduction-to-r-programming.html#cb26-5" tabindex="-1"></a>var</span></code></pre></div>
+<pre><code>## [1] 100</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="introduction-to-r-programming.html#cb28-1" tabindex="-1"></a><span class="fu">print</span>(var)</span></code></pre></div>
+<pre><code>## [1] 100</code></pre>
+<div id="operations-with-variables" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Operations with variables<a href="introduction-to-r-programming.html#operations-with-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="introduction-to-r-programming.html#cb30-1" tabindex="-1"></a><span class="co"># we can use variables in operations</span></span>
+<span id="cb30-2"><a href="introduction-to-r-programming.html#cb30-2" tabindex="-1"></a>var <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
+<pre><code>## [1] 101</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="introduction-to-r-programming.html#cb32-1" tabindex="-1"></a>var2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">16</span>)</span>
+<span id="cb32-2"><a href="introduction-to-r-programming.html#cb32-2" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="introduction-to-r-programming.html#cb32-3" tabindex="-1"></a>var2 <span class="sc">+</span> var</span></code></pre></div>
+<pre><code>## [1] 104</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="introduction-to-r-programming.html#cb34-1" tabindex="-1"></a>var2 <span class="sc">*</span> var</span></code></pre></div>
+<pre><code>## [1] 400</code></pre>
+</div>
+<div id="logical-operators" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Logical operators<a href="introduction-to-r-programming.html#logical-operators" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using the &lt;, &gt;, &lt;=, &gt;=, ==, !=, |, and &amp; operators, we can perform
+comparisons between two variables. As a result, these operators will
+give us either TRUE, meaning the comparison is true, or FALSE, meaning
+the comparison is false.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="introduction-to-r-programming.html#cb36-1" tabindex="-1"></a>var <span class="sc">&lt;</span> <span class="dv">105</span> <span class="co"># smaller than</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="introduction-to-r-programming.html#cb38-1" tabindex="-1"></a>var <span class="sc">&gt;</span> <span class="dv">1</span> <span class="co"># bigger than</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="introduction-to-r-programming.html#cb40-1" tabindex="-1"></a>var <span class="sc">&lt;=</span> <span class="dv">8</span> <span class="co"># smaller than or equal to</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="introduction-to-r-programming.html#cb42-1" tabindex="-1"></a>var <span class="sc">&gt;=</span> <span class="dv">8</span> <span class="co"># bigger than or equal to</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="introduction-to-r-programming.html#cb44-1" tabindex="-1"></a>var <span class="sc">==</span> <span class="dv">8</span> <span class="co"># equal to</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="introduction-to-r-programming.html#cb46-1" tabindex="-1"></a>var <span class="sc">!=</span> <span class="dv">6</span> <span class="co"># not equal to</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="introduction-to-r-programming.html#cb48-1" tabindex="-1"></a>var <span class="sc">==</span> <span class="dv">4</span> <span class="sc">|</span> <span class="dv">8</span> <span class="co"># either 4 or 8</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="introduction-to-r-programming.html#cb50-1" tabindex="-1"></a>var <span class="sc">==</span> <span class="dv">4</span> <span class="sc">&amp;</span> <span class="dv">8</span> <span class="co"># both 4 and 8</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Note: You can always get help about a specific function or operator by
+using the help() command.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="introduction-to-r-programming.html#cb52-1" tabindex="-1"></a><span class="fu">help</span>(log)</span>
+<span id="cb52-2"><a href="introduction-to-r-programming.html#cb52-2" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="introduction-to-r-programming.html#cb52-3" tabindex="-1"></a><span class="fu">help</span>(<span class="st">&quot;+&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="data-types-in-r" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Data types in R<a href="introduction-to-r-programming.html#data-types-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In R, values can have different types. The main data types include
+integer, double (for real numbers), character, and logical. You can use
+the typeof() function to determine the data type of a variable.</p>
+<p>Here’s an example:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="introduction-to-r-programming.html#cb53-1" tabindex="-1"></a>var <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="dv">2</span>)</span>
+<span id="cb53-2"><a href="introduction-to-r-programming.html#cb53-2" tabindex="-1"></a>var2 <span class="ot">&lt;-</span> <span class="fl">2.2</span></span>
+<span id="cb53-3"><a href="introduction-to-r-programming.html#cb53-3" tabindex="-1"></a>var3 <span class="ot">&lt;-</span> <span class="st">&quot;hey learning R is cool&quot;</span></span>
+<span id="cb53-4"><a href="introduction-to-r-programming.html#cb53-4" tabindex="-1"></a>var4 <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb53-5"><a href="introduction-to-r-programming.html#cb53-5" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="introduction-to-r-programming.html#cb53-6" tabindex="-1"></a><span class="fu">typeof</span>(var)</span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="introduction-to-r-programming.html#cb55-1" tabindex="-1"></a><span class="fu">typeof</span>(var2)</span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introduction-to-r-programming.html#cb57-1" tabindex="-1"></a><span class="fu">typeof</span>(var3)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introduction-to-r-programming.html#cb59-1" tabindex="-1"></a><span class="fu">typeof</span>(var4)</span></code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div id="vectors" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Vectors<a href="introduction-to-r-programming.html#vectors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="numeric-vectors" class="section level4 hasAnchor" number="2.4.1.1">
+<h4><span class="header-section-number">2.4.1.1</span> Numeric vectors<a href="introduction-to-r-programming.html#numeric-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A vector is a collection of values of the same type. We can create a
+vector using the c() function. The c() function takes any number of
+arguments and combines them into a vector.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="introduction-to-r-programming.html#cb61-1" tabindex="-1"></a><span class="co"># create a vector of numbers</span></span>
+<span id="cb61-2"><a href="introduction-to-r-programming.html#cb61-2" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb61-3"><a href="introduction-to-r-programming.html#cb61-3" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="introduction-to-r-programming.html#cb61-4" tabindex="-1"></a><span class="fu">print</span>(numbers)</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="introduction-to-r-programming.html#cb63-1" tabindex="-1"></a><span class="co"># use length() to get the length of a vector</span></span>
+<span id="cb63-2"><a href="introduction-to-r-programming.html#cb63-2" tabindex="-1"></a><span class="fu">length</span>(numbers)</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="introduction-to-r-programming.html#cb65-1" tabindex="-1"></a><span class="co"># consecutive numbers can be created using the : operator</span></span>
+<span id="cb65-2"><a href="introduction-to-r-programming.html#cb65-2" tabindex="-1"></a><span class="dv">5</span><span class="sc">:</span><span class="dv">90</span></span></code></pre></div>
+<pre><code>##  [1]  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
+## [29] 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60
+## [57] 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88
+## [85] 89 90</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="introduction-to-r-programming.html#cb67-1" tabindex="-1"></a><span class="co"># or use seq() to create a sequence of numbers</span></span>
+<span id="cb67-2"><a href="introduction-to-r-programming.html#cb67-2" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">90</span>, <span class="at">by =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##  [1]  5  7  9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49 51 53 55 57 59
+## [29] 61 63 65 67 69 71 73 75 77 79 81 83 85 87 89</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="introduction-to-r-programming.html#cb69-1" tabindex="-1"></a><span class="co"># use rep() and seq() to create a vector of repeated numbers</span></span>
+<span id="cb69-2"><a href="introduction-to-r-programming.html#cb69-2" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">3</span>),<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##  [1]  1  4  7 10  1  4  7 10  1  4  7 10  1  4  7 10  1  4  7 10</code></pre>
+<p>Some functions that you can use with numeric vectors:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="introduction-to-r-programming.html#cb71-1" tabindex="-1"></a><span class="co"># sum() adds up all the numbers in a vector</span></span>
+<span id="cb71-2"><a href="introduction-to-r-programming.html#cb71-2" tabindex="-1"></a><span class="fu">sum</span>(numbers)</span></code></pre></div>
+<pre><code>## [1] 15</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="introduction-to-r-programming.html#cb73-1" tabindex="-1"></a><span class="co"># mean() computes the mean of all the numbers in a vector</span></span>
+<span id="cb73-2"><a href="introduction-to-r-programming.html#cb73-2" tabindex="-1"></a><span class="fu">mean</span>(numbers)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="introduction-to-r-programming.html#cb75-1" tabindex="-1"></a><span class="co"># max() and min() return the maximum and minimum values in a vector</span></span>
+<span id="cb75-2"><a href="introduction-to-r-programming.html#cb75-2" tabindex="-1"></a><span class="fu">max</span>(numbers)</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="introduction-to-r-programming.html#cb77-1" tabindex="-1"></a><span class="fu">min</span>(numbers)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="introduction-to-r-programming.html#cb79-1" tabindex="-1"></a><span class="co"># sort() sorts the numbers in a vector in ascending order</span></span>
+<span id="cb79-2"><a href="introduction-to-r-programming.html#cb79-2" tabindex="-1"></a><span class="fu">sort</span>(numbers)</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="introduction-to-r-programming.html#cb81-1" tabindex="-1"></a><span class="co"># you can also sort in descending order</span></span>
+<span id="cb81-2"><a href="introduction-to-r-programming.html#cb81-2" tabindex="-1"></a><span class="fu">sort</span>(numbers, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 5 4 3 2 1</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="introduction-to-r-programming.html#cb83-1" tabindex="-1"></a><span class="co"># sd() computes the standard deviation of the numbers in a vector</span></span>
+<span id="cb83-2"><a href="introduction-to-r-programming.html#cb83-2" tabindex="-1"></a><span class="fu">sd</span>(numbers)</span></code></pre></div>
+<pre><code>## [1] 1.581139</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="introduction-to-r-programming.html#cb85-1" tabindex="-1"></a><span class="co"># median() computes the median of the numbers in a vector</span></span>
+<span id="cb85-2"><a href="introduction-to-r-programming.html#cb85-2" tabindex="-1"></a><span class="fu">median</span>(numbers)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+</div>
+<div id="operations-with-vectors" class="section level4 hasAnchor" number="2.4.1.2">
+<h4><span class="header-section-number">2.4.1.2</span> Operations with vectors:<a href="introduction-to-r-programming.html#operations-with-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="introduction-to-r-programming.html#cb87-1" tabindex="-1"></a><span class="co"># you can add two vectors together</span></span>
+<span id="cb87-2"><a href="introduction-to-r-programming.html#cb87-2" tabindex="-1"></a>numbers <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1]  2  4  6  8 10</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="introduction-to-r-programming.html#cb89-1" tabindex="-1"></a><span class="co"># you can multiply two vectors together</span></span>
+<span id="cb89-2"><a href="introduction-to-r-programming.html#cb89-2" tabindex="-1"></a>numbers <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1]  1  4  9 16 25</code></pre>
+</div>
+<div id="indexing-vectors" class="section level4 hasAnchor" number="2.4.1.3">
+<h4><span class="header-section-number">2.4.1.3</span> Indexing vectors:<a href="introduction-to-r-programming.html#indexing-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="introduction-to-r-programming.html#cb91-1" tabindex="-1"></a><span class="co"># you can access the elements of a vector using the [] operator</span></span>
+<span id="cb91-2"><a href="introduction-to-r-programming.html#cb91-2" tabindex="-1"></a>new_vector <span class="ot">&lt;-</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">21</span></span>
+<span id="cb91-3"><a href="introduction-to-r-programming.html#cb91-3" tabindex="-1"></a></span>
+<span id="cb91-4"><a href="introduction-to-r-programming.html#cb91-4" tabindex="-1"></a>new_vector[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="introduction-to-r-programming.html#cb93-1" tabindex="-1"></a>new_vector[<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>]</span></code></pre></div>
+<pre><code>## [1]  8  9 10 11 12 13</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="introduction-to-r-programming.html#cb95-1" tabindex="-1"></a>new_vector[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)]</span></code></pre></div>
+<pre><code>## [1]  7  9 11 13</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="introduction-to-r-programming.html#cb97-1" tabindex="-1"></a>new_vector[<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
+<pre><code>##  [1]  8  9 10 11 12 13 14 15 16 17 18 19 20 21</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="introduction-to-r-programming.html#cb99-1" tabindex="-1"></a>new_vector[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)]</span></code></pre></div>
+<pre><code>##  [1] 10 11 12 13 14 15 16 17 18 19 20 21</code></pre>
+</div>
+<div id="logical-vectors" class="section level4 hasAnchor" number="2.4.1.4">
+<h4><span class="header-section-number">2.4.1.4</span> Logical vectors<a href="introduction-to-r-programming.html#logical-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Logical vectors are vectors that contain TRUE and FALSE values. You can
+create logical vectors using the c() function.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="introduction-to-r-programming.html#cb101-1" tabindex="-1"></a><span class="co"># create a logical vector</span></span>
+<span id="cb101-2"><a href="introduction-to-r-programming.html#cb101-2" tabindex="-1"></a>logical_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb101-3"><a href="introduction-to-r-programming.html#cb101-3" tabindex="-1"></a></span>
+<span id="cb101-4"><a href="introduction-to-r-programming.html#cb101-4" tabindex="-1"></a><span class="co"># operators like &lt;, &gt;, &lt;=, &gt;=, ==, !=, |, and &amp; can be used to create logical vectors</span></span>
+<span id="cb101-5"><a href="introduction-to-r-programming.html#cb101-5" tabindex="-1"></a>new_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span></span>
+<span id="cb101-6"><a href="introduction-to-r-programming.html#cb101-6" tabindex="-1"></a></span>
+<span id="cb101-7"><a href="introduction-to-r-programming.html#cb101-7" tabindex="-1"></a>new_vector <span class="sc">&lt;</span> <span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="introduction-to-r-programming.html#cb103-1" tabindex="-1"></a>new_vector <span class="sc">==</span> <span class="dv">7</span></span></code></pre></div>
+<pre><code>## [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="introduction-to-r-programming.html#cb105-1" tabindex="-1"></a>new_vector <span class="sc">!=</span> <span class="dv">0</span></span></code></pre></div>
+<pre><code>## [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
+</div>
+<div id="filtering-vectors" class="section level4 hasAnchor" number="2.4.1.5">
+<h4><span class="header-section-number">2.4.1.5</span> Filtering vectors:<a href="introduction-to-r-programming.html#filtering-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="introduction-to-r-programming.html#cb107-1" tabindex="-1"></a><span class="co"># you can use logical vectors to filter other vectors</span></span>
+<span id="cb107-2"><a href="introduction-to-r-programming.html#cb107-2" tabindex="-1"></a></span>
+<span id="cb107-3"><a href="introduction-to-r-programming.html#cb107-3" tabindex="-1"></a>new_vector[new_vector <span class="sc">&lt;</span> <span class="dv">3</span>] <span class="co"># returns all values in new_vector that are smaller than 3</span></span></code></pre></div>
+<pre><code>## [1] 1 2</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="introduction-to-r-programming.html#cb109-1" tabindex="-1"></a>new_vector[new_vector <span class="sc">==</span> <span class="dv">7</span>] <span class="co"># returns all values in new_vector that are equal to 7</span></span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+</div>
+<div id="character-vectors" class="section level4 hasAnchor" number="2.4.1.6">
+<h4><span class="header-section-number">2.4.1.6</span> Character vectors<a href="introduction-to-r-programming.html#character-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Character vectors are vectors that contain strings. You can create
+character vectors using the c() function.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="introduction-to-r-programming.html#cb111-1" tabindex="-1"></a><span class="co"># create a character vector</span></span>
+<span id="cb111-2"><a href="introduction-to-r-programming.html#cb111-2" tabindex="-1"></a>character_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;learning&quot;</span>, <span class="st">&quot;R&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;cool&quot;</span>)</span>
+<span id="cb111-3"><a href="introduction-to-r-programming.html#cb111-3" tabindex="-1"></a><span class="fu">print</span>(character_vector)</span></code></pre></div>
+<pre><code>## [1] &quot;hello&quot;    &quot;learning&quot; &quot;R&quot;        &quot;is&quot;       &quot;cool&quot;</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="introduction-to-r-programming.html#cb113-1" tabindex="-1"></a><span class="co"># you can use the nchar() function to get the number of characters in each string</span></span>
+<span id="cb113-2"><a href="introduction-to-r-programming.html#cb113-2" tabindex="-1"></a><span class="fu">nchar</span>(character_vector)</span></code></pre></div>
+<pre><code>## [1] 5 8 1 2 4</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="introduction-to-r-programming.html#cb115-1" tabindex="-1"></a><span class="co"># you can use the paste() function to concatenate strings</span></span>
+<span id="cb115-2"><a href="introduction-to-r-programming.html#cb115-2" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;learning&quot;</span>, <span class="st">&quot;R&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;cool&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;hello learning R is cool&quot;</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="introduction-to-r-programming.html#cb117-1" tabindex="-1"></a><span class="co"># you can use the strsplit() function to split a string into a vector of substrings</span></span>
+<span id="cb117-2"><a href="introduction-to-r-programming.html#cb117-2" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="st">&quot;hello learning R is cool&quot;</span>, <span class="st">&quot; &quot;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;hello&quot;    &quot;learning&quot; &quot;R&quot;        &quot;is&quot;       &quot;cool&quot;</code></pre>
+</div>
+</div>
+<div id="data-frames" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Data frames<a href="introduction-to-r-programming.html#data-frames" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Data frames are used to store tabular data. You can create a data frame
+using the data.frame() function.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="introduction-to-r-programming.html#cb119-1" tabindex="-1"></a><span class="co"># create a data frame</span></span>
+<span id="cb119-2"><a href="introduction-to-r-programming.html#cb119-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb119-3"><a href="introduction-to-r-programming.html#cb119-3" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">55</span>, <span class="dv">95</span>, <span class="dv">67</span>, <span class="dv">89</span>, <span class="dv">24</span>),</span>
+<span id="cb119-4"><a href="introduction-to-r-programming.html#cb119-4" tabindex="-1"></a>  <span class="at">height =</span> <span class="fu">c</span>(<span class="fl">1.78</span>, <span class="fl">1.65</span>, <span class="fl">1.90</span>, <span class="fl">1.45</span>, <span class="fl">1.67</span>)</span>
+<span id="cb119-5"><a href="introduction-to-r-programming.html#cb119-5" tabindex="-1"></a>)</span>
+<span id="cb119-6"><a href="introduction-to-r-programming.html#cb119-6" tabindex="-1"></a></span>
+<span id="cb119-7"><a href="introduction-to-r-programming.html#cb119-7" tabindex="-1"></a><span class="fu">print</span>(df)</span></code></pre></div>
+<pre><code>##   age height
+## 1  55   1.78
+## 2  95   1.65
+## 3  67   1.90
+## 4  89   1.45
+## 5  24   1.67</code></pre>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="introduction-to-r-programming.html#cb121-1" tabindex="-1"></a><span class="co"># you can use the $ operator or [] to access a column in a data frame</span></span>
+<span id="cb121-2"><a href="introduction-to-r-programming.html#cb121-2" tabindex="-1"></a>df<span class="sc">$</span>age</span></code></pre></div>
+<pre><code>## [1] 55 95 67 89 24</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="introduction-to-r-programming.html#cb123-1" tabindex="-1"></a>df[<span class="st">&#39;age&#39;</span>]</span></code></pre></div>
+<pre><code>##   age
+## 1  55
+## 2  95
+## 3  67
+## 4  89
+## 5  24</code></pre>
+<p><strong>There are some in-built datasets in R like state.x77.</strong> You can use
+<code>data()</code> to view other available datasets in R.</p>
+<p>This is a matrix with 50 rows and 8 columns giving the following
+statistics in the respective columns.</p>
+<ul>
+<li><p><em>Population</em>: population estimate as of July 1, 1975.</p></li>
+<li><p><em>Income</em>: per capita income (1974)</p></li>
+<li><p><em>Illiteracy</em>: illiteracy (1970, percent of population)</p></li>
+<li><p><em>Life Exp</em>: life expectancy in years (1969-71)</p></li>
+<li><p><em>Murder</em>: murder and non-negligent manslaughter rate per 100,000
+population (1976)</p></li>
+<li><p><em>HS Grad</em>: percent high-school graduates (1970)</p></li>
+<li><p><em>Frost</em>: mean number of days with minimum temperature below freezing
+(1931-1960) in capital or large city</p></li>
+<li><p><em>Area</em>: land area in square miles</p></li>
+</ul>
+<p><em>Source:</em> U.S. Department of Commerce, Bureau of the Census
+(1977) <em>Statistical Abstract of the United States</em>, and U.S. Department
+of Commerce, Bureau of the Census (1977) <em>County and City Data Book</em>.</p>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="introduction-to-r-programming.html#cb125-1" tabindex="-1"></a><span class="co"># save the dataset to a variable as a dataframe object in R</span></span>
+<span id="cb125-2"><a href="introduction-to-r-programming.html#cb125-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(state.x77)</span>
+<span id="cb125-3"><a href="introduction-to-r-programming.html#cb125-3" tabindex="-1"></a></span>
+<span id="cb125-4"><a href="introduction-to-r-programming.html#cb125-4" tabindex="-1"></a><span class="co"># view the df:</span></span>
+<span id="cb125-5"><a href="introduction-to-r-programming.html#cb125-5" tabindex="-1"></a><span class="co">#View(state.x77)</span></span>
+<span id="cb125-6"><a href="introduction-to-r-programming.html#cb125-6" tabindex="-1"></a><span class="fu">head</span>(state.x77) </span></code></pre></div>
+<pre><code>##            Population Income Illiteracy Life Exp Murder HS Grad Frost   Area
+## Alabama          3615   3624        2.1    69.05   15.1    41.3    20  50708
+## Alaska            365   6315        1.5    69.31   11.3    66.7   152 566432
+## Arizona          2212   4530        1.8    70.55    7.8    58.1    15 113417
+## Arkansas         2110   3378        1.9    70.66   10.1    39.9    65  51945
+## California      21198   5114        1.1    71.71   10.3    62.6    20 156361
+## Colorado         2541   4884        0.7    72.06    6.8    63.9   166 103766</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="introduction-to-r-programming.html#cb127-1" tabindex="-1"></a><span class="fu">tail</span>(state.x77)</span></code></pre></div>
+<pre><code>##               Population Income Illiteracy Life Exp Murder HS Grad Frost  Area
+## Vermont              472   3907        0.6    71.64    5.5    57.1   168  9267
+## Virginia            4981   4701        1.4    70.08    9.5    47.8    85 39780
+## Washington          3559   4864        0.6    71.72    4.3    63.5    32 66570
+## West Virginia       1799   3617        1.4    69.48    6.7    41.6   100 24070
+## Wisconsin           4589   4468        0.7    72.48    3.0    54.5   149 54464
+## Wyoming              376   4566        0.6    70.29    6.9    62.9   173 97203</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="introduction-to-r-programming.html#cb129-1" tabindex="-1"></a><span class="co"># you can use the str() function to get information about the structure of a data frame</span></span>
+<span id="cb129-2"><a href="introduction-to-r-programming.html#cb129-2" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    50 obs. of  8 variables:
+##  $ Population: num  3615 365 2212 2110 21198 ...
+##  $ Income    : num  3624 6315 4530 3378 5114 ...
+##  $ Illiteracy: num  2.1 1.5 1.8 1.9 1.1 0.7 1.1 0.9 1.3 2 ...
+##  $ Life Exp  : num  69 69.3 70.5 70.7 71.7 ...
+##  $ Murder    : num  15.1 11.3 7.8 10.1 10.3 6.8 3.1 6.2 10.7 13.9 ...
+##  $ HS Grad   : num  41.3 66.7 58.1 39.9 62.6 63.9 56 54.6 52.6 40.6 ...
+##  $ Frost     : num  20 152 15 65 20 166 139 103 11 60 ...
+##  $ Area      : num  50708 566432 113417 51945 156361 ...</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="introduction-to-r-programming.html#cb131-1" tabindex="-1"></a><span class="co"># you can use the summary() function to get summary statistics about a data frame</span></span>
+<span id="cb131-2"><a href="introduction-to-r-programming.html#cb131-2" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code></pre></div>
+<pre><code>##    Population        Income       Illiteracy       Life Exp         Murder      
+##  Min.   :  365   Min.   :3098   Min.   :0.500   Min.   :67.96   Min.   : 1.400  
+##  1st Qu.: 1080   1st Qu.:3993   1st Qu.:0.625   1st Qu.:70.12   1st Qu.: 4.350  
+##  Median : 2838   Median :4519   Median :0.950   Median :70.67   Median : 6.850  
+##  Mean   : 4246   Mean   :4436   Mean   :1.170   Mean   :70.88   Mean   : 7.378  
+##  3rd Qu.: 4968   3rd Qu.:4814   3rd Qu.:1.575   3rd Qu.:71.89   3rd Qu.:10.675  
+##  Max.   :21198   Max.   :6315   Max.   :2.800   Max.   :73.60   Max.   :15.100  
+##     HS Grad          Frost             Area       
+##  Min.   :37.80   Min.   :  0.00   Min.   :  1049  
+##  1st Qu.:48.05   1st Qu.: 66.25   1st Qu.: 36985  
+##  Median :53.25   Median :114.50   Median : 54277  
+##  Mean   :53.11   Mean   :104.46   Mean   : 70736  
+##  3rd Qu.:59.15   3rd Qu.:139.75   3rd Qu.: 81162  
+##  Max.   :67.30   Max.   :188.00   Max.   :566432</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="introduction-to-r-programming.html#cb133-1" tabindex="-1"></a><span class="co"># get the dimension</span></span>
+<span id="cb133-2"><a href="introduction-to-r-programming.html#cb133-2" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
+<pre><code>## [1] 50  8</code></pre>
+</div>
+</div>
+<div id="quick-visualization" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Quick visualization<a href="introduction-to-r-programming.html#quick-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s create some dummy data and visualize it.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="introduction-to-r-programming.html#cb135-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb135-2"><a href="introduction-to-r-programming.html#cb135-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb135-3"><a href="introduction-to-r-programming.html#cb135-3" tabindex="-1"></a></span>
+<span id="cb135-4"><a href="introduction-to-r-programming.html#cb135-4" tabindex="-1"></a><span class="co"># you can use the plot() function to create a scatter plot</span></span>
+<span id="cb135-5"><a href="introduction-to-r-programming.html#cb135-5" tabindex="-1"></a><span class="fu">plot</span>(x, y, </span>
+<span id="cb135-6"><a href="introduction-to-r-programming.html#cb135-6" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;X-axis title&quot;</span>,</span>
+<span id="cb135-7"><a href="introduction-to-r-programming.html#cb135-7" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Y-axis title&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="introduction-to-r-programming.html#cb136-1" tabindex="-1"></a><span class="co"># simulate different data</span></span>
+<span id="cb136-2"><a href="introduction-to-r-programming.html#cb136-2" tabindex="-1"></a>teams <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Team A&quot;</span>, <span class="st">&quot;Team B&quot;</span>, <span class="st">&quot;Team C&quot;</span>, <span class="st">&quot;Team D&quot;</span>, <span class="st">&quot;Team E&quot;</span>) <span class="co"># generating team names</span></span>
+<span id="cb136-3"><a href="introduction-to-r-programming.html#cb136-3" tabindex="-1"></a></span>
+<span id="cb136-4"><a href="introduction-to-r-programming.html#cb136-4" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">50</span><span class="sc">:</span><span class="dv">100</span>, <span class="fu">length</span>(teams)) <span class="co"># generating the scores for each team</span></span>
+<span id="cb136-5"><a href="introduction-to-r-programming.html#cb136-5" tabindex="-1"></a></span>
+<span id="cb136-6"><a href="introduction-to-r-programming.html#cb136-6" tabindex="-1"></a><span class="co"># bar plot</span></span>
+<span id="cb136-7"><a href="introduction-to-r-programming.html#cb136-7" tabindex="-1"></a><span class="fu">barplot</span>(scores, </span>
+<span id="cb136-8"><a href="introduction-to-r-programming.html#cb136-8" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Scores by Teams&quot;</span>,</span>
+<span id="cb136-9"><a href="introduction-to-r-programming.html#cb136-9" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Teams&quot;</span>,</span>
+<span id="cb136-10"><a href="introduction-to-r-programming.html#cb136-10" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Scores&quot;</span>,</span>
+<span id="cb136-11"><a href="introduction-to-r-programming.html#cb136-11" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;lightgreen&quot;</span>,</span>
+<span id="cb136-12"><a href="introduction-to-r-programming.html#cb136-12" tabindex="-1"></a>        <span class="at">border =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb136-13"><a href="introduction-to-r-programming.html#cb136-13" tabindex="-1"></a>        <span class="at">names.arg =</span> teams)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-20-2.png" width="672" /></p>
+<p>We will learn later how to create more advanced visualizations using the
+ggplot2 package.</p>
+</div>
+<div id="in-class-exercises" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> In-Class Exercises<a href="introduction-to-r-programming.html#in-class-exercises" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="exercise-1" class="section level3 hasAnchor" number="2.6.1">
+<h3><span class="header-section-number">2.6.1</span> Exercise 1<a href="introduction-to-r-programming.html#exercise-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Today is Monday. What day of the week will it be 9, 54, 306, and 8999
+days from now?</p>
+<p>Note: Create a character vector containing the days of the week and
+repeat this vector 9000 times. Then, use indexing to find the desired
+day. Hint: Write the days of the week in the character vector starting
+from Tuesday.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="introduction-to-r-programming.html#cb137-1" tabindex="-1"></a>days <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Friday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>, <span class="st">&quot;Monday&quot;</span>)</span>
+<span id="cb137-2"><a href="introduction-to-r-programming.html#cb137-2" tabindex="-1"></a></span>
+<span id="cb137-3"><a href="introduction-to-r-programming.html#cb137-3" tabindex="-1"></a><span class="co"># you complete...</span></span></code></pre></div>
+</div>
+<div id="exercise-2" class="section level3 hasAnchor" number="2.6.2">
+<h3><span class="header-section-number">2.6.2</span> Exercise 2<a href="introduction-to-r-programming.html#exercise-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Create a vector containing the numbers 1 to 100. Then, find the sum of
+the numbers that are divisible by 3 or 5.</p>
+<p>Tip: Use the %% operator to find the remainder of a division.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="introduction-to-r-programming.html#cb138-1" tabindex="-1"></a><span class="co"># answer:</span></span>
+<span id="cb138-2"><a href="introduction-to-r-programming.html#cb138-2" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span></span>
+<span id="cb138-3"><a href="introduction-to-r-programming.html#cb138-3" tabindex="-1"></a></span>
+<span id="cb138-4"><a href="introduction-to-r-programming.html#cb138-4" tabindex="-1"></a><span class="co"># you complete...</span></span></code></pre></div>
+</div>
+<div id="exercise-3" class="section level3 hasAnchor" number="2.6.3">
+<h3><span class="header-section-number">2.6.3</span> Exercise 3<a href="introduction-to-r-programming.html#exercise-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You are taking measurements every 5 days throughout the year. Create a
+number sequence that shows on which days you take measurements and
+assign it to a variable named “measurement_days” The result should look
+like this: 5, 10, 15, 20… 365.</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="introduction-to-r-programming.html#cb139-1" tabindex="-1"></a><span class="co"># answer:</span></span>
+<span id="cb139-2"><a href="introduction-to-r-programming.html#cb139-2" tabindex="-1"></a></span>
+<span id="cb139-3"><a href="introduction-to-r-programming.html#cb139-3" tabindex="-1"></a></span>
+<span id="cb139-4"><a href="introduction-to-r-programming.html#cb139-4" tabindex="-1"></a><span class="co"># you complete...</span></span></code></pre></div>
+</div>
+</div>
+<div id="practice-questions-for-next-week" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Practice questions for next week<a href="introduction-to-r-programming.html#practice-questions-for-next-week" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong><em>Q1:</em></strong> Create a vector containing 50 random numbers with a normal
+(Gaussian) distribution, mean 20 and standard deviation 2. You can do
+this with the <code>rnorm()</code> function. Then assigns the numbers to a variable
+and use that variable as an argument to the <code>sample()</code> function to
+randomly select 10 samples from that vector. Run <code>?rnorm()</code> <code>?sample()</code>
+to see how the functions work and what arguments they take.</p>
+<p><strong><em>Q2:</em></strong> Download and load “LearnBayes” package and take a look at the
+first few columns of the data set called “studentdata”.</p>
+<p><strong><em>Answer the following questions:</em></strong></p>
+<p>3.1. Remove rows that include NA observations.</p>
+<p>3.2. Get the number of female students.</p>
+<p>3.3. Number of students who are taller than 180 cm (tip: the height is
+given in inches. please first turn them to cm by multiplying the
+observations with 2.54)</p>
+<p>3.4. Plot the relationship between height and sex in a line graph.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="descriptive-statistics-with-tidyverse.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/kelesonur/scode/edit/main/02-w1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/kelesonur/scode/blob/main/02-w1.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

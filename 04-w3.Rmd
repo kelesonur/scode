@@ -1,0 +1,332 @@
+# Inferential statistics
+
+## Answers to Exercise Questions
+
+1.  What years of information are included in the Gapminder data? Tip:
+    You can find this out with the `unique()` command.
+
+```{r, warning=FALSE, message=FALSE}
+# Your answer:
+df <- gapminder
+unique(df$year)
+
+```
+
+2.  What are the mean and median of life years in 1962 and 2002? Tip:
+    You can do this with the `filter()` function.
+
+```{r, warning=FALSE, message=FALSE}
+# Your answer:
+df %>% 
+  filter(year == 1962 | year == 2002) %>% 
+  group_by(year) %>%
+  summarise(mean(lifeExp), median(lifeExp))
+
+
+```
+
+3.  Can you create a scatterplot of income (x-axis) and years of life
+    expectancy (y-axis) for the European continent in 1962, 1982 and
+    2002 using `ggplot()` and `facet_wrap()`? Country names must appear
+    as text. Tip: after filtering the data by these years you will need
+    to call `facet_wrap(~year)`.
+
+```{r, warning=FALSE, message=FALSE}
+# Your answer:
+library(ggrepel)
+
+df %>% 
+  filter(year == 1962 | year == 1982 | year == 2002) %>% 
+  filter(continent == "Europe") %>% 
+  ggplot(aes(x = gdpPercap, y = lifeExp, label = country)) +
+  geom_text_repel(color="red") +
+  facet_wrap(~year) +
+  labs(x = "GDP per capita", y = "Life expectancy", title = "Life expectancy vs. GDP per capita") +
+  scale_x_continuous(labels = scales::comma) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+```
+
+4.  Can you create a line plot and show Turkey's population growth? Can
+    you name the plot and axes? Tip: you will need to use the
+    `geom_line()` function to create the line chart.
+
+```{r, warning=FALSE, message=FALSE}
+# Your answer:
+df %>% 
+  filter(country == "Turkey") %>% 
+  ggplot(aes(x = year, y = pop)) +
+  geom_line() +
+  labs(x = "Year", y = "Population", title = "Population growth in Turkey") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  # no scientific notation
+  scale_y_continuous(labels = scales::comma)
+
+```
+
+## Creating summary tables and performing simple data analysis with Dplyr
+
+We will work with a dataset named "prestige" now. The data looks like
+the following:
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+library(car)
+library(kableExtra)
+
+df <- head(Prestige)
+df %>% 
+  kbl() %>%
+  kable_styling()
+```
+
+Let's import it first:
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+#install.packages('car')
+library(car)
+
+df <- Prestige
+head(df)
+```
+
+## `group_by()` and `summarize()`
+
+We can extract summary tables using these functions in the Dplyr
+package. Dplyr creates group-based summaries with `group_by()`. We can
+also make the calculations we want with `summarize()`:
+
+```{r, warning=FALSE, message=FALSE}
+df %>%
+  group_by(type) %>%
+  summarize(mean_prestige = mean(prestige),
+            mean_income = mean(income)) %>%
+  arrange(mean_income)
+```
+
+Let's omit the NA values:
+
+```{r, warning=FALSE, message=FALSE}
+df <- na.omit(df)
+```
+
+Find out the percentage of female workers according to the types of
+professions:
+
+```{r, warning=FALSE, message=FALSE}
+df %>%
+  group_by(type) %>%
+  summarize(woman_perc = mean(women))
+```
+
+We want to see the relationship between education and income. Let's
+create a scatter plot for this:
+
+```{r, warning=FALSE, message=FALSE}
+df %>% 
+  ggplot(aes(x = education, y = income)) +
+  geom_point() +
+  labs(x = "Education", y = "Income", title = "Income vs. Education") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  # no scientific notation
+  scale_y_continuous(labels = scales::comma)
+```
+
+## Linear Regression
+
+We noticed that there is a relationship between education and income,
+but can we confirm this with statistics? Why do we need statistics?
+
+If you want to go beyond our data and find out whether the results are
+generalizable to the whole world, we need to model. With a linear
+regression analysis, we will create a line that explain our data best.
+Also, we will be able to predict situations that are not observed in our
+data set. Let's first understand what linear regression is:
+
+In the context of simple linear regression, the dependent variable's
+(the outcome variable) value is determined by a linear function of the
+predictor variable, expressed as:
+
+y = $\alpha$ + $\beta$ x
+
+Let's delve into the interpretation of these components:
+
+Y (dependent variable) = $\alpha$ (intercept) + $\beta$ (slope) X
+(predictor)
+
+In this equation:
+
+-   Y represents the dependent variable,
+
+-   $\alpha$ is the intercept, an additive term,
+
+-   $\beta$ is the slope, another additive term,
+
+-   X is the predictor variable.
+
+Mathematically, a line is characterized by an intercept and a slope. The
+slope $\beta$) signifies the change in y for a one-unit change in x.
+
+In simpler terms, the slope represents the rate of change of the
+dependent variable y with respect to changes in the predictor variable
+x.
+
+Let's create a linear regression model for our data:
+
+```{r, warning=FALSE, message=FALSE}
+model <- lm(income ~ education, data = df)
+summary(model)
+```
+
+The first thing we need to look at is the coefficient. The coefficient
+is the slope of the line. In our case, the coefficient is 898.8. This
+means that for every one unit increase in education, income increases by
+898.8.
+
+Then we can look at the p-value. The p-value is the probability that the
+observed data occurs with the assumption that education does not have an
+effect on income. In our case, the p-value is 2.079e-10 (a very small
+number), close to 0. This is a very small number, so we can say reject
+the previous assumption. In other words, we can say that there is a
+statistically significant relationship between education and income.
+
+Finally, let's examine the R-squared value. R-squared is a statistical
+measure of how close the data are to the fitted regression line. It is
+also known as the coefficient of determination, or the coefficient of
+multiple determination for multiple regression. The definition of
+R-squared is fairly straight-forward; it is the percentage of the
+response variable variation that is explained by a linear model.
+
+In our case, the R-squared value is 0.3336. This means that 33.36% of
+the variation in income is explained by education. This is a good value
+for social sciences.
+
+Let's plot the regression line:
+
+```{r, warning=FALSE, message=FALSE}
+df %>% 
+  ggplot(aes(x = education, y = income)) +
+  geom_point() +
+  labs(x = "Education", y = "Income", title = "Income vs. Education") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  # no scientific notation
+  scale_y_continuous(labels = scales::comma) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+We can also predict future values with our model with the `predict()`
+function.
+
+```{r, warning=FALSE, message=FALSE}
+# predict income for 10 years of education
+new_data <- data.frame(education = 10)
+predict(model, new_data)
+
+# predict income for 20 years of education
+new_data <- data.frame(education = 20)
+predict(model, new_data)
+
+# predict income for 30 years of education
+new_data <- data.frame(education = 30)
+predict(model, new_data)
+```
+
+## Time Series Data Analysis
+
+Now let's work with time series data. We will use the `AirPassengers`
+dataset in R. This dataset contains the number of passengers who
+traveled by plane in a month between 1949 and 1960. Let's import it
+first:
+
+```{r, warning=FALSE, message=FALSE}
+df <- AirPassengers
+head(df)
+```
+
+We then need to convert the data to a time series object which is a
+special type of object in R. We will use the `ts()` function for this.
+We need to specify the frequency of the data (12 for monthly data) and
+the start and end dates.
+
+```{r, warning=FALSE, message=FALSE}
+# convert the data to a time series object
+df <- ts(df, frequency = 12, start = c(1949, 1), end = c(1960, 12))
+head(df)
+
+# plot the data with axis names:
+plot(df, main = "Air Passengers", xlab = "Year", ylab = "Number of Passengers")
+```
+
+We can see that there is an increasing trend in the data. We can also
+see that there is a seasonal component. We can decompose the data into
+trend, seasonal, and random components with the `decompose()` function.
+
+Let's explain the components: Trend is the long-term progression of the
+series. Seasonality is a short-term cycle that occurs regularly. Random
+is the residual variation that cannot be explained by the trend or the
+seasonal components.
+
+```{r, warning=FALSE, message=FALSE}
+df_decomposed <- decompose(df)
+
+
+# plot the decomposed data
+plot(df_decomposed)
+
+```
+
+We can use linear regression to model the trend component. We will use
+the `lm()` function for this. We will use the `time()` function to
+create a variable for time.
+
+```{r, warning=FALSE, message=FALSE}
+
+# turn our ts object into a data frame
+df_time_series <- data.frame(Y=as.matrix(df), Time = time(df))
+                 
+```
+
+Model the trend component:
+
+```{r, warning=FALSE, message=FALSE}
+model <- lm(Y ~ Time, data = df_time_series)
+# summary(model)
+
+# plot the regression line:
+df_time_series %>% 
+  ggplot(aes(x = Time, y = Y)) +
+  geom_point() +
+  labs(x = "Time", y = "Number of Passengers", title = "Air Passengers") +
+  geom_smooth(method = "lm", se = FALSE)
+
+
+```
+
+Now let's predict the number of passengers for the next 10 years:
+
+```{r, warning=FALSE, message=FALSE}
+
+new_data <- data.frame(Time = 1970:1980)
+predict(model, new_data)
+
+```
+
+## In-class Exercises
+
+**1.1.** Work with the `mtcars` dataset. Use group_by() and summarize()
+to find the average miles per gallon for each number of cylinders.
+
+**1.2.** Create a linear regression model. Predict the miles per gallon
+for a car with 6 cylinders and a weight of 3000 lbs.
+
+**1.3.** Plot the regression line.
+
+------------------------------------------------------------------------
+
+**2.1.** Work with another time series dataset called `BJsales` in R.
+Sales, 150 months; taken from Box and Jenkins (1970). Visualize the time
+series data.
+
+**2.2.** Use linear regression to model the trend component. Predict the
+number of sales for the next 10 months
+
+**2.3.** Plot the regression line.
